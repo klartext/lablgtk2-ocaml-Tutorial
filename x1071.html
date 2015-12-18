@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Dialogs</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Miscellaneous Widgets"
+HREF="c953.html"><LINK
+REL="PREVIOUS"
+TITLE="Progress Bars"
+HREF="x1039.html"><LINK
+REL="NEXT"
+TITLE="Rulers"
+HREF="x1103.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1039.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Miscellaneous Widgets</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1103.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-DIALOGS"
+>Dialogs</A
+></H1
+><P
+>The Dialog widget is very simple, and is actually just a window with a
+few things pre-packed into it for you.</P
+><P
+>It simply creates a window, and then packs a vbox into the
+top, which contains a separator and then an hbox called the
+"action_area". After creating a dialog, you can reference the vbox and the action_area using the following methods:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method vbox : GPack.box
+method action_area : GPack.button_box</PRE
+></TD
+></TR
+></TABLE
+><P
+>The Dialog widget can be used for pop-up messages to the user, and
+other similar tasks. 
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GWindow.html#VALdialog"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GWindow.dialog</TT
+></A
+>
+is the function which creates a new Dialog.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GWindow.dialog:
+	?no_separator:bool -&#62;
+	?parent:#window_skel -&#62;
+	?destroy_with_parent:bool -&#62;
+	?title:string -&#62;
+	?allow_grow:bool -&#62;
+	?allow_shrink:bool -&#62;
+	?icon:GdkPixbuf.pixbuf -&#62;
+	?modal:bool -&#62;
+	?resizable:bool -&#62;
+	?screen:Gdk.screen -&#62;
+	?type_hint:Gdk.Tags.window_type_hint -&#62;
+	?position:Gtk.Tags.window_position -&#62;
+	?wm_name:string -&#62;
+	?wm_class:string -&#62;
+	?border_width:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	?show:bool -&#62; unit -&#62; [&#62; `DELETE_EVENT ] dialog
+
+no_separator : default value is false
+destroy_with_parent : default value is false</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function will create an empty dialog, and it is now up to you to use
+ it. You could pack a button in the action_area by doing something like this:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>let w = GWindow.dialog ... () in
+let button = GButton.button ... ~packing:w#action_area#add () in</PRE
+></TD
+></TR
+></TABLE
+><P
+>And you could add to the vbox area by packing, for instance, a label 
+in it, try something like this:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>let w = GWindow.dialog ... () in
+let label = GMisc.label ~text:"Dialogs are groovy" ~packing:w#vbox#add () in</PRE
+></TD
+></TR
+></TABLE
+><P
+>As an example in using the dialog box, you could put two buttons in
+the action_area, a Cancel button and an Ok button, and a label in the
+vbox area, asking the user a question or giving an error etc. Then
+you could attach a different signal to each of the buttons and perform
+the operation the user selects.</P
+><P
+>If the simple functionality provided by the default vertical and
+horizontal boxes in the two areas doesn't give you enough control for
+your application, then you can simply pack another layout widget into
+the boxes provided. For example, you could pack a table into the
+vertical box.</P
+><P
+>The optional arguments allows to set one or
+more of the following flags.</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="LITERAL"
+>?modal</TT
+></DT
+><DD
+><P
+>make the dialog modal.</P
+></DD
+><DT
+><TT
+CLASS="LITERAL"
+>?destroy_with_parent</TT
+></DT
+><DD
+><P
+>ensures that the dialog window is destroyed together with the
+parent.</P
+></DD
+><DT
+><TT
+CLASS="LITERAL"
+>?no_separator</TT
+></DT
+><DD
+><P
+>omits the separator between the vbox and the action_area.</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1039.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1103.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Progress Bars</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c953.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Rulers</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

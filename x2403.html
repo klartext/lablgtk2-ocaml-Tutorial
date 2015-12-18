@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Widget</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="GTK Signals"
+HREF="a2390.html"><LINK
+REL="PREVIOUS"
+TITLE="GTK Signals"
+HREF="a2390.html"><LINK
+REL="NEXT"
+TITLE="GData.adjustment"
+HREF="x2422.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="a2390.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>GTK Signals</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2422.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-WIDGET_SIGNALS"
+>Widget</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-WIDGET.MISC_SIGNALS"
+>Misc signals</A
+></H2
+><P
+>The misc signals are used like this:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>[widget]#misc#connect#[signal name] ~callback:... ;</PRE
+></TD
+></TR
+></TABLE
+><P
+>The misc signals are one of followings: see
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GObj.misc_signals.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GObj.misc_signals</TT
+></A
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>inherits
+	<A
+HREF="a2390.html#SEC-GOBJ.GTKOBJ_SIGNALS"
+>GObj.gtkobj_signals</A
+>
+method hide : callback:(unit -&#62; unit) -&#62; GtkSignal.id
+method map : callback:(unit -&#62; unit) -&#62; GtkSignal.id
+method parent_set : callback:(widget option -&#62; unit) -&#62; GtkSignal.id
+method realize : callback:(unit -&#62; unit) -&#62; GtkSignal.id
+method unrealize : callback:(unit -&#62; unit) -&#62; GtkSignal.id
+method selection_get :
+	callback:(selection_context -&#62; info:int -&#62; time:int32 -&#62; unit) -&#62;
+	GtkSignal.id
+method selection_received :
+	callback:(selection_data -&#62; time:int32 -&#62; unit) -&#62; GtkSignal.id
+method show : callback:(unit -&#62; unit) -&#62; GtkSignal.id
+method size_allocate : callback:(Gtk.rectangle -&#62; unit) -&#62; GtkSignal.id
+method state_changed : callback:(Gtk.Tags.state_type -&#62; unit) -&#62; GtkSignal.id
+method style_set : callback:(unit -&#62; unit) -&#62; GtkSignal.id
+method unmap : callback:(unit -&#62; unit) -&#62; GtkSignal.id</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-WIDGET.DRAG_SIGNALS"
+>Drag signals</A
+></H2
+><P
+>The drag signals are used as one of the folloing form:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>[widget]#drag#connect#[signal name] ~callback:... ;
+[widget]#drag#connect#after#[signal name] ~callback:... ;</PRE
+></TD
+></TR
+></TABLE
+><P
+>The drag signals are: see
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GObj.drag_signals.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GObj.drag_signals</TT
+></A
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method beginning : callback:(drag_context -&#62; unit) -&#62; GtkSignal.id
+method data_delete : callback:(drag_context -&#62; unit) -&#62; GtkSignal.id
+method data_get :
+	callback:(drag_context -&#62; selection_context -&#62; info:int -&#62; time:int32 -&#62; unit) -&#62;
+	GtkSignal.id
+method data_received :
+	callback:(drag_context -&#62; x:int -&#62; y:int -&#62; selection_data -&#62; info:int -&#62; time:int32 -&#62; unit) -&#62;
+	GtkSignal.id
+method drop :
+	callback:(drag_context -&#62; x:int -&#62; y:int -&#62; time:int32 -&#62; bool) -&#62;
+	GtkSignal.id
+method ending : callback:(drag_context -&#62; unit) -&#62; GtkSignal.id
+method leave : callback:(drag_context -&#62; time:int32 -&#62; unit) -&#62; GtkSignal.id
+method motion :
+	callback:(drag_context -&#62; x:int -&#62; y:int -&#62; time:int32 -&#62; bool) -&#62;
+	GtkSignal.id</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="a2390.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2422.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>GTK Signals</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="a2390.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>GData.adjustment</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

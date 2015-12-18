@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Getting Started</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="PREVIOUS"
+TITLE="Introduction"
+HREF="c33.html"><LINK
+REL="NEXT"
+TITLE="Compiling Hello World"
+HREF="x141.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c33.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x141.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-GETTINGSTARTED"
+></A
+>Getting Started</H1
+><P
+>To begin our introduction to GTK, we'll start with the simplest
+program possible. This program will create a 200x200 pixel window and
+has no way of exiting except to be killed by using the shell.</P
+><P
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="images/base.png"></SPAN
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: base.ml *)
+
+let main () =
+  let window = GWindow.window () in
+  window#show ();
+  GMain.Main.main ()
+
+let _ = main ()</PRE
+></TD
+></TR
+></TABLE
+><P
+>You can compile the above program with ocamlc using:</P
+><P
+><P
+CLASS="LITERALLAYOUT"
+><TT
+CLASS="LITERAL"
+>ocamlc -I +lablgtk2 -o base lablgtk.cma gtkInit.cmo base.ml</TT
+></P
+></P
+><P
+>The meaning of the unusual compilation options is explained below in
+<A
+HREF="x141.html"
+>Compiling Hello World</A
+>.</P
+><P
+>The first two lines of code create and display a window.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>  let window = GWindow.window () in
+  window#show ();</PRE
+></TD
+></TR
+></TABLE
+><P
+>Rather than create a window of 0x0 size, a window without children is set to
+200x200 by default so you can still manipulate it.</P
+><P
+>The
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GWindow.window_skel.html#METHODshow"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GWindow.window#show</TT
+></A
+>
+method lets GTK know that we are done setting
+the attributes of this widget, and that it can display it.</P
+><P
+>The last line enters the GTK main processing loop.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>  GMain.Main.main ()</PRE
+></TD
+></TR
+></TABLE
+><P
+>GMain.Main.main
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMain.Main.html#VALmain"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMain.Main.main</TT
+></A
+>
+is another call you will see in every GTK application.
+When control reaches this point, GTK will sleep waiting for events
+(such as button or key presses), timeouts, or file IO notifications to
+occur. In our simple example, however, events are ignored.</P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-HELLOWORLD"
+>Hello World in GTK</A
+></H1
+><P
+>Now for a program with a widget (a button). It's the classic
+hello world a la GTK.</P
+><P
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="images/helloworld.png"></SPAN
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: hello.ml *)
+
+(* This is a callback function. *)
+let hello () =
+  print_endline "Hello World";
+  flush stdout
+
+(* Another callback function.
+ * If you return [false] in the "delete_event" signal handler,
+ * GTK will emit the "destroy" signal. Returning [true] means
+ * you don't want the window to be destroyed.
+ * This is useful for popping up 'are you sure you want to quit?'
+ * type dialogs. *)
+let delete_event ev =
+  print_endline "Delete event occurred";
+  flush stdout;
+
+  (* Change [true] to [false] and the main window will be destroyed with
+   * a "delete event" *)
+  true
+
+let destroy () = GMain.Main.quit ()
+
+let main () =
+  (* Create a new window and sets the border width of the window. *)
+  let window = GWindow.window ~border_width:10 () in
+
+  (* When the window is given the "delete_event" signal (this is given
+   * by the window manager, usually by the "close" option, or on the
+   * titlebar), we ask it to call the delete_event () function
+   * as defined above. *)
+  window#event#connect#delete ~callback:delete_event;
+
+  (* Here we connect the "destroy" event to a signal handler.  
+   * This event occurs when we call window#destroy method
+   * or if we return [false] in the "delete_event" callback. *)
+  window#connect#destroy ~callback:destroy;
+
+  (* Creates a new button with the label "Hello World".
+   * and packs the button into the window (a gtk container). *)
+  let button = GButton.button ~label:"Hello World" ~packing:window#add () in
+
+  (* When the button receives the "clicked" signal, it will call the
+   * function hello().  The hello() function is defined above. *)
+  button#connect#clicked ~callback:hello;
+
+  (* This will cause the window to be destroyed by calling
+   * window#destroy () when "clicked".  Again, the destroy
+   * signal could come from here, or the window manager. *)
+  button#connect#clicked ~callback:window#destroy;
+
+  (* The final step is to display the window. *)
+  window#show ();
+
+  (* All GTK applications must have a GMain.Main.main (). Control ends here
+   * and waits for an event to occur (like a key press or
+   * mouse event). *)
+  GMain.Main.main ()
+
+let _ = main ()</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c33.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x141.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Introduction</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Compiling Hello World</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

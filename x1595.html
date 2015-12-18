@@ -1,0 +1,312 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Scrolled Windows</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Container Widgets"
+HREF="c1436.html"><LINK
+REL="PREVIOUS"
+TITLE="Viewports"
+HREF="x1577.html"><LINK
+REL="NEXT"
+TITLE="Button Boxes"
+HREF="x1623.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1577.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Container Widgets</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1623.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-SCROLLEDWINDOWS"
+>Scrolled Windows</A
+></H1
+><P
+>Scrolled windows are used to create a scrollable area with another
+widget inside it. You may insert any type of widget into a scrolled
+window, and it will be accessible regardless of the size by using the
+scrollbars.</P
+><P
+>The function
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GBin.html#VALscrolled_window"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GBin.scrolled_window</TT
+></A
+>
+is used to create a new scrolled window.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GBin.scrolled_window :
+	?hadjustment:GData.adjustment -&#62;
+	?vadjustment:GData.adjustment -&#62;
+	?hpolicy:Gtk.Tags.policy_type -&#62;
+	?vpolicy:Gtk.Tags.policy_type -&#62;
+	?placement:Gtk.Tags.corner_type -&#62;
+	?shadow_type:Gtk.Tags.shadow_type -&#62;
+	?border_width:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	?packing:(GObj.widget -&#62; unit) -&#62;
+	?show:bool -&#62; unit -&#62; scrolled_window</PRE
+></TD
+></TR
+></TABLE
+><P
+>Where the argument <TT
+CLASS="LITERAL"
+>hadjustment</TT
+> is the adjustment for the horizontal
+direction, and <TT
+CLASS="LITERAL"
+>vadjustment</TT
+>, the adjustment for the vertical direction.
+These are almost always not given.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method set_hpolicy : Gtk.Tags.policy_type -&#62; unit
+method set_vpolicy : Gtk.Tags.policy_type -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>This sets the policy to be used with respect to the scrollbars.
+The <TT
+CLASS="LITERAL"
+>set_hpolicy</TT
+>
+sets the policy for the horizontal scrollbar,
+and the <TT
+CLASS="LITERAL"
+>set_vpolicy</TT
+> for 
+the vertical scrollbar.</P
+><P
+>The policy may be one of <TT
+CLASS="LITERAL"
+>`AUTOMATIC</TT
+> or
+<TT
+CLASS="LITERAL"
+>`ALWAYS</TT
+>. <TT
+CLASS="LITERAL"
+>`AUTOMATIC</TT
+> will automatically
+decide whether you need scrollbars, whereas <TT
+CLASS="LITERAL"
+>`ALWAYS</TT
+>
+will always leave the scrollbars there.</P
+><P
+>You can then place your object into the scrolled window using the
+following function.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method add_with_viewport : GObj.widget -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>Here is a simple example that packs a table with 100 toggle buttons
+into a scrolled window. I've only commented on the parts that may be
+new to you.</P
+><P
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="images/scrolledwin.png"></SPAN
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: scrolledwin.ml *)
+
+let main () =
+  (* Create a new dialog window for the scrolled window to be
+   * packed into. *)
+  let window = GWindow.dialog ~title:"ScrolledWindow example" ~width:300 ~height:300 ~border_width:0 () in
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  (* Create a new scrolled window *)
+  let scrolled_window = GBin.scrolled_window ~border_width:10
+    ~hpolicy:`AUTOMATIC ~vpolicy:`AUTOMATIC ~packing:window#vbox#add () in
+
+  (* Create a table of 10 by 10 squares.
+   * Set the spacing to 10 on x and 10 on y *)
+  let table = GPack.table ~rows:10 ~columns:10 ~row_spacings:10 ~col_spacings:10
+    ~packing:scrolled_window#add_with_viewport () in
+
+  for i = 0 to 10 do
+    for j=0 to 10 do
+      GButton.toggle_button
+        ~label:("button ("^ string_of_int i ^","^ string_of_int j ^")\n")
+        ~packing:(table#attach ~left:i ~top:j ~expand:`BOTH) ()
+    done
+  done;
+
+  (* Add a "close" button to the bottom of the dialog *)
+  let button = GButton.button ~label:"close" ~packing:window#action_area#add () in
+  button#connect#clicked ~callback:(window#destroy);
+
+  (* This grabs this button to be the default button. Simply hitting
+   * the "Enter" key will cause this button to activate. *)
+  button#grab_default ();
+
+  window#show ();
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</PRE
+></TD
+></TR
+></TABLE
+><P
+>Try playing with resizing the window. You'll notice how the scrollbars
+react. You may also wish to use the #misc#set_size_request method call to set
+the default size of the window or other widgets.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1577.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1623.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Viewports</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c1436.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Button Boxes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

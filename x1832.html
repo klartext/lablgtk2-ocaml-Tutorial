@@ -1,0 +1,426 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Automatic Menu Generation</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Menu Widget"
+HREF="c1731.html"><LINK
+REL="PREVIOUS"
+TITLE="Manual Menu Example"
+HREF="x1823.html"><LINK
+REL="NEXT"
+TITLE="Undocumented Widgets"
+HREF="c1880.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1823.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Menu Widget</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c1880.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-AUTOMATICMENU"
+>Automatic Menu Generation</A
+></H1
+><P
+>You can generate menu automatically using
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GToolbox.html#VALbuild_menu"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GToolbox.build_menu</TT
+></A
+>.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GToolbox.build_menu :
+	GMenu.menu -&#62;
+	entries:menu_entry list -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>The first argument of this function is the
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMenu.html#TYPEmenu"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMenu.menu</TT
+></A
+>
+with which various menu
+entries will be associated. And the function takes a value of
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GToolbox.html#TYPEmenu_entry"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GToolbox.menu_entry type</TT
+></A
+> as the second argument:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>type menu_entry =
+  [ `I of string * (unit -&#62; unit)
+  | `C of string * bool * (bool -&#62; unit)
+  | `R of (string * bool * (bool -&#62; unit)) list
+  | `M of string * menu_entry list
+  | `S ]</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>`I</TT
+>: means 
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMenu.html#TYPEmenu_Item"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMenu.menu_item</TT
+></A
+>.
+It takes as arguments the label of menu_item and the callback function which is
+called when the menu_item is selected.</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>`C</TT
+>: means 
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMenu.html#TYPEcheck_menu_Item"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMenu.check_menu_item</TT
+></A
+>.
+It takes as arguments the label of check_menu_item, the default state value,
+and the callback function which is
+called when the menu_item is selected.</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>`R</TT
+>: means 
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMenu.html#TYPEradio_menu_Item"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMenu.radio_menu_item</TT
+></A
+>.
+It takes a radio_menu_item description list as an argument. Each radio_menu_item description consists of (label, default state, callback function).</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>`M</TT
+>: means 
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMenu.html#TYPEmenu"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMenu.menu</TT
+></A
+>.
+It takes as arguments the label of menu and the list of menu_entry
+which will be associated with this menu.</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>`S</TT
+>: means 
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMenu.html#VALseparator_item"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMenu.separator_item</TT
+></A
+>.</P
+></LI
+></UL
+><P
+>You can use
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GToolbox.html#TYPEmenu_entry"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GToolbox.menu_entry</TT
+></A
+>
+for popup menu using
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GToolbox.html#VALpopup_menu"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GToolbox.popup_menu</TT
+></A
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GToolbox.popup_menu :
+	entries:menu_entry list -&#62;
+	button:int -&#62;
+	time:int32 -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-AUTOMATICMENU_EXAMPLE"
+>Automatic Menu Generation Example</A
+></H2
+><P
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: menu_entry.ml *)
+
+let print msg () =
+  print_endline msg;
+  flush stdout
+
+let print_toggle selected =
+  if selected
+  then print_endline "On"
+  else print_endline "Off";
+  flush stdout
+
+let print_selected n selected =
+  if selected then (
+    print_endline (string_of_int n);
+    flush stdout
+  )
+
+let file_entries = [
+  `I ("New", print "New");
+  `I ("Open", print "Open");
+  `I ("Save", print "Save");
+  `I ("Save As", print "Save As");
+  `S;
+  `I ("Quit", GMain.Main.quit)
+]
+
+let option_entries = [
+  `C ("Check", false, print_toggle);
+  `S;
+  `R [("Rad1", true, print_selected 1);
+      ("Rad2", false, print_selected 2);
+      ("Rad3", false, print_selected 3)]
+]
+
+let help_entries = [
+  `I ("About", print "About");
+]
+
+let entries = [
+  `M ("File", file_entries);
+  `M ("Options", option_entries);
+  `M ("Help", help_entries)
+]
+
+let create_menu label menubar =
+  let item = GMenu.menu_item ~label ~packing:menubar#append () in
+  GMenu.menu ~packing:item#set_submenu ()
+
+let main () =
+  (* Make a window *)
+  let window = GWindow.window ~title:"Menu Entry" ~border_width:10 () in
+  window#connect#destroy ~callback:GMain.Main.quit;
+  
+  let main_vbox = GPack.vbox ~packing:window#add () in
+
+  let menubar = GMenu.menu_bar ~packing:main_vbox#add () in
+
+  let menu = create_menu "File" menubar in
+  GToolbox.build_menu menu ~entries:file_entries;
+
+  let menu = create_menu "Options" menubar in
+  GToolbox.build_menu menu ~entries:option_entries;
+
+  let menu = create_menu "Help" menubar in
+  GToolbox.build_menu menu ~entries:help_entries;
+
+  (* Popup menu *)
+  let button = GButton.button ~label:"Popup" ~packing:main_vbox#add () in
+  button#connect#clicked ~callback:(fun () -&#62;
+    GToolbox.popup_menu ~entries ~button:0
+	  ~time:(GtkMain.Main.get_current_event_time ())
+    );
+
+  window#show ();
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1823.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c1880.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Manual Menu Example</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c1731.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Undocumented Widgets</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

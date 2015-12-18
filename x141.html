@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Compiling Hello World</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Getting Started"
+HREF="c108.html"><LINK
+REL="PREVIOUS"
+TITLE="Getting Started"
+HREF="c108.html"><LINK
+REL="NEXT"
+TITLE="Theory of Signals and Callbacks"
+HREF="x166.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c108.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Getting Started</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x166.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-COMPILING"
+>Compiling Hello World</A
+></H1
+><P
+>To compile use:</P
+><P
+><P
+CLASS="LITERALLAYOUT"
+><TT
+CLASS="LITERAL"
+>ocamlc -I +lablgtk2 -o helloworld lablgtk.cma gtkInit.cmo helloworld.ml</TT
+></P
+></P
+><P
+>The options are:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>-I +lablgtk2</TT
+>: adds the subdirectory
+<TT
+CLASS="LITERAL"
+>lablgtk2</TT
+> of the standard library to the search path.
+In that directory, there are compiled interface files (.cmi),
+compiled object code files (.cmo), libraries (.cma) related with
+lablgtk2.</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>-o hello</TT
+>: specify the name of the output file
+produced by the linker.</P
+></LI
+></UL
+><P
+>The library and object that are usually linked in are:</P
+><P
+></P
+><UL
+><LI
+><P
+>The LablGtk library (<TT
+CLASS="LITERAL"
+>lablgtk.cma</TT
+>), the GTK+ widget library.</P
+></LI
+><LI
+><P
+>gtkInit object(<TT
+CLASS="LITERAL"
+>gtkInit.cmo</TT
+>), containing gtkInit function. If you use this object code, you don't have to call 
+<TT
+CLASS="LITERAL"
+>GtkMain.Main.init ()</TT
+> function before any lablgtk functions.</P
+></LI
+></UL
+><P
+>There are many other options and libraries very useful, please refer
+the ocaml manual.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c108.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x166.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Getting Started</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c108.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Theory of Signals and Callbacks</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

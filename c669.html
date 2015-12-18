@@ -1,0 +1,301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>The Button Widget</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="PREVIOUS"
+TITLE="Memory Management"
+HREF="x665.html"><LINK
+REL="NEXT"
+TITLE="Toggle Buttons"
+HREF="x708.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x665.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x708.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-BUTTONWIDGET"
+></A
+>The Button Widget</H1
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-NORMALBUTTONS"
+>Normal Buttons</A
+></H1
+><P
+>We've almost seen all there is to see of the button widget. It's
+pretty simple. There is however more than one way to create a button. You can
+use the
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GButton.html#VALbutton"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GButton.button</TT
+></A
+>
+function with <TT
+CLASS="LITERAL"
+>~label</TT
+> or <TT
+CLASS="LITERAL"
+>~mnemonic</TT
+> option to create 
+a button with a label, use <TT
+CLASS="LITERAL"
+>~stock</TT
+> option to create a button
+containing the image and text from a stock item or use it without these options to
+create a blank button. It's then up to you to pack a label or pixmap into 
+this new button. To do this, create a new box which is packed into button
+using <TT
+CLASS="LITERAL"
+>#add</TT
+> method, and then pack your objects into 
+this box using the usual <TT
+CLASS="LITERAL"
+>#pack</TT
+> method.</P
+><P
+>Here's an example of using <TT
+CLASS="LITERAL"
+>GButton.button</TT
+> to create a button with a
+image and a label in it. I've broken up the code to create a box from the rest 
+so you can use it in your programs. There are further examples of using images 
+later in the tutorial.</P
+><P
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="images/buttons.png"></SPAN
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: button.ml *)
+
+open GMain
+
+(* Create a new hbox with an image and a label packed into it
+ * and pack the box *)
+let xpm_label_box ~file ~text ~packing () =
+  if not (Sys.file_exists file) then failwith (file ^ " does not exist");
+
+  (* Create box for image and label and pack *)
+  let box = GPack.hbox ~border_width:2 ~packing () in
+
+  (* Now on to the image stuff and pack into box *)
+  let pixmap = GDraw.pixmap_from_xpm ~file () in
+  GMisc.pixmap pixmap ~packing:(box#pack ~padding:3) ();
+
+  (* Create a label for the button and pack into box *)
+  GMisc.label ~text ~packing:(box#pack ~padding:3) ()
+
+let main () =
+  (* Create a new window; set title and border_width *)
+  let window = GWindow.window ~title:"Pixmap'd Buttons!" ~border_width:10 () in
+
+  (* It's a good idea to do this for all windows. *)
+  window#connect#destroy ~callback:Main.quit;
+  window#event#connect#delete ~callback:(fun _ -&#62; Main.quit (); true);
+
+  (* Create a new button and pack *)
+  let button = GButton.button ~packing:window#add () in
+
+  (* Connect the "clicked" signal of the button to callback *)
+  button#connect#clicked ~callback:
+    (fun () -&#62; print_endline "Hello again - cool button was pressed");
+
+  (* Create box with xpm and label and pack into button *)
+  xpm_label_box ~file:"info.xpm" ~text:"cool button" ~packing:button#add ();
+
+  (* Show the window and wait for the fun to begin! *)
+  window#show ();
+  Main.main ()
+
+let _ = main ()</PRE
+></TD
+></TR
+></TABLE
+><P
+>The xpm_label_box() function could be used to pack images and labels into
+any widget that can be a container.</P
+><P
+>The Button widget has the following signals; see
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GButton.button_signals.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GButton.button_signals</TT
+></A
+>:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>pressed</TT
+> - emitted when pointer button is pressed within
+Button widget</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>released</TT
+> - emitted when pointer button is released within
+Button widget</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>clicked</TT
+> - emitted when pointer button is pressed and then
+released within Button widget</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>enter</TT
+> - emitted when pointer enters Button widget</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>leave</TT
+> - emitted when pointer leaves Button widget</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x665.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x708.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Memory Management</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Toggle Buttons</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

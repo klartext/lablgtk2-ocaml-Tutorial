@@ -1,0 +1,260 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Container Widgets</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="PREVIOUS"
+TITLE="File Selections"
+HREF="x1415.html"><LINK
+REL="NEXT"
+TITLE="The Alignment widget"
+HREF="x1455.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1415.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1455.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-CONTAINERWIDGETS"
+></A
+>Container Widgets</H1
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-EVENTBOX"
+>The EventBox</A
+></H1
+><P
+>Some GTK widgets don't have associated X windows, so they just draw on
+their parents. Because of this, they cannot receive events and if they
+are incorrectly sized, they don't clip so you can get messy
+overwriting, etc. If you require more from these widgets, the EventBox
+is for you.</P
+><P
+>At first glance, the EventBox widget might appear to be totally
+useless. It draws nothing on the screen and responds to no
+events. However, it does serve a function - it provides an X window
+for its child widget. This is important as many GTK widgets do not
+have an associated X window. Not having an X window saves memory and
+improves performance, but also has some drawbacks. A widget without an
+X window cannot receive events, and does not perform any clipping on
+its contents. Although the name <I
+CLASS="EMPHASIS"
+>EventBox</I
+> emphasizes the
+event-handling function, the widget can also be used for clipping.
+(and more, see the example below).</P
+><P
+>To create a new EventBox widget, use
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GBin.html#VALevent_box"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GBin.event_box</TT
+></A
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GBin.event_box :
+	?border_width:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	?packing:(GObj.widget -&#62; unit) -&#62;
+	?show:bool -&#62; unit -&#62; event_box</PRE
+></TD
+></TR
+></TABLE
+><P
+>A child widget can then be added to this EventBox:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method add : GObj.widget -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>The following example demonstrates both uses of an EventBox - a label
+is created that is clipped to a small box, and set up so that a
+mouse-click on the label causes the program to exit. Resizing the
+window reveals varying amounts of the label.</P
+><P
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="images/eventbox.png"></SPAN
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: event_box.ml *)
+
+let main () =
+  (* Create a new window; set title and border width *)
+  let window = GWindow.window ~title:"Event Box" ~border_width:10 () in
+
+  (* Set a handler for destroy event that immediately exits GTK. *)
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  (* Create an EventBox and add it to our toplevel window *)
+  let event_box = GBin.event_box ~packing:window#add () in
+
+  (* Create a long label *)
+  let label = GMisc.label ~text:"Click here to quit, quit, quit, quit, quit"
+    ~packing:event_box#add ()
+  in
+
+  (* Clip it short. *)
+  label#misc#set_size_request ~width:110 ~height:20;
+
+  (* And bind an action to it *)
+  event_box#event#add [`BUTTON_PRESS];
+  event_box#event#connect#button_press ~callback:(fun ev -&#62; exit 0; true);
+
+  (* Yet one more thing you need an X window for ... *)
+  event_box#misc#realize ();
+  Gdk.Window.set_cursor event_box#misc#window (Gdk.Cursor.create `HAND1);
+
+  window#show ();
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1415.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1455.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>File Selections</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The Alignment widget</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

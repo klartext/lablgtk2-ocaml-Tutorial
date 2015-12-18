@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Layout Container</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Container Widgets"
+HREF="c1436.html"><LINK
+REL="PREVIOUS"
+TITLE="Fixed Container"
+HREF="x1473.html"><LINK
+REL="NEXT"
+TITLE="Frames"
+HREF="x1510.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1473.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Container Widgets</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1510.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-LAYOUTCONTAINER"
+>Layout Container</A
+></H1
+><P
+>The Layout container is similar to the Fixed container except that it
+implements an infinite (where infinity is less than 2^32) scrolling
+area. The X window system has a limitation where windows can be at
+most 32767 pixels wide or tall. The Layout container gets around this
+limitation by doing some exotic stuff using window and bit gravities,
+so that you can have smooth scrolling even when you have many child
+widgets in your scrolling area.</P
+><P
+>A Layout container is created using
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.html#VALlayout"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GPack.layout</TT
+></A
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GPack.layout :
+	?hadjustment:GData.adjustment -&#62;
+	?vadjustment:GData.adjustment -&#62;
+	?layout_width:int -&#62;
+	?layout_height:int -&#62;
+	?border_width:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	?packing:(GObj.widget -&#62; unit) -&#62;
+	?show:bool -&#62; unit -&#62; layout</PRE
+></TD
+></TR
+></TABLE
+><P
+>As you can see, you can optionally specify the Adjustment objects that
+the Layout widget will use for its scrolling.</P
+><P
+>You can add and move widgets in the Layout container using the
+following two functions:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method move : GObj.widget -&#62; x:int -&#62; y:int -&#62; unit
+method put : GObj.widget -&#62; x:int -&#62; y:int -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>The size of the Layout container can be set using the next functions:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method set_height : int -&#62; unit
+method set_width : int -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>The final four functions for use with Layout widgets are for
+manipulating the horizontal and vertical adjustment widgets:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method hadjustment : GData.adjustment
+method vadjustment : GData.adjustment
+method set_hadjustment : GData.adjustment -&#62; unit
+method set_vadjustment : GData.adjustment -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1473.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1510.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Fixed Container</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c1436.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Frames</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

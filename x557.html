@@ -1,0 +1,447 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Structure of Widgets</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Widget Overview"
+HREF="c518.html"><LINK
+REL="PREVIOUS"
+TITLE="Widgets Without Windows"
+HREF="x547.html"><LINK
+REL="NEXT"
+TITLE="Creating Widgets"
+HREF="c655.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x547.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Widget Overview</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c655.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-STRUCTUREWIDGETS"
+>Structure of Widgets</A
+></H1
+><P
+>  The following modules provide classes to wrap the raw Gtk+ function calls.
+  Here are the widget classes contained in each module:</P
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPango.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GPango</TT
+></A
+>:
+  Pango font handling</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/Gdk.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>Gdk</TT
+></A
+>:
+  pixmaps, etc...</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GObj.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GObj</TT
+></A
+>:
+  gtkobj, widget, style</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GData.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GData</TT
+></A
+>:
+  data, adjustment, tooltips</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GContainer.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GContainer</TT
+></A
+>:
+  container, item_container</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GWindow.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GWindow</TT
+></A
+>:
+  window, dialog, color_selection_dialog, file_selection, plug</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GPack</TT
+></A
+>:
+  box, button_box, table, fixed, layout, packer, paned, notebook</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GBin.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GBin</TT
+></A
+>:
+  scrolled_window, event_box, handle_box, frame,
+			aspect_frame, viewport, socket</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GButton.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GButton</TT
+></A
+>:
+  button, toggle_button, check_button, radio_button, toolbar</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMenu.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMenu</TT
+></A
+>:
+  menu_item, tearoff_item, check_menu_item, radio_menu_item,
+			menu_shell, menu, option_menu, menu_bar, factory</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMisc</TT
+></A
+>:
+  separator, statusbar, calendar, drawing_area,
+			misc, arrow, image, pixmap, label, tips_query,
+            color_selection, font_selection</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GTree.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GTree</TT
+></A
+>:
+  tree_item, tree, view (also tree/list_store, model)</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GList.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GList</TT
+></A
+>:
+  list_item, liste, clist</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GEdit.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GEdit</TT
+></A
+>:
+  editable, entry, spin_button, combo</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GRange.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GRange</TT
+></A
+>:
+  progress, progress_bar, range, scale, scrollbar</P
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GText.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GText</TT
+></A
+>:
+  view (also buffer, iter, mark, tag, tagtable)</P
+></LI
+></UL
+><P
+>  Practically, each widget class is composed of:</P
+><P
+></P
+><UL
+><LI
+><P
+>  <TT
+CLASS="LITERAL"
+>coerce</TT
+> method, returning the object coerced to the type widget.</P
+></LI
+><LI
+><P
+>  <TT
+CLASS="LITERAL"
+>as_widget</TT
+> method, returning the raw Gtk widget used for packing, etc...</P
+></LI
+><LI
+><P
+>  <TT
+CLASS="LITERAL"
+>destroy</TT
+> method, sending the destroy signal to the object.</P
+></LI
+><LI
+><P
+>  <TT
+CLASS="LITERAL"
+>get_oid</TT
+> method, the equivalent of Oo.id for Gtk objects.</P
+></LI
+><LI
+><P
+>  <TT
+CLASS="LITERAL"
+>connect</TT
+> sub-object, allowing one to widget specific
+    signals (this is what prevents width subtyping in subclasses.)</P
+></LI
+><LI
+><P
+>  <TT
+CLASS="LITERAL"
+>misc</TT
+> sub-object, giving access to miscellanous functionality of
+    the basic gtkwidget class, and a misc#connect sub-object.</P
+></LI
+><LI
+><P
+>  <TT
+CLASS="LITERAL"
+>event</TT
+> sub-object, for Xevent related functions (only if the widget
+    has an Xwindow), and an event#connect sub-object.</P
+></LI
+><LI
+><P
+>  <TT
+CLASS="LITERAL"
+>drag</TT
+> sub-object, containing drag and drop functions,
+    and a drag#connect sub-object.</P
+></LI
+><LI
+><P
+>  widget specific methods.</P
+></LI
+></UL
+><P
+>  Here is a diagram of the structure (- for methods, + for sub-objects)</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>        - coerce : widget
+        - as_widget : Gtk.widget obj
+        - destroy : unit -&#62; unit
+        - get_oid : int
+        - ...
+        + connect : mywidget_signals
+        |   - after
+        |   - signal_name : callback:(... -&#62; ...) -&#62; GtkSignal.id
+        + misc : misc_ops
+        |   - show, hide, disconnect, ...
+        |   + connect : misc_signals
+        + drag : drag_ops
+        |   - ...
+        |   + connect : drag_signals
+        + event : event_ops
+        |   - add, ...
+        |   + connect : event_signals</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x547.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c655.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Widgets Without Windows</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c518.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Creating Widgets</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>The Alignment widget</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Container Widgets"
+HREF="c1436.html"><LINK
+REL="PREVIOUS"
+TITLE="Container Widgets"
+HREF="c1436.html"><LINK
+REL="NEXT"
+TITLE="Fixed Container"
+HREF="x1473.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c1436.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Container Widgets</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1473.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-THEALIGNMENTWIDGET"
+>The Alignment widget</A
+></H1
+><P
+>The alignment widget allows you to place a widget within its window at
+a position and size relative to the size of the Alignment widget
+itself. For example, it can be very useful for centering a widget
+within the window.</P
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GBin.html#VALalignment"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GBin.alignment</TT
+></A
+>
+is the function associated with the Alignment widget:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GBin.alignment :
+	?xalign:Gtk.clampf -&#62;
+	?yalign:Gtk.clampf -&#62;
+	?xscale:Gtk.clampf -&#62;
+	?yscale:Gtk.clampf -&#62;
+	?border_width:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	?packing:(GObj.widget -&#62; unit) -&#62;
+	?show:bool -&#62; unit -&#62; alignment</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function creates a new Alignment widget with the specified
+parameters.</P
+><P
+>The parameters of <TT
+CLASS="LITERAL"
+>Gtk.clampf</TT
+> type are floating point numbers which can
+range from 0.0 to 1.0. The <TT
+CLASS="LITERAL"
+>xalign</TT
+> and <TT
+CLASS="LITERAL"
+>yalign</TT
+> arguments
+affect the position of the widget placed within the Alignment
+widget. The <TT
+CLASS="LITERAL"
+>xscale</TT
+> and <TT
+CLASS="LITERAL"
+>yscale</TT
+> arguments effect the amount of
+space allocated to the widget.</P
+><P
+>A child widget can be added to this Alignment widget using:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method add : GObj.widget -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>For an example of using an Alignment widget, refer to the example for
+the <A
+HREF="x1039.html"
+>Progress Bar</A
+> widget.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c1436.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1473.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Container Widgets</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c1436.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Fixed Container</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

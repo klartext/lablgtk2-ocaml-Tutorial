@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Theory of Signals and Callbacks</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Getting Started"
+HREF="c108.html"><LINK
+REL="PREVIOUS"
+TITLE="Compiling Hello World"
+HREF="x141.html"><LINK
+REL="NEXT"
+TITLE="Events"
+HREF="x181.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x141.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Getting Started</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x181.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-THEORYOFSIGNALSANDCALLBACKS"
+>Theory of Signals and Callbacks</A
+></H1
+><P
+>Before we look in detail at <TT
+CLASS="LITERAL"
+>helloworld</TT
+>, we'll discuss signals
+and callbacks. GTK is an event driven toolkit, which means it will
+sleep in
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMain.Main.html#VALmain"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMain.Main.main</TT
+></A
+>
+until an event occurs and control is passed to the
+appropriate function.</P
+><P
+>This passing of control is done using the idea of "signals". (Note
+that these signals are not the same as the Unix system signals, and
+are not implemented using them, although the terminology is almost
+identical.) When an event occurs, such as the press of a mouse button,
+the appropriate signal will be "emitted" by the widget that was
+pressed.  This is how GTK does most of its useful work. There are
+signals that all widgets inherit, such as "destroy", and there are
+signals that are widget specific, such as "toggled" on a toggle
+button.</P
+><P
+>To make a button perform an action, we set up a signal handler to
+catch these signals and call the appropriate function. This is done by
+using a function such as:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+><I
+CLASS="EMPHASIS"
+>widget</I
+>#connect#<I
+CLASS="EMPHASIS"
+>signal_name</I
+> ~callback:(unit -&#62; unit) -&#62; GtkSignal.id</PRE
+></TD
+></TR
+></TABLE
+><P
+>where the <TT
+CLASS="LITERAL"
+>widget</TT
+> is the one which will be emitting the
+signal, and the <TT
+CLASS="LITERAL"
+>signal_name</TT
+> is the name of the signal
+you wish to catch. The
+<TT
+CLASS="LITERAL"
+>callback</TT
+> is the function you wish to be called when it is caught.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x141.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x181.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Compiling Hello World</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c108.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Events</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

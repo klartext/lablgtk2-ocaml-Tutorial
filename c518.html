@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Widget Overview</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="PREVIOUS"
+TITLE="Table Packing Example"
+HREF="x509.html"><LINK
+REL="NEXT"
+TITLE="Widget Hierarchy"
+HREF="x541.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x509.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x541.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-WIDGETOVERVIEW"
+></A
+>Widget Overview</H1
+><P
+>The general steps to creating a widget in GTK are:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+> Creation - one of various functions to create a new widget.
+The returned widget is an object and you can use it to get/set values or do something.
+These are all detailed in this section.</P
+></LI
+><LI
+><P
+> Set the attributes of the widget. This can be done on widget creation.</P
+></LI
+><LI
+><P
+> Pack the widget into a container using the appropriate call
+such as add or pack method. This can be done on widget creation.</P
+></LI
+><LI
+><P
+> Connect all signals and events we wish to use to the
+appropriate handlers.</P
+></LI
+><LI
+><P
+> If it is toplevel window, show() the widget.
+Except toplevel window, show is default.</P
+></LI
+></OL
+><P
+>show method lets GTK know that we are done setting the
+attributes of the widget, and it is ready to be displayed. You may
+also use hide metehod to make it disappear again. The order in
+which you show the widgets is not important, but I suggest showing the
+window last so the whole window pops up at once rather than seeing the
+individual widgets come up on the screen as they're formed. The
+children of a widget (a window is a widget too) will not be displayed
+until the window itself is shown using the show() method.</P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-TYPE-CONVERSION"
+>Type Conversion</A
+></H1
+><P
+>You'll notice as you go on that you need a type conversion.
+What you will see are:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method as_widget : Gtk.widget Gtk.obj
+method coerce : widget</PRE
+></TD
+></TR
+></TABLE
+><P
+>These are all used to cast arguments in functions. You'll see them in the
+examples, and can usually tell when to use them simply by looking at the
+function's declaration.</P
+><P
+>For example:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>box#pack button#corece;</PRE
+></TD
+></TR
+></TABLE
+><P
+>This casts the button into a widget.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x509.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x541.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Table Packing Example</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Widget Hierarchy</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

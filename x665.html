@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Memory Management</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Creating Widgets"
+HREF="c655.html"><LINK
+REL="PREVIOUS"
+TITLE="Creating Widgets"
+HREF="c655.html"><LINK
+REL="NEXT"
+TITLE="The Button Widget"
+HREF="c669.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c655.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Creating Widgets</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c669.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-MEMORYMANAGEMENT"
+>Memory Management</A
+></H1
+><P
+>  Important efforts have been dedicated to cooperate with Gtk's
+  reference counting mechanism. As a result you should generally be
+  able to use Gdk/Gtk data structures without caring about memory
+  management. They will be freed when nobody points to them any more.
+  This also means that you do not need to pay too much attention to
+  whether a data structure is still alive or not. If it is not, you
+  should get an error rather than a core dump.
+  The case of Gtk objects deserves special care. Since they are
+  interactive, we cannot just destroy them when they are no longer
+  referenced. They have to be explicitely destroyed. If a widget was
+  added to a container widget, it will automatically be destroyed when
+  its last container is destroyed. For this reason you need only
+  destroy toplevel widgets.</P
+><P
+>  IMPORTANT: Some Gtk data structures are allocated in the Caml heap,
+  and there use in signals (Gtk functions internally cally callbacks)
+  relies on their address being stable during a function call. For
+  this reason automatic compaction is disabled in GtkMain. If you need
+  it, you may use compaction through Gc.compact where it is safe
+  (timeouts, other threads...), but do not enable automatic compaction.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c655.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c669.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Creating Widgets</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c655.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The Button Widget</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

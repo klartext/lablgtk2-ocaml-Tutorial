@@ -1,0 +1,1206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>GTK+ 2.0 Tutorial using Ocaml</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="NEXT"
+TITLE="Tutorial Availability"
+HREF="c20.html"></HEAD
+><BODY
+CLASS="BOOK"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="GTK-TUT"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2"
+>GTK+ 2.0 Tutorial using Ocaml</A
+></H1
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN6"
+></A
+>Tony Gale</H3
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN9"
+></A
+>Ian Main</H3
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN12"
+></A
+>&#38; the GTK team</H3
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN14"
+></A
+>Ocaml Adaptation: SooHyoung Oh</H3
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="c20.html"
+>Tutorial Availability</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c20.html#SEC-TUT-AVAIL-OCAML"
+>Ocaml Version Tutorial Availability</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c33.html"
+>Introduction</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c33.html#SEC-INTRODUCTION-LABLGTK2"
+>GTK+ 2.0 in Ocaml</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c108.html"
+>Getting Started</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c108.html#SEC-HELLOWORLD"
+>Hello World in GTK</A
+></DT
+><DT
+><A
+HREF="x141.html"
+>Compiling Hello World</A
+></DT
+><DT
+><A
+HREF="x166.html"
+>Theory of Signals and Callbacks</A
+></DT
+><DT
+><A
+HREF="x181.html"
+>Events</A
+></DT
+><DT
+><A
+HREF="x286.html"
+>Stepping Through Hello World</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c349.html"
+>Moving On</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c349.html#SEC-MOREONSIGNALHANDLERS"
+>More on Signal Handlers</A
+></DT
+><DT
+><A
+HREF="x371.html"
+>An Upgraded Hello World</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c383.html"
+>Packing Widgets</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c383.html#SEC-THEORYOFPACKINGBOXES"
+>Theory of Packing Boxes</A
+></DT
+><DT
+><A
+HREF="x400.html"
+>Details of Boxes</A
+></DT
+><DT
+><A
+HREF="x456.html"
+>Packing Demonstration Program</A
+></DT
+><DT
+><A
+HREF="x459.html"
+>Packing Using Tables</A
+></DT
+><DT
+><A
+HREF="x509.html"
+>Table Packing Example</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c518.html"
+>Widget Overview</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c518.html#SEC-TYPE-CONVERSION"
+>Type Conversion</A
+></DT
+><DT
+><A
+HREF="x541.html"
+>Widget Hierarchy</A
+></DT
+><DT
+><A
+HREF="x547.html"
+>Widgets Without Windows</A
+></DT
+><DT
+><A
+HREF="x557.html"
+>Structure of Widgets</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c655.html"
+>Creating Widgets</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c655.html#SEC-DEFAULTARGUMENTS"
+>Default Arguments</A
+></DT
+><DT
+><A
+HREF="x665.html"
+>Memory Management</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c669.html"
+>The Button Widget</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c669.html#SEC-NORMALBUTTONS"
+>Normal Buttons</A
+></DT
+><DT
+><A
+HREF="x708.html"
+>Toggle Buttons</A
+></DT
+><DT
+><A
+HREF="x733.html"
+>Check Buttons</A
+></DT
+><DT
+><A
+HREF="x743.html"
+>Radio Buttons</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c766.html"
+>Adjustments</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c766.html#SEC-CREATINGANADJUSTMENT"
+>Creating an Adjustment</A
+></DT
+><DT
+><A
+HREF="x792.html"
+>Using Adjustments the Easy Way</A
+></DT
+><DT
+><A
+HREF="x807.html"
+>Adjustment Internals</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c834.html"
+>Range Widgets</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c834.html#SEC-SCROLLBARWIDGETS"
+>Scrollbar Widgets</A
+></DT
+><DT
+><A
+HREF="x852.html"
+>Scale Widgets</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x852.html#AEN855"
+>Creating a Scale Widget</A
+></DT
+><DT
+><A
+HREF="x852.html#AEN873"
+>Functions and Signals (well, functions, at least)</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x888.html"
+>Common Range Functions</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x888.html#AEN891"
+>Setting the Update Policy</A
+></DT
+><DT
+><A
+HREF="x888.html#AEN915"
+>Getting and Setting Adjustments</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x926.html"
+>Key and Mouse bindings</A
+></DT
+><DT
+><A
+HREF="x944.html"
+>Example</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c953.html"
+>Miscellaneous Widgets</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c953.html#SEC-LABELS"
+>Labels</A
+></DT
+><DT
+><A
+HREF="x997.html"
+>Arrows</A
+></DT
+><DT
+><A
+HREF="x1016.html"
+>The Tooltips Object</A
+></DT
+><DT
+><A
+HREF="x1039.html"
+>Progress Bars</A
+></DT
+><DT
+><A
+HREF="x1071.html"
+>Dialogs</A
+></DT
+><DT
+><A
+HREF="x1103.html"
+>Rulers</A
+></DT
+><DT
+><A
+HREF="x1135.html"
+>Statusbars</A
+></DT
+><DT
+><A
+HREF="x1155.html"
+>Text Entries</A
+></DT
+><DT
+><A
+HREF="x1183.html"
+>Spin Buttons</A
+></DT
+><DT
+><A
+HREF="x1278.html"
+>Combo Box</A
+></DT
+><DT
+><A
+HREF="x1307.html"
+>Calendar</A
+></DT
+><DT
+><A
+HREF="x1390.html"
+>Color Selection</A
+></DT
+><DT
+><A
+HREF="x1415.html"
+>File Selections</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c1436.html"
+>Container Widgets</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c1436.html#SEC-EVENTBOX"
+>The EventBox</A
+></DT
+><DT
+><A
+HREF="x1455.html"
+>The Alignment widget</A
+></DT
+><DT
+><A
+HREF="x1473.html"
+>Fixed Container</A
+></DT
+><DT
+><A
+HREF="x1496.html"
+>Layout Container</A
+></DT
+><DT
+><A
+HREF="x1510.html"
+>Frames</A
+></DT
+><DT
+><A
+HREF="x1538.html"
+>Aspect Frames</A
+></DT
+><DT
+><A
+HREF="x1558.html"
+>Paned Window Widgets</A
+></DT
+><DT
+><A
+HREF="x1577.html"
+>Viewports</A
+></DT
+><DT
+><A
+HREF="x1595.html"
+>Scrolled Windows</A
+></DT
+><DT
+><A
+HREF="x1623.html"
+>Button Boxes</A
+></DT
+><DT
+><A
+HREF="x1637.html"
+>Toolbar</A
+></DT
+><DT
+><A
+HREF="x1684.html"
+>Notebooks</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c1731.html"
+>Menu Widget</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c1731.html#SEC-MANUALMENUCREATION"
+>Manual Menu Creation</A
+></DT
+><DT
+><A
+HREF="x1823.html"
+>Manual Menu Example</A
+></DT
+><DT
+><A
+HREF="x1832.html"
+>Automatic Menu Generation</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x1832.html#SEC-AUTOMATICMENU_EXAMPLE"
+>Automatic Menu Generation Example</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+><A
+HREF="c1880.html"
+>Undocumented Widgets</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c1880.html#SEC-ACCELLABEL"
+>Accel Label</A
+></DT
+><DT
+><A
+HREF="x1888.html"
+>Option Menu</A
+></DT
+><DT
+><A
+HREF="x1891.html"
+>Menu Items</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x1891.html#SEC-CHECKMENUITEM"
+>Check Menu Item</A
+></DT
+><DT
+><A
+HREF="x1891.html#SEC-RADIOMENUITEM"
+>Radio Menu Item</A
+></DT
+><DT
+><A
+HREF="x1891.html#SEC-SEPARATORMENUITEM"
+>Separator Menu Item</A
+></DT
+><DT
+><A
+HREF="x1891.html#SEC-TEAROFFMENUITEM"
+>Tearoff Menu Item</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x1906.html"
+>Curves</A
+></DT
+><DT
+><A
+HREF="x1909.html"
+>Drawing Area</A
+></DT
+><DT
+><A
+HREF="x1912.html"
+>Font Selection Dialog</A
+></DT
+><DT
+><A
+HREF="x1915.html"
+>Message Dialog</A
+></DT
+><DT
+><A
+HREF="x1918.html"
+>Gamma Curve</A
+></DT
+><DT
+><A
+HREF="x1921.html"
+>Image</A
+></DT
+><DT
+><A
+HREF="x1924.html"
+>Plugs and Sockets</A
+></DT
+><DT
+><A
+HREF="x1927.html"
+>Tree View</A
+></DT
+><DT
+><A
+HREF="x1930.html"
+>Text View</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c1933.html"
+>Setting Widget Attributes</A
+></DT
+><DT
+><A
+HREF="c1941.html"
+>Timeouts and Idle Functions</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c1941.html#SEC-TIMEOUTS"
+>Timeouts</A
+></DT
+><DT
+><A
+HREF="x1950.html"
+>Idle Functions</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c1957.html"
+>Advanced Event and Signal Handling</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c1957.html#SEC-SIGNALFUNCTIONS"
+>Signal Functions</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c1957.html#AEN1961"
+>Connecting and Disconnecting Signal Handlers</A
+></DT
+><DT
+><A
+HREF="c1957.html#AEN1964"
+>Blocking and Unblocking Signal Handlers</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x1967.html"
+>Signal Emission and Propagation</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c1991.html"
+>Clipboard</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c1991.html#SEC-CLIPBOARDOVERVIEW"
+>Overview</A
+></DT
+><DT
+><A
+HREF="x2008.html"
+>Clipboard Example</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c2013.html"
+>Drag-and-drop (DND)</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c2013.html#SEC-DRAGANDDROPOVERVIEW"
+>Overview</A
+></DT
+><DT
+><A
+HREF="x2035.html"
+>Properties</A
+></DT
+><DT
+><A
+HREF="x2047.html"
+>Functions</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x2047.html#SEC-DNDSOURCEWIDGETS"
+>Setting up the source widget</A
+></DT
+><DT
+><A
+HREF="x2047.html#SEC-SIGNALSONSOURCEWIDGETS"
+>Signals on the source widget:</A
+></DT
+><DT
+><A
+HREF="x2047.html#SEC-DNDDESTWIDGETS"
+>Setting up a destination widget:</A
+></DT
+><DT
+><A
+HREF="x2047.html#SEC-SIGNALSONDESTWIDGETS"
+>Signals on the destination widget:</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+><A
+HREF="c2131.html"
+>GTK's rc Files</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c2131.html#SEC-FUNCTIONSFORRCFILES"
+>Functions For rc Files</A
+></DT
+><DT
+><A
+HREF="x2152.html"
+>GTK's rc File Format</A
+></DT
+><DT
+><A
+HREF="x2193.html"
+>Example rc file</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c2196.html"
+>Scribble, A Simple Example Drawing Program</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c2196.html#SEC-SCRIBBLEOVERVIEW"
+>Overview</A
+></DT
+><DT
+><A
+HREF="x2205.html"
+>Event Handling</A
+></DT
+><DT
+><A
+HREF="x2247.html"
+>The DrawingArea Widget, And Drawing</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c2294.html"
+>Contributing</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c2294.html#SEC-CONTRIBUTING-OCAML"
+>Ocaml Version Contributing</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c2308.html"
+>Credits</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c2308.html#SEC-CREDITS-OCAML"
+>Ocaml Version Credits</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c2373.html"
+>Tutorial Copyright and Permissions Notice</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c2373.html#SEC-COPYRIGHT-OCAML"
+>Ocaml Version Tutorial Copyright and Permissions Notice</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="a2390.html"
+>GTK Signals</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="a2390.html#SEC-GOBJ_SIGNALS"
+>GObj</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="a2390.html#SEC-GOBJ.GTKOBJ_SIGNALS"
+>GObj.gtkobj</A
+></DT
+><DT
+><A
+HREF="a2390.html#SEC-GOBJ.WIDGET_SIGNALS"
+>GObj.widget</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x2403.html"
+>Widget</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x2403.html#SEC-WIDGET.MISC_SIGNALS"
+>Misc signals</A
+></DT
+><DT
+><A
+HREF="x2403.html#SEC-WIDGET.DRAG_SIGNALS"
+>Drag signals</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x2422.html"
+>GData.adjustment</A
+></DT
+><DT
+><A
+HREF="x2426.html"
+>GRange.range</A
+></DT
+><DT
+><A
+HREF="x2430.html"
+>GContainer</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x2430.html#SEC-GCONTAINER.CONTAINER_SIGNALS"
+>GContainer.container</A
+></DT
+><DT
+><A
+HREF="x2430.html#SEC-GCONTAINER.ITEM_SIGNALS"
+>GContainer.item</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x2440.html"
+>GBin</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x2440.html#SEC-GBIN.HANDLE_BOX_SIGNALS"
+>GBin.handle_box</A
+></DT
+><DT
+><A
+HREF="x2440.html#SEC-GBIN.EXPANDER_SIGNALS"
+>GBin.expanderhandle_box</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x2450.html"
+>GPack.notebook</A
+></DT
+><DT
+><A
+HREF="x2454.html"
+>GMenu</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x2454.html#SEC-GMENU.MENU_SHELL_SIGNALS"
+>GMenu.menu_shell</A
+></DT
+><DT
+><A
+HREF="x2454.html#SEC-GMENU.MENU_ITEM_SIGNALS"
+>GMenu.menu_item</A
+></DT
+><DT
+><A
+HREF="x2454.html#SEC-GMENU.CHECK_MENU_ITEM_SIGNALS"
+>GMenu.check_menu_item</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x2468.html"
+>GEdit</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x2468.html#SEC-GEDIT.EDITABLE_SIGNALS"
+>GEdit.editable</A
+></DT
+><DT
+><A
+HREF="x2468.html#SEC-GEDIT.ENTRY_SIGNALS"
+>GEdit.entry</A
+></DT
+><DT
+><A
+HREF="x2468.html#SEC-GEDIT.SPIN_BUTTON_SIGNALS"
+>GEdit.spin_button</A
+></DT
+><DT
+><A
+HREF="x2468.html#SEC-GEDIT.COMBO_BOX_SIGNALS"
+>GEdit.combo_box</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x2486.html"
+>GButton</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x2486.html#SEC-GBUTTON.BUTTON_SIGNALS"
+>GButton.button</A
+></DT
+><DT
+><A
+HREF="x2486.html#SEC-GBUTTON.TOGGLE_BUTTON_SIGNALS"
+>GButton.toggle_button</A
+></DT
+><DT
+><A
+HREF="x2486.html#SEC-GBUTTON.COLOR_BUTTON_SIGNALS"
+>GButton.color_button</A
+></DT
+><DT
+><A
+HREF="x2486.html#SEC-GBUTTON.FONT_BUTTON_SIGNALS"
+>GButton.fontcolor_button</A
+></DT
+><DT
+><A
+HREF="x2486.html#SEC-GBUTTON.TOOLBAR_SIGNALS"
+>GButton.toolbar</A
+></DT
+><DT
+><A
+HREF="x2486.html#SEC-GBUTTON.TOOL_BUTTON_SIGNALS"
+>GButton.tool_button</A
+></DT
+><DT
+><A
+HREF="x2486.html#SEC-GBUTTON.TOGGLE_TOOL_BUTTON_SIGNALS"
+>GButton.toggle_tool_button</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x2516.html"
+>GWindow</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x2516.html#SEC-GWINDOW.DIALOG_SIGNALS"
+>GWindow.dialog</A
+></DT
+><DT
+><A
+HREF="x2516.html#SEC-GWINDOW.FILE_CHOOSER_DIALOG_SIGNALS"
+>GWindow.file_chooser_dialog</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x2527.html"
+>GFile</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x2527.html#SEC-GFILE.CHOOSER_SIGNALS"
+>GFile.chooser</A
+></DT
+><DT
+><A
+HREF="x2527.html#SEC-GFILE.CHOOSER_WIDGET_SIGNALS"
+>GFile.chooser_widget</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x2537.html"
+>GMisc</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x2537.html#SEC-GMISC.CALENDAR_SIGNALS"
+>GMisc.calendar</A
+></DT
+><DT
+><A
+HREF="x2537.html#SEC-GMISC.TIPS_QUERY_SIGNALS"
+>GMisc.tips_query</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x2547.html"
+>GTree</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x2547.html#SEC-GTREE.MODEL_SIGNALS"
+>GTree.model</A
+></DT
+><DT
+><A
+HREF="x2547.html#SEC-GTREE.TREE_SORTABLE_SIGNALS"
+>GTree.tree_sortable</A
+></DT
+><DT
+><A
+HREF="x2547.html#SEC-GTREE.SELECTION_SIGNALS"
+>GTree.selection</A
+></DT
+><DT
+><A
+HREF="x2547.html#SEC-GTREE.VIEW_COLUMN_SIGNALS"
+>GTree.view_column</A
+></DT
+><DT
+><A
+HREF="x2547.html#SEC-GTREE.VIEW_SIGNALS"
+>GTree.view</A
+></DT
+><DT
+><A
+HREF="x2547.html#SEC-GTREE.CELL_RENDERER_TEXT_SIGNALS"
+>GTree.cell_renderer_text</A
+></DT
+><DT
+><A
+HREF="x2547.html#SEC-GTREE.CELL_RENDERER_TOGGLE_SIGNALS"
+>GTree.cell_renderer_toggle</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+><A
+HREF="a2575.html"
+>GDK Event Types</A
+></DT
+><DT
+><A
+HREF="a2692.html"
+>Code Examples</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="a2692.html#SEC-SCRIBBLE"
+>Scribble</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="a2692.html#AEN2697"
+>scribble.ml</A
+></DT
+></DL
+></DD
+></DL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c20.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Tutorial Availability</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

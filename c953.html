@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Miscellaneous Widgets</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="PREVIOUS"
+TITLE="Example"
+HREF="x944.html"><LINK
+REL="NEXT"
+TITLE="Arrows"
+HREF="x997.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x944.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x997.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-MISCWIDGETS"
+></A
+>Miscellaneous Widgets</H1
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-LABELS"
+>Labels</A
+></H1
+><P
+>Labels are used a lot in GTK, and are relatively simple. Labels emit
+no signals as they do not have an associated X window. If you need to
+catch signals, or do clipping, place it inside a <A
+HREF="c1436.html#SEC-EVENTBOX"
+>EventBox</A
+> widget or a Button widget.</P
+><P
+>To create a new label, use
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.html#VALlabel"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMisc.label</TT
+></A
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GMisc.label : ?text:string -&#62;
+	?markup:string -&#62;
+	?use_underline:bool -&#62;
+	?mnemonic_widget:#GObj.widget -&#62;
+	?justify:Gtk.Tags.justification -&#62;
+	?line_wrap:bool -&#62;
+	?pattern:string -&#62;
+	?selectable:bool -&#62;
+	?xalign:float -&#62;
+	?yalign:float -&#62;
+	?xpad:int -&#62;
+	?ypad:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	?packing:(GObj.widget -&#62; unit) -&#62;
+	?show:bool -&#62;
+	unit -&#62; label
+
+markup : overrides text if both are present
+use_underline : default value is false
+justify : default value is `LEFT
+line_wrap : default values is false
+selectable : default value is false</PRE
+></TD
+></TR
+></TABLE
+><P
+>To change the label's text after creation, use the function
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.label_skel.html#METHODset_text"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMisc.label#set_text</TT
+></A
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method set_text : string -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>The space needed for the new string will be automatically adjusted if
+needed. You can produce multi-line labels by putting line breaks in
+the label string.</P
+><P
+>To retrieve the current string, use
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.label_skel.html#METHODtext"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMisc.label#text</TT
+></A
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method text : string</PRE
+></TD
+></TR
+></TABLE
+><P
+>The label text can be justified using
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.label_skel.html#METHODset_justify"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMisc.label#set_justify</TT
+></A
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method set_justify : Gtk.Tags.justification -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>Values for <TT
+CLASS="LITERAL"
+>Gtk.Tags.justification</TT
+> are:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>  `LEFT
+  `RIGHT
+  `CENTER (the default)
+  `FILL</PRE
+></TD
+></TR
+></TABLE
+><P
+>The label widget is also capable of line wrapping the text
+automatically. This can be activated using
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.label_skel.html#METHODset_line_wrap"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMisc.label#set_line_wrap</TT
+></A
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method set_line_wrap : bool -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>If you want your label underlined, then you can set a pattern on the
+label
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.label_skel.html#METHODset_pattern"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMisc.label#set_pattern</TT
+></A
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method set_pattern : string -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>The pattern argument indicates how the underlining should look. It
+consists of a string of underscore and space characters. An underscore
+indicates that the corresponding character in the label should be
+underlined. For example, the string <TT
+CLASS="LITERAL"
+>"__     __"</TT
+> would underline the
+first two characters and eight and ninth characters.</P
+><P
+>Below is a short example to illustrate these functions. This example
+makes use of the Frame widget to better demonstrate the label
+styles. You can ignore this for now as the <A
+HREF="x1510.html"
+>Frame</A
+> 
+widget is explained later on.</P
+><P
+>In GTK+ 2.0, label texts can contain markup for font and other text attribute 
+changes, and labels may be selectable (for copy-and-paste). These advanced features
+won't be explained here.</P
+><P
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="images/label.png"></SPAN
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: label.ml *)
+
+let main () =
+  let window = GWindow.window ~title:"Labels" ~border_width:5 () in
+  window #connect#destroy ~callback:GMain.Main.quit;
+
+  let hbox = GPack.hbox ~spacing:5 ~packing:window#add () in
+  let vbox = GPack.vbox ~spacing:5 ~packing:hbox#add () in
+
+  let frame = GBin.frame ~label:"Normal Label" ~packing:vbox#pack () in
+  GMisc.label ~text:"This is a normal label" ~packing:frame#add ();
+
+  let frame = GBin.frame ~label:"Multi_line Label" ~packing:vbox#pack () in
+  GMisc.label
+    ~text:"This is a multi-line label.\nSecond line\nThird line"
+    ~packing:frame#add ();
+
+  let frame = GBin.frame ~label:"Left Justified Label" ~packing:vbox#pack () in
+  GMisc.label
+    ~text:"This is a left justified\nmulti_line label\nThird      line"
+    ~justify:`LEFT ~packing:frame#add ();
+
+  let frame = GBin.frame ~label:"Right Justified Label" ~packing:vbox#pack () in
+  GMisc.label
+    ~text:"This is a Right-Justified\nMulti-line label.\nThird line, (j/k)"
+    ~justify:`RIGHT ~packing:frame#add ();
+
+  let vbox = GPack.vbox ~spacing:5 ~packing:hbox#add () in
+
+  let frame = GBin.frame ~label:"Line wrapped Label" ~packing:vbox#pack () in
+  GMisc.label
+    ~text:"This is an example of a line-wrapped label.  It should not be taking up the entire             width allocated to it, but automatically wraps the words to fit.  The time has come, for all good men, to come to the aid of their party.  The sixth sheik's six sheep's sick.
+     It supports multiple paragraphs correctly, and  correctly   adds many          extra  spaces. "
+    ~packing:frame#add ~line_wrap:true ();
+
+  let frame = GBin.frame ~label:"Filled, wrapped label" ~packing:vbox#pack () in
+  GMisc.label
+    ~text:"This is an example of a line-wrapped, filled label.  It should be taking up the entire              width allocated to it.  Here is a sentence to prove my point.  Here is another sentence.  Here comes the sun, do de do de do.
+    This is a new paragraph.
+    This is another newer, longer, better paragraph.  It is coming to an end, unfortunately."
+    ~line_wrap:true ~justify:`FILL ~packing:frame#add ();
+
+  let frame = GBin.frame ~label:"Underlined Label" ~packing:vbox#pack () in
+  GMisc.label
+    ~text:"This label is underlined!\nThis one is underlined in quite a funky fashion"
+    ~pattern:"_________________________ _ _________ _ ______     __ _______ ___"
+    ~justify:`LEFT ~packing:frame#add ();
+
+  window #show ();
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x944.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x997.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Example</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Arrows</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

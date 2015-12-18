@@ -1,0 +1,484 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Drag-and-drop (DND)"
+HREF="c2013.html"><LINK
+REL="PREVIOUS"
+TITLE="Properties"
+HREF="x2035.html"><LINK
+REL="NEXT"
+TITLE="GTK's rc Files"
+HREF="c2131.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2035.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Drag-and-drop (DND)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c2131.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-DRAGANDDROPFUNCTIONS"
+>Functions</A
+></H1
+><P
+>You can find the full DragAndDrop specification in <A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GObj.drag_ops.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GObj.drag_ops</TT
+></A
+>.
+And you can use these functions(methods) and events like this:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>[widget]#drag#[method name]
+[widget]#drag#connect#[event name]</PRE
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-DNDSOURCEWIDGETS"
+>Setting up the source widget</A
+></H2
+><P
+>The method <TT
+CLASS="LITERAL"
+>drag#source_set</TT
+> specifies a
+set of target types for a drag operation on a widget.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method source_set :
+	?modi:Gdk.Tags.modifier list -&#62;
+	?actions:Gdk.Tags.drag_action list -&#62;
+	Gtk.target_entry list -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>The parameters signify the following:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>modi</TT
+> specifies a
+list of buttons that can start the drag (e.g. `BUTTON1): see
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/Gdk.Tags.html#TYPEmodifier"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>Gdk.Tags.modifier</TT
+></A
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>Gtk.target_entry list</TT
+> specifies a table of
+target data types the drag will support</P
+></LI
+><LI
+><P
+><TT
+CLASS="LITERAL"
+>actions</TT
+> specifies a list of
+possible actions for a drag from this window</P
+></LI
+></UL
+><P
+>The <TT
+CLASS="LITERAL"
+>Gtk.target_entry</TT
+> type is the
+following structure:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>type target_entry = {
+	target : string; 
+	flags : Tags.target_flags list; 
+	info : int; 
+} 
+
+type target_flags = [ `SAME_APP | `SAME_WIDGET ] </PRE
+></TD
+></TR
+></TABLE
+><P
+>The fields specify a string representing the drag type, optional
+flags and application assigned integer identifier.</P
+><P
+>If a widget is no longer required to act as a source for
+drag-and-drop operations, the method
+<TT
+CLASS="LITERAL"
+>drag#source_unset</TT
+> can be used to remove a set
+of drag-and-drop target types.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method source_unset : unit -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-SIGNALSONSOURCEWIDGETS"
+>Signals on the source widget:</A
+></H2
+><P
+>The source widget is sent the following signals during a
+drag-and-drop operation.</P
+><DIV
+CLASS="TABLE"
+><A
+NAME="AEN2081"
+></A
+><P
+><B
+>Table 1. Source widget signals</B
+></P
+><TABLE
+BORDER="1"
+WIDTH="100%"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>drag_begin</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="LITERAL"
+>method beginning : callback:(drag_context -&#62; unit) -&#62; GtkSignal.id</TT
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>drag_motion</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="LITERAL"
+>method motion :
+	callback:(drag_context -&#62; x:int -&#62; y:int -&#62; time:int32 -&#62; bool) -&#62;
+	GtkSignal.id</TT
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>drag_data_get</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="LITERAL"
+>method data_get :
+	callback:(drag_context -&#62; selection_context -&#62; info:int -&#62; time:int32 -&#62; unit) -&#62;
+	GtkSignal.id</TT
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>drag_data_delete</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="LITERAL"
+>method data_delete : callback:(drag_context -&#62; unit) -&#62; GtkSignal.id</TT
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>drag_drop</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="LITERAL"
+>method drop :
+	callback:(drag_context -&#62; x:int -&#62; y:int -&#62; time:int32 -&#62; bool) -&#62;
+	GtkSignal.id</TT
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>drag_end</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="LITERAL"
+>method ending : callback:(drag_context -&#62; unit) -&#62; GtkSignal.id</TT
+></TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-DNDDESTWIDGETS"
+>Setting up a destination widget:</A
+></H2
+><P
+> <TT
+CLASS="LITERAL"
+>drag#dest_set</TT
+> specifies
+that this widget can receive drops and specifies what types of drops it
+can receive.</P
+><P
+> <TT
+CLASS="LITERAL"
+>drag#dest_unset</TT
+> specifies
+that the widget can no longer receive drops.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method dest_set :
+	?flags:Gtk.Tags.dest_defaults list -&#62;
+	?actions:Gdk.Tags.drag_action list -&#62;
+	Gtk.target_entry list -&#62; unit
+
+method dest_unset : unit -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-SIGNALSONDESTWIDGETS"
+>Signals on the destination widget:</A
+></H2
+><P
+>The destination widget is sent the following signals during a
+drag-and-drop operation.</P
+><DIV
+CLASS="TABLE"
+><A
+NAME="AEN2121"
+></A
+><P
+><B
+>Table 2. Destination widget signals</B
+></P
+><TABLE
+BORDER="1"
+WIDTH="100%"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+>drag_data_received</TD
+><TD
+ALIGN="LEFT"
+VALIGN="MIDDLE"
+><TT
+CLASS="LITERAL"
+>method data_received :
+	callback:(drag_context -&#62; x:int -&#62; y:int -&#62; selection_data -&#62; info:int -&#62; time:int32 -&#62; unit) -&#62;
+	GtkSignal.id</TT
+></TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2035.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c2131.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Properties</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2013.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>GTK's rc Files</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

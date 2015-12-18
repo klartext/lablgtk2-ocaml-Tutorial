@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Statusbars</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Miscellaneous Widgets"
+HREF="c953.html"><LINK
+REL="PREVIOUS"
+TITLE="Rulers"
+HREF="x1103.html"><LINK
+REL="NEXT"
+TITLE="Text Entries"
+HREF="x1155.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1103.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Miscellaneous Widgets</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1155.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-STATUSBARS"
+>Statusbars</A
+></H1
+><P
+>Statusbars are simple widgets used to display a text message. They
+keep a stack of the messages pushed onto them, so that popping the
+current message will re-display the previous text message.</P
+><P
+>In order to allow different parts of an application to use the same
+statusbar to display messages, the statusbar widget issues Context
+Identifiers which are used to identify different "users". The message
+on top of the stack is the one displayed, no matter what context it is
+in. Messages are stacked in last-in-first-out order, not context
+identifier order.</P
+><P
+>A statusbar is created with a call to
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.html#VALstatus_bar"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMisc.status_bar</TT
+></A
+>
+:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GMisc.statusbar :
+	?border_width:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	?packing:(GObj.widget -&#62; unit) -&#62;
+	?show:bool -&#62; unit -&#62; statusbar</PRE
+></TD
+></TR
+></TABLE
+><P
+>A new Context Identifier is requested using a call to the following 
+function with a short textual description of the context:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method new_context : name:string -&#62; statusbar_context</PRE
+></TD
+></TR
+></TABLE
+><P
+>There are three functions that can operate on statusbar_contexts:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method push : string -&#62; Gtk.statusbar_message
+method pop : unit -&#62; unit
+method remove : Gtk.statusbar_message -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>The first, push method, is used to add a new message to the
+statusbar.  It returns a Message Identifier, which can be passed later
+to the remove method to remove the message with the
+given Message Identifiers and Context from the statusbar's stack.</P
+><P
+>The method pop removes the message highest in the
+stack with the given Context.</P
+><P
+>The following example creates a statusbar and two buttons, one for
+pushing items onto the statusbar, and one for popping the last item
+back off.</P
+><P
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="images/statusbar.png"></SPAN
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: statusbar.ml *)
+
+let count = ref 0
+
+let push_item context () =
+  incr count;
+  context#push (Printf.sprintf "item %d" !count);
+  ()
+
+let pop_item context () =
+  context#pop ();
+  ()
+
+let main () =
+  (* Create a new window; set title and border width *)
+  let window = GWindow.window ~title:"Statusbar" () in
+
+  (* Set a handler for destroy event that immediately exits GTK. *)
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  let vbox = GPack.vbox ~packing:window#add () in
+
+  let statusbar = GMisc.statusbar ~packing:vbox#add () in
+  let context = statusbar#new_context ~name:"Statusbar example" in
+
+  let button = GButton.button ~label:"push item" ~packing:vbox#add () in
+  button#connect#clicked ~callback:(push_item context);
+
+  let button = GButton.button ~label:"pop last item" ~packing:vbox#add () in
+  button#connect#clicked ~callback:(pop_item context);
+
+  (* always display the window as the last step so it all splashes on
+   * the screen at once. *)
+  window#show ();
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1103.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1155.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Rulers</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c953.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Text Entries</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

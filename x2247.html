@@ -1,0 +1,515 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>The DrawingArea Widget, And Drawing</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Scribble, A Simple Example Drawing Program"
+HREF="c2196.html"><LINK
+REL="PREVIOUS"
+TITLE="Event Handling"
+HREF="x2205.html"><LINK
+REL="NEXT"
+TITLE="Contributing"
+HREF="c2294.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2205.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Scribble, A Simple Example Drawing Program</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c2294.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-THEDRAWINGAREAWIDGET"
+>The DrawingArea Widget, And Drawing</A
+></H1
+><P
+>We now turn to the process of drawing on the screen. The 
+widget we use for this is the DrawingArea widget. A drawing area
+widget is essentially an X window and nothing more. It is a blank
+canvas in which we can draw whatever we like. A drawing area
+is created using the call:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GMisc.drawing_area :
+	?width:int -&#62;
+	?height:int -&#62;
+	?packing:(GObj.widget -&#62; unit) -&#62;
+	?show:bool -&#62;
+	unit -&#62; drawing_area</PRE
+></TD
+></TR
+></TABLE
+><P
+>The arguments <TT
+CLASS="LITERAL"
+>width</TT
+> and <TT
+CLASS="LITERAL"
+>height</TT
+>
+specifies the default size of the drawing area.</P
+><P
+>The default size can be overridden, as is true for all widgets,
+by calling <TT
+CLASS="LITERAL"
+>misc#set_size_request</TT
+> method, and that, in turn, can
+be overridden if the user manually resizes the the window containing
+the drawing area.</P
+><P
+>It should be noted that when we create a DrawingArea widget, we are
+<I
+CLASS="EMPHASIS"
+>completely</I
+> responsible for drawing the contents. If our
+window is obscured then uncovered, we get an exposure event and must
+redraw what was previously hidden.</P
+><P
+>Having to remember everything that was drawn on the screen so we
+can properly redraw it can, to say the least, be a nuisance. In
+addition, it can be visually distracting if portions of the
+window are cleared, then redrawn step by step. The solution to
+this problem is to use an offscreen <I
+CLASS="EMPHASIS"
+>backing pixmap</I
+>.
+Instead of drawing directly to the screen, we draw to an image
+stored in server memory but not displayed, then when the image
+changes or new portions of the image are displayed, we copy the
+relevant portions onto the screen.</P
+><P
+>To create an offscreen pixmap, we call the function:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GDraw.pixmap :
+	width:int -&#62;
+	height:int -&#62;
+	?mask:bool -&#62;
+	?window:&#60; misc : #misc_ops; .. &#62; -&#62;
+	?colormap:Gdk.colormap -&#62;
+	unit -&#62; pixmap</PRE
+></TD
+></TR
+></TABLE
+><P
+>The <TT
+CLASS="LITERAL"
+>window</TT
+> parameter specifies a GDK window that this pixmap
+takes some of its properties from. <TT
+CLASS="LITERAL"
+>width</TT
+> and <TT
+CLASS="LITERAL"
+>height</TT
+>
+specify the size of the pixmap. <TT
+CLASS="LITERAL"
+>colormap</TT
+> tells the <I
+CLASS="EMPHASIS"
+>color
+depth</I
+>, that is the number of bits per pixel, for the new window.
+If the colormap is not specified,
+<TT
+CLASS="LITERAL"
+>default_colormap()</TT
+> is used.</P
+><P
+>We create the pixmap in our "configure" handler. This event
+is generated whenever the window changes size, including when it
+is originally created.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* Backing pixmap for drawing area *)
+let backing = ref (GDraw.pixmap ~width:200 ~height:200 ())
+
+(* Create a new backing pixmap of the appropriate size *)
+let configure window backing ev =
+  let width = GdkEvent.Configure.width ev in
+  let height = GdkEvent.Configure.height ev in
+  let pixmap = GDraw.pixmap ~width ~height ~window () in
+  pixmap#set_foreground `WHITE;
+  pixmap#rectangle ~x:0 ~y:0 ~width ~height ~filled:true ();
+  backing := pixmap;
+  true</PRE
+></TD
+></TR
+></TABLE
+><P
+>The call to <TT
+CLASS="LITERAL"
+>rectangle</TT
+> method clears the pixmap
+initially to white. We'll say more about that in a moment.</P
+><P
+>Our exposure event handler then simply copies the relevant portion
+of the pixmap onto the screen (we determine the area we need
+to redraw by using GdkEvent.Expost.area method to the exposure event):</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* Redraw the screen from the backing pixmap *)
+let expose (drawing_area:GMisc.drawing_area) (backing:GDraw.pixmap ref) ev =
+  let area = GdkEvent.Expose.area ev in
+  let x = Gdk.Rectangle.x area in
+  let y = Gdk.Rectangle.y area in
+  let width = Gdk.Rectangle.width area in
+  let height = Gdk.Rectangle.width area in
+  let drawing =
+    drawing_area#misc#realize ();
+    new GDraw.drawable (drawing_area#misc#window)
+  in
+  drawing#put_pixmap ~x ~y ~xsrc:x ~ysrc:y ~width ~height !backing#pixmap;
+  false</PRE
+></TD
+></TR
+></TABLE
+><P
+>We've now seen how to keep the screen up to date with our pixmap, but
+how do we actually draw interesting stuff on our pixmap?  There are a
+large number of calls in GTK's GDK library for drawing on
+<I
+CLASS="EMPHASIS"
+>drawables</I
+>. A drawable is simply something that can be drawn
+upon. It can be a window, a pixmap, or a bitmap (a black and white
+image).  We've already seen two such calls above,
+<TT
+CLASS="LITERAL"
+>rectangle</TT
+> and <TT
+CLASS="LITERAL"
+>put_pixmap</TT
+> methods. The
+some of them are: see
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GDraw.drawable.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GDraw.drawable</TT
+></A
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method arc :
+	x:int -&#62;
+	y:int -&#62;
+	width:int -&#62;
+	height:int -&#62;
+	?filled:bool -&#62;
+	?start:float -&#62;
+	?angle:float -&#62;
+	unit -&#62; unit
+method line :
+	x:int -&#62;
+	y:int -&#62;
+	x:int -&#62;
+	y:int -&#62; unit
+method point :
+	x:int -&#62;
+	y:int -&#62; unit
+method polygon :
+	?filled:bool -&#62;
+	(int * int) list -&#62; unit
+method rectangle :
+	x:int -&#62;
+	y:int -&#62;
+	width:int -&#62;
+	height:int -&#62;
+	?filled:bool -&#62;
+	unit -&#62; unit
+method string :
+	string -&#62;
+	font:Gdk.font -&#62;
+	x:int -&#62;
+	y:int -&#62; unit
+method points : (int * int) list -&#62; unit
+method lines : (int * int) list -&#62; unit
+method segments : ((int * int) * (int * int)) list -&#62; unit
+
+method put_layout :
+	x:int -&#62;
+	y:int -&#62;
+	?fore:color -&#62;
+	?back:color -&#62;
+	Pango.layout -&#62; unit
+method put_image :
+	x:int -&#62;
+	y:int -&#62;
+	?xsrc:int -&#62;
+	?ysrc:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	Gdk.image -&#62; unit
+method put_pixmap :
+	x:int -&#62;
+	y:int -&#62;
+	?xsrc:int -&#62;
+	?ysrc:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	Gdk.pixmap -&#62; unit
+method put_rgb_data :
+	width:int -&#62;
+	height:int -&#62;
+	?x:int -&#62;
+	?y:int -&#62;
+	?dither:Gdk.Tags.rgb_dither -&#62;
+	?row_stride:int -&#62;
+	Gpointer.region -&#62; unit
+method put_pixbuf :
+	x:int -&#62;
+	y:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	?dither:Gdk.Tags.rgb_dither -&#62;
+	?x_dither:int -&#62;
+	?y_dither:int -&#62;
+	?src_x:int -&#62;
+	?src_y:int -&#62;
+	GdkPixbuf.pixbuf -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>All of these functions uses
+<I
+CLASS="EMPHASIS"
+>graphics context</I
+> (GC).
+A graphics context encapsulates information about things such as
+foreground and background color and line width. GDK has a full set of
+functions for creating and modifying graphics contexts.
+<TT
+CLASS="LITERAL"
+>GDraw.drawable</TT
+> has the default GC and you can change it using:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method set_background : color -&#62; unit
+method set_foreground : color -&#62; unit
+method set_clip_region : Gdk.region -&#62; unit
+method set_clip_origin : x:int -&#62; y:int -&#62; unit
+method set_clip_mask : Gdk.bitmap -&#62; unit
+method set_clip_rectangle : Gdk.Rectangle.t -&#62; unit
+method set_line_attributes :
+	?width:int -&#62;
+	?style:Gdk.GC.gdkLineStyle -&#62;
+	?cap:Gdk.GC.gdkCapStyle -&#62;
+	?join:Gdk.GC.gdkJoinStyle -&#62;
+	unit -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>Our function <TT
+CLASS="LITERAL"
+>draw_brush</TT
+>, which does the actual drawing
+on the screen, is then:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* Draw a rectangle on the screen *)
+let draw_brush (area:GMisc.drawing_area) (backing:GDraw.pixmap ref) x y =
+  let x = x - 5 in
+  let y = y - 5 in
+  let width = 10 in
+  let height = 10 in
+  let update_rect = Gdk.Rectangle.create ~x ~y ~width ~height in
+  !backing#set_foreground `BLACK;
+  !backing#rectangle ~x ~y ~width ~height ~filled:true ();
+  area#misc#draw (Some update_rect)</PRE
+></TD
+></TR
+></TABLE
+><P
+>After we draw the rectangle representing the brush onto the pixmap,
+we call the method:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method misc#draw : Gdk.Rectangle.t option -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>which notifies X that the given area
+needs to be updated. X will eventually generate an expose event
+(possibly combining the areas passed in several calls to
+<TT
+CLASS="LITERAL"
+>misc#draw</TT
+>) which will cause our expose event handler
+to copy the relevant portions to the screen.</P
+><P
+>We have now covered the entire drawing program except for a few
+mundane details like creating the main window.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2205.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c2294.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Event Handling</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2196.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Contributing</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>GTree</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="GTK Signals"
+HREF="a2390.html"><LINK
+REL="PREVIOUS"
+TITLE="GMisc"
+HREF="x2537.html"><LINK
+REL="NEXT"
+TITLE="GDK Event Types"
+HREF="a2575.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2537.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>GTK Signals</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="a2575.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-GTREE_SIGNALS"
+>GTree</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-GTREE.MODEL_SIGNALS"
+>GTree.model</A
+></H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method row_changed : callback:(Gtk.tree_path -&#62; Gtk.tree_iter -&#62; unit) -&#62; GtkSignal.id
+method row_deleted : callback:(Gtk.tree_path -&#62; unit) -&#62; GtkSignal.id
+method row_has_child_toggled : callback:(Gtk.tree_path -&#62; Gtk.tree_iter -&#62; unit) -&#62; GtkSignal.id
+method row_inserted : callback:(Gtk.tree_path -&#62; Gtk.tree_iter -&#62; unit) -&#62; GtkSignal.id
+method rows_reordered : callback:(Gtk.tree_path -&#62; Gtk.tree_iter -&#62; unit) -&#62; GtkSignal.id</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-GTREE.TREE_SORTABLE_SIGNALS"
+>GTree.tree_sortable</A
+></H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>inherits
+	<A
+HREF="x2547.html#SEC-GTREE.MODEL_SIGNALS"
+>GTree.model_signals</A
+>
+method sort_column_changed : callback:(unit -&#62; unit) -&#62; GtkSignal.id</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-GTREE.SELECTION_SIGNALS"
+>GTree.selection</A
+></H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method changed : callback:(unit -&#62; unit) -&#62; GtkSignal.id</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-GTREE.VIEW_COLUMN_SIGNALS"
+>GTree.view_column</A
+></H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>inherits
+	<A
+HREF="a2390.html#SEC-GOBJ.GTKOBJ_SIGNALS"
+>GObj.gtkobj_signals</A
+>
+method clicked : callback:(unit -&#62; unit) -&#62; GtkSignal.id</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-GTREE.VIEW_SIGNALS"
+>GTree.view</A
+></H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>inherits
+	<A
+HREF="x2430.html#SEC-GCONTAINER.CONTAINER_SIGNALS"
+>GContainer.container_signals</A
+>
+method columns_changed : callback:(unit -&#62; unit) -&#62; GtkSignal.id
+method cursor_changed : callback:(unit -&#62; unit) -&#62; GtkSignal.id
+method expand_collapse_cursor_row : callback:(logical:bool -&#62; expand:bool -&#62; all:bool -&#62; bool) -&#62; GtkSignal.id
+method move_cursor : callback:(Gtk.Tags.movement_step -&#62; int -&#62; bool) -&#62; GtkSignal.id
+method row_activated : callback:(Gtk.tree_path -&#62; view_column -&#62; unit) -&#62; GtkSignal.id
+method row_collapsed : callback:(Gtk.tree_iter -&#62; Gtk.tree_path -&#62; unit) -&#62; GtkSignal.id
+method row_expanded : callback:(Gtk.tree_iter -&#62; Gtk.tree_path -&#62; unit) -&#62; GtkSignal.id
+method select_all : callback:(unit -&#62; bool) -&#62; GtkSignal.id
+method select_cursor_parent : callback:(unit -&#62; bool) -&#62; GtkSignal.id
+method select_cursor_row : callback:(start_editing:bool -&#62; bool) -&#62; GtkSignal.id
+method set_scroll_adjustments : callback:(GData.adjustment option -&#62; GData.adjustment option -&#62; unit) -&#62;       GtkSignal.id
+method start_interactive_search : callback:(unit -&#62; bool) -&#62; GtkSignal.id
+method test_collapse_row : callback:(Gtk.tree_iter -&#62; Gtk.tree_path -&#62; bool) -&#62; GtkSignal.id
+method test_expand_row : callback:(Gtk.tree_iter -&#62; Gtk.tree_path -&#62; bool) -&#62; GtkSignal.id
+method toggle_cursor_row : callback:(unit -&#62; bool) -&#62; GtkSignal.id
+method unselect_all : callback:(unit -&#62; bool) -&#62; GtkSignal.id</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-GTREE.CELL_RENDERER_TEXT_SIGNALS"
+>GTree.cell_renderer_text</A
+></H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>inherits
+	<A
+HREF="a2390.html#SEC-GOBJ.GTKOBJ_SIGNALS"
+>GObj.gtkobj_signals</A
+>
+method edited : callback:(Gtk.tree_path -&#62; string -&#62; unit) -&#62; GtkSignal.id</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-GTREE.CELL_RENDERER_TOGGLE_SIGNALS"
+>GTree.cell_renderer_toggle</A
+></H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>inherits
+	<A
+HREF="a2390.html#SEC-GOBJ.GTKOBJ_SIGNALS"
+>GObj.gtkobj_signals</A
+>
+method toggled : callback:(Gtk.tree_path -&#62; unit) -&#62; GtkSignal.id</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2537.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="a2575.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>GMisc</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="a2390.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>GDK Event Types</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

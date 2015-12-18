@@ -1,0 +1,437 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>GDK Event Types</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="PREVIOUS"
+TITLE="GTree"
+HREF="x2547.html"><LINK
+REL="NEXT"
+TITLE="Code Examples"
+HREF="a2692.html"></HEAD
+><BODY
+CLASS="APPENDIX"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2547.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="a2692.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="APPENDIX"
+><H1
+><A
+NAME="APP-GDKEVENTTYPES"
+></A
+>GDK Event Types</H1
+><P
+>The following data types are passed into event handlers by GTK+. For
+each data type listed, the signals that use this data type are listed. (See
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GObj.event_signals.html"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GObj.event_signals</TT
+></A
+>)</P
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/Gdk.Tags.html#TYPEevent_type"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>Gdk.Tags.event_type</TT
+></A
+>
+Gdk.event</P
+><P
+></P
+><UL
+><LI
+><P
+>any event</P
+></LI
+></UL
+></LI
+><LI
+><P
+>[`DELETE] Gdk.event</P
+><P
+></P
+><UL
+><LI
+><P
+>delete event</P
+></LI
+></UL
+></LI
+><LI
+><P
+>[`DESTROY] Gdk.event</P
+><P
+></P
+><UL
+><LI
+><P
+>destroy event</P
+></LI
+></UL
+></LI
+><LI
+><P
+>[`MAP] Gdk.event</P
+><P
+></P
+><UL
+><LI
+><P
+>map event</P
+></LI
+></UL
+></LI
+><LI
+><P
+>[`UNMAP] Gdk.event</P
+><P
+></P
+><UL
+><LI
+><P
+>unmap event</P
+></LI
+></UL
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GdkEvent.Expose.html#TYPEt"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GdkEvent.Expose.t</TT
+></A
+></P
+><P
+></P
+><UL
+><LI
+><P
+>expose event</P
+></LI
+></UL
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GdkEvent.Motion.html#TYPEt"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GdkEvent.Motion.t</TT
+></A
+></P
+><P
+></P
+><UL
+><LI
+><P
+>motion_notify event</P
+></LI
+></UL
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GdkEvent.Button.html#TYPEt"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GdkEvent.Button.t</TT
+></A
+></P
+><P
+></P
+><UL
+><LI
+><P
+>button_press event</P
+></LI
+><LI
+><P
+>button_release event</P
+></LI
+></UL
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GdkEvent.Key.html#TYPEt"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GdkEvent.Key.t</TT
+></A
+></P
+><P
+></P
+><UL
+><LI
+><P
+>key_press event</P
+></LI
+><LI
+><P
+>key_release event</P
+></LI
+></UL
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GdkEvent.Crossing.html#TYPEt"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GdkEvent.Crossing.t</TT
+></A
+></P
+><P
+></P
+><UL
+><LI
+><P
+>enter_notify event</P
+></LI
+><LI
+><P
+>leave_notify event</P
+></LI
+></UL
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GdkEvent.Focus.html#TYPEt"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GdkEvent.Focus.t</TT
+></A
+></P
+><P
+></P
+><UL
+><LI
+><P
+>focus_in event</P
+></LI
+><LI
+><P
+>focus_out event</P
+></LI
+></UL
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GdkEvent.Configure.html#TYPEt"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GdkEvent.Configure.t</TT
+></A
+></P
+><P
+></P
+><UL
+><LI
+><P
+>configure event</P
+></LI
+></UL
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GdkEvent.Property.html#TYPEt"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GdkEvent.Property.t</TT
+></A
+></P
+><P
+></P
+><UL
+><LI
+><P
+>property_notify event</P
+></LI
+></UL
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GdkEvent.Selection.html#TYPEt"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GdkEvent.Selection.t</TT
+></A
+></P
+><P
+></P
+><UL
+><LI
+><P
+>selection_clear event</P
+></LI
+><LI
+><P
+>selection_request event</P
+></LI
+><LI
+><P
+>selection_notify event</P
+></LI
+></UL
+></LI
+><LI
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GdkEvent.Proximity.html#TYPEt"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GdkEvent.Proximity.t</TT
+></A
+></P
+><P
+></P
+><UL
+><LI
+><P
+>proximity_in event</P
+></LI
+><LI
+><P
+>proximity_out event</P
+></LI
+></UL
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2547.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="a2692.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>GTree</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Code Examples</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

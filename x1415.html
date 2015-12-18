@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>File Selections</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Miscellaneous Widgets"
+HREF="c953.html"><LINK
+REL="PREVIOUS"
+TITLE="Color Selection"
+HREF="x1390.html"><LINK
+REL="NEXT"
+TITLE="Container Widgets"
+HREF="c1436.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1390.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Miscellaneous Widgets</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c1436.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-FILESELECTIONS"
+>File Selections</A
+></H1
+><P
+>The file selection widget is a quick and simple way to display a File
+dialog box. It comes complete with Ok, Cancel, and Help buttons, a
+great way to cut down on programming time.</P
+><P
+>To create a new file selection box use
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GWindow.html#VALfile_selection"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GWindow.file_selection</TT
+></A
+>:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GWindow.file_selection :
+	?title:string -&#62;
+	?show_fileops:bool -&#62;
+	?filename:string -&#62;
+	?select_multiple:bool -&#62;
+	?parent:#window_skel -&#62;
+	?destroy_with_parent:bool -&#62;
+	?allow_grow:bool -&#62;
+	?allow_shrink:bool -&#62;
+	?icon:GdkPixbuf.pixbuf -&#62;
+	?modal:bool -&#62;
+	?resizable:bool -&#62;
+	?screen:Gdk.screen -&#62;
+	?type_hint:Gdk.Tags.window_type_hint -&#62;
+	?position:Gtk.Tags.window_position -&#62;
+	?wm_name:string -&#62;
+	?wm_class:string -&#62;
+	?border_width:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	?show:bool -&#62; unit -&#62; file_selection</PRE
+></TD
+></TR
+></TABLE
+><P
+>To set the filename, for example to bring up a specific directory, or
+give a default filename, use <TT
+CLASS="LITERAL"
+>filename</TT
+> argument or
+this function:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method set_filename : string -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>To grab the text that the user has entered or clicked on, use this 
+function:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method filename : string</PRE
+></TD
+></TR
+></TABLE
+><P
+>There are also pointers to the widgets contained within the file 
+selection widget. These are:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method dir_list : string GList.clist
+method file_list : string GList.clist
+method get_selections : string list
+method ok_button : GButton.button
+method cancel_button : GButton.button
+method help_button : GButton.button</PRE
+></TD
+></TR
+></TABLE
+><P
+>Most likely you will want to use the ok_button, cancel_button, and
+help_button methods in signaling their use.</P
+><P
+>Included example is nothing much to creating a file
+selection widget. While in this example the Help button appears on the
+screen, it does nothing as there is not a signal attached to it.</P
+><P
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="images/filesel.png"></SPAN
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: filesel.ml *)
+
+(* Get the selected filename and print it to the console *)
+let file_ok_sel filew () =
+  print_endline filew#filename;
+  flush stdout
+
+let main () =
+  (* Create a new file selection widget; set default filename *)
+  let filew = GWindow.file_selection ~title:"File selection" ~border_width:10
+    ~filename:"penguin.png" () in
+
+  (* Set a handler for destroy event that immediately exits GTK. *)
+  filew#connect#destroy ~callback:GMain.Main.quit;
+
+  (* Connect the ok_button to file_ok_sel function *)
+  filew#ok_button#connect#clicked ~callback:(file_ok_sel filew);
+
+  (* Connect the cancel_button to destroy the widget *)
+  filew#cancel_button#connect#clicked ~callback:filew#destroy;
+
+  filew#show ();
+  (* Rest in main and wait for the fun to begin! *)
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1390.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c1436.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Color Selection</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c953.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Container Widgets</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Paned Window Widgets</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Container Widgets"
+HREF="c1436.html"><LINK
+REL="PREVIOUS"
+TITLE="Aspect Frames"
+HREF="x1538.html"><LINK
+REL="NEXT"
+TITLE="Viewports"
+HREF="x1577.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1538.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Container Widgets</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1577.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-PANEDWINDOWWIDGETS"
+>Paned Window Widgets</A
+></H1
+><P
+>The paned window widgets are useful when you want to divide an area
+into two parts, with the relative size of the two parts controlled by
+the user. A groove is drawn between the two portions with a handle
+that the user can drag to change the ratio. The division can either be
+horizontal (`HORIZONTAL) or vertical (`VERTICAL).</P
+><P
+>To create a new paned window, call 
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.html#VALpaned"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GPack.paned</TT
+></A
+> with orientation(`HORIZONTAL or `VERTICAL):</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GPack.paned :
+	Gtk.Tags.orientation -&#62;
+	?border_width:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	?packing:(GObj.widget -&#62; unit) -&#62;
+	?show:bool -&#62; unit -&#62; paned</PRE
+></TD
+></TR
+></TABLE
+><P
+>After creating the paned window widget, you need to add child widgets
+to its two halves. To do this, use the functions:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method add1 : GObj.widget -&#62; unit
+method add2 : GObj.widget -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+><TT
+CLASS="LITERAL"
+>add1</TT
+> method adds the child widget to the left or top half of
+the paned window. <TT
+CLASS="LITERAL"
+>add2</TT
+> method adds the child widget to the
+right or bottom half of the paned window.</P
+><P
+>As an example, we will create part of the user interface of an
+imaginary email program. A window is divided into two portions
+vertically, with the top portion being a list of email messages and
+the bottom portion the text of the email message. Most of the program
+is pretty straightforward. A couple of points to note: text can't be
+added to a Text widget until it is realized. This could be done by
+calling #misc#realize method, but as a demonstration of an
+alternate technique, we connect a handler to the "realize" signal to
+add the text. Also, we need to add the <TT
+CLASS="LITERAL"
+>GTK_SHRINK</TT
+> option to some
+of the items in the table containing the text window and its
+scrollbars, so that when the bottom portion is made smaller, the
+correct portions shrink instead of being pushed off the bottom of the
+window.</P
+><P
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="images/paned.png"></SPAN
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: paned.ml *)
+
+let cols = new GTree.column_list
+let str_col = cols#add Gobject.Data.string
+
+(* Create the list of "messages" *)
+let create_list () =
+  (* Create a new scrolled window, with scrollbars only if needed *)
+  let scrolled_window = GBin.scrolled_window
+    ~hpolicy:`AUTOMATIC ~vpolicy:`AUTOMATIC () in
+
+  let model = GTree.list_store cols in
+  let treeview = GTree.view ~model ~packing:(scrolled_window#add_with_viewport) () in
+
+  for i = 0 to 10 do
+    let iter = model#append () in
+	model#set ~row:iter ~column:str_col (Printf.sprintf "Message #%d" i)
+  done;
+  let renderer = GTree.cell_renderer_text [] in
+  let column = GTree.view_column ~title:"Messages"
+    ~renderer:(renderer, ["text", str_col]) () in
+  treeview#append_column column;
+  scrolled_window#coerce
+
+(* Add some text to our text widget - this is a callback that is invoked
+ * when our window is realized. We could also force our window to be
+ * realized with #misc#realize, but it would have to be part of
+ * a hierarchy first *)
+let insert_text (buffer: GText.buffer) =
+  let iter = buffer#get_iter `START in
+  buffer#insert ~iter (
+    "From: pathfinder@nasa.gov\n" ^
+    "To: mom@nasa.gov\n" ^
+    "Subject: Made it!\n" ^
+    "\n" ^
+    "We just got in this morning. The weather has been\n" ^
+    "great - clear but cold, and there are lots of fun sights.\n" ^
+    "Sojourner says hi. See you soon.\n" ^
+    " -Path\n")
+
+(* Create a scrolled text area that displays a "message" *)
+let create_text () =
+  let scrolled_window = GBin.scrolled_window
+    ~hpolicy:`AUTOMATIC ~vpolicy:`AUTOMATIC () in
+  let view = GText.view ~packing:scrolled_window#add () in
+  let buffer = view#buffer in
+  insert_text buffer;
+  scrolled_window#coerce
+
+let main () =
+  (* Create a new window; set title and border width *)
+  let window = GWindow.window ~title:"Paned Windows" ~border_width:10
+    ~width:450 ~height:400 () in
+
+  (* Set a handler for destroy event that immediately exits GTK. *)
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  (* create a vpaned widget and add it to our toplevel window *)
+  let vpaned = GPack.paned `VERTICAL ~packing:window#add () in
+
+  (* Now create the contents of the two halves of the window *)
+  let list = create_list () in
+  vpaned#add1 list;
+
+  let text = create_text () in
+  vpaned#add2 text;
+
+  window#show ();
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1538.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1577.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Aspect Frames</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c1436.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Viewports</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

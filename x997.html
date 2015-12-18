@@ -1,0 +1,279 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Arrows</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Miscellaneous Widgets"
+HREF="c953.html"><LINK
+REL="PREVIOUS"
+TITLE="Miscellaneous Widgets"
+HREF="c953.html"><LINK
+REL="NEXT"
+TITLE="The Tooltips Object"
+HREF="x1016.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c953.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Miscellaneous Widgets</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1016.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-ARROWS"
+>Arrows</A
+></H1
+><P
+>The Arrow widget draws an arrowhead, facing in a number of possible
+directions and having a number of possible styles. It can be very
+useful when placed on a button in many applications. Like the Label
+widget, it emits no signals.</P
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.html#VALarrow"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMisc.arrrow</TT
+></A
+> is the function
+for creating an Arrow widget:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GMisc.arrow :
+	?kind:Gtk.Tags.arrow_type -&#62;
+	?shadow:Gtk.Tags.shadow_type -&#62;
+	?xalign:float -&#62;
+	?yalign:float -&#62;
+	?xpad:int -&#62;
+	?ypad:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	?packing:(GObj.widget -&#62; unit) -&#62;
+	?show:bool -&#62; unit -&#62; arrow
+
+	kind : default value is `RIGHT
+	shadow : default value is `OUT</PRE
+></TD
+></TR
+></TABLE
+><P
+>This creates a new arrow widget with the indicated type and
+appearance. The second allows these values to be altered
+retrospectively. The <TT
+CLASS="LITERAL"
+>?kind</TT
+> argument may take one of the
+following values:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>  `UP
+  `DOWN
+  `LEFT
+  `RIGHT</PRE
+></TD
+></TR
+></TABLE
+><P
+>These values obviously indicate the direction in which the arrow will
+point. The <TT
+CLASS="LITERAL"
+>?shadow</TT
+> argument may take one of these values:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>  `IN
+  `OUT (the default)
+  `ETCHED_IN
+  `ETCHED_OUT
+  `NONE</PRE
+></TD
+></TR
+></TABLE
+><P
+>Here's a brief example to illustrate their use.</P
+><P
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="images/arrow.png"></SPAN
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: arrow.ml *)
+
+(* Create an Arrow widget with the specified parameters
+ * and pack in into a button *)
+let create_arrow_button ~kind ~shadow ~packing () =
+  let button = GButton.button ~packing () in
+  let arrow = GMisc.arrow ~kind ~shadow ~packing:button#add () in
+  button
+
+let main () =
+  (* Create a new window; set title and border width *)
+  let window = GWindow.window ~title:"Arrow Buttons" ~border_width:10 () in
+
+  (* Set a handler for destroy event that immediately exits GTK. *)
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  (* Create a box to hold the arrow/buttons *)
+  let box = GPack.hbox ~border_width:2 ~packing:window#add () in
+
+  let f (kind, shadow) =
+    create_arrow_button ~kind ~shadow ~packing:box#add ();
+    ()
+  in
+  List.iter f [(`UP, `IN); (`DOWN, `OUT); (`LEFT, `ETCHED_IN);
+    (`RIGHT, `ETCHED_OUT) ];
+
+  window#show ();
+  (* Rest in main and wait for the fun to begin! *)
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c953.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1016.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Miscellaneous Widgets</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c953.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The Tooltips Object</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

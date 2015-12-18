@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Example</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Range Widgets"
+HREF="c834.html"><LINK
+REL="PREVIOUS"
+TITLE="Key and Mouse bindings"
+HREF="x926.html"><LINK
+REL="NEXT"
+TITLE="Miscellaneous Widgets"
+HREF="c953.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x926.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Range Widgets</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c953.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-RANGEWIDGETSEXAMPLE"
+>Example</A
+></H1
+><P
+> It basically puts up a window with three
+range widgets all connected to the same adjustment, and a couple of
+controls for adjusting some of the parameters mentioned above and in
+the section on adjustments, so you can see how they affect the way
+these widgets work for the user.</P
+><P
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="images/rangewidgets.png"></SPAN
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: range.ml *)
+
+let cb_pos_menu_select hscale vscale pos () =
+  hscale#set_value_pos pos;
+  vscale#set_value_pos pos
+  
+let cb_update_menu_select hscale vscale policy () =
+  hscale#set_update_policy policy;
+  vscale#set_update_policy policy
+  
+let cb_digits_scale hscale vscale adj () =
+  hscale#set_digits (int_of_float adj#value);
+  vscale#set_digits (int_of_float adj#value)
+
+let clamp x low high =
+  if x &#62; high then high
+  else if x &#60; low then low
+  else x
+
+let cb_page_size get (set: GData.adjustment) () =
+  (* Set the page size and page increment size of the sample
+   * adjustment to the value specified by the "Page Size" scale *)
+  let v = get#value in
+  set#set_bounds ~page_incr:v ~page_size:v ();
+
+  (* This sets the adjustment and makes it emit the "chagnged" signal to
+   * reconfigure all the widgets that are attatched to this signal. *)
+   set#set_value (clamp set#value set#lower (set#upper -. set#page_size))
+
+let cb_draw_value button hscale vscale () =
+  hscale#set_draw_value button#active;
+  vscale#set_draw_value button#active
+
+let make_menu_item ~label ~packing ~callback =
+  let item = GMenu.menu_item ~label ~packing () in
+  ignore (item#connect#activate ~callback)
+
+let create_range_controls () =
+  (* Standard window-creating stuff *)
+  let window = GWindow.window ~title:"Range controls" ~border_width:20 () in
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  let box1 = GPack.vbox ~packing:window#add () in
+  let box2 = GPack.hbox ~border_width:10 ~packing:box1#add () in
+
+  (* Note that the page_size value only makes a difference for
+   * scrollbar widgets, and the highest value you'll get is actually
+   * (upper - page_size). *)
+  let adj1 = GData.adjustment ~value:0.0 ~lower:0.0 ~upper:101.0
+    ~step_incr:0.1 ~page_incr:1.0 ~page_size:1.0 ()
+  in
+  let vscale = GRange.scale `VERTICAL ~adjustment:adj1 ~packing:box2#add () in
+
+  let box3 = GPack.vbox ~packing:box2#add () in
+
+  (* Reuse the same adjustment *)
+  let hscale = GRange.scale `HORIZONTAL ~adjustment:adj1 ~packing:box3#add () in
+
+  (* Reuse the same adjustment again.
+   * Default update_policy is `CONTINUOUS.
+   * Notice the scales always be updated continuously
+   * when the scrollbar is moved *)
+  let scrollbar = GRange.scrollbar `HORIZONTAL ~adjustment:adj1
+    ~packing:box3#add ()
+  in
+
+  let box2 = GPack.hbox ~border_width:10 ~packing:box1#add () in
+
+  (* A checkbutton to control whether the value is displayed or not *)
+  let button = GButton.check_button ~label:"Display value on scale widgets"
+    ~active:true ~packing:box2#add ()
+  in
+  button#connect#toggled ~callback:(cb_draw_value button hscale vscale);
+
+  let box2 = GPack.hbox ~border_width:10 ~packing:box1#add () in
+  let label = GMisc.label ~text:"Scale Value Position:" ~packing:box2#add () in
+
+  let opt = GMenu.option_menu ~packing:box2#add () in
+  let menu = GMenu.menu ~packing:opt#set_menu () in
+  let f (label, pos) =
+    make_menu_item ~label ~packing:menu#append
+	  ~callback:(cb_pos_menu_select hscale vscale pos)
+  in
+  List.iter f [("Top", `TOP); ("Bottom", `BOTTOM); ("Left", `LEFT);
+    ("Right", `RIGHT)];
+
+  let box2 = GPack.hbox ~border_width:10 ~packing:box1#add () in
+  (* Yet another option menu, this time for the update policy of the
+   * scale widgets *)
+  let label = GMisc.label ~text:"Scale Update Policy:" ~packing:box2#add () in
+  let opt = GMenu.option_menu ~packing:box2#add () in
+  let menu = GMenu.menu ~packing:opt#set_menu () in
+  let f (label, policy) =
+    make_menu_item ~label ~packing:menu#append
+	  ~callback:(cb_update_menu_select hscale vscale policy)
+  in
+  List.iter f [("Continuous", `CONTINUOUS); ("Discontinuous", `DISCONTINUOUS);
+    ("Delayed", `DELAYED)];
+
+  let box2 = GPack.hbox ~border_width:10 ~packing:box1#add () in
+  let label = GMisc.label ~text:"Scale Digits:" ~packing:box2#add () in
+
+  let adj2 = GData.adjustment ~value:1.0 ~lower:0.0 ~upper:5.0
+    ~step_incr:1.0 ~page_incr:1.0 ~page_size:0.0 ()
+  in
+  adj2#connect#value_changed ~callback:(cb_digits_scale hscale vscale adj2);
+
+  let scale = GRange.scale `HORIZONTAL ~adjustment:adj2
+    ~digits:0 ~packing:box2#add ()
+  in
+
+  let box2 = GPack.hbox ~border_width:10 ~packing:box1#add () in
+  (* And, one last Horizontal Scale widget for adjusting the page size of the
+   * scrollbar *)
+  let label = GMisc.label ~text:"Scrollbar Page Size:" ~packing:box2#add () in
+
+  let adj2 = GData.adjustment ~value:1.0 ~lower:0.0 ~upper:101.0
+    ~step_incr:1.0 ~page_incr:1.0 ~page_size:0.0 ()
+  in
+  adj2#connect#value_changed ~callback:(cb_page_size adj2 adj1);
+  let scale = GRange.scale `HORIZONTAL ~adjustment:adj2
+    ~digits:0 ~packing:box2#add ()
+  in
+
+  let separator = GMisc.separator `HORIZONTAL ~packing:box1#add () in
+
+  let box2 = GPack.hbox ~border_width:10 ~packing:box1#add () in
+  let button = GButton.button ~label:"Quit" ~packing:box2#add () in
+  button#connect#clicked ~callback:GMain.quit;
+  button#misc#set_can_default true;
+  button#misc#grab_default ();
+  window#show ()
+
+let main () =
+  create_range_controls ();
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</PRE
+></TD
+></TR
+></TABLE
+><P
+>You will notice that the program does not call connect()
+for the "delete_event", but only for the "destroy" signal. This will
+still perform the desired function, because an unhandled
+"delete_event" will result in a "destroy" signal being given to the
+window.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x926.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c953.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Key and Mouse bindings</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c834.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Miscellaneous Widgets</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,383 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Color Selection</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Miscellaneous Widgets"
+HREF="c953.html"><LINK
+REL="PREVIOUS"
+TITLE="Calendar"
+HREF="x1307.html"><LINK
+REL="NEXT"
+TITLE="File Selections"
+HREF="x1415.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1307.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Miscellaneous Widgets</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1415.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-COLORSELECTION"
+>Color Selection</A
+></H1
+><P
+>The color selection widget is, not surprisingly, a widget for
+interactive selection of colors. This composite widget lets the user
+select a color by manipulating RGB (Red, Green, Blue) and HSV (Hue,
+Saturation, Value) triples.  This is done either by adjusting single
+values with sliders or entries, or by picking the desired color from a
+hue-saturation wheel/value bar.  Optionally, the opacity of the color
+can also be set.</P
+><P
+>Lets have a look at what the color selection widget has to offer
+us. The widget comes in two flavours:
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.html#VALcolor_selection"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GMisc.color_selection</TT
+></A
+>
+and
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GWindow.html#VALcolor_selection_dialog"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GWindow.color_selection_dialog</TT
+></A
+>.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GMisc.color_selection :
+	?alpha:int -&#62;
+	?color:Gdk.color -&#62;
+	?has_opacity_control:bool -&#62;
+	?has_palette:bool -&#62;
+	?border_width:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	?packing:(GObj.widget -&#62; unit) -&#62;
+	?show:bool -&#62; unit -&#62; color_selection</PRE
+></TD
+></TR
+></TABLE
+><P
+>You'll probably not be using this constructor directly. It creates an
+orphan color_selection widget which you'll have to parent
+yourself. The color_selection widget inherits from the VBox
+widget.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GWindow.color_selection_dialog :
+	?title:string -&#62;
+	?parent:#window_skel -&#62;
+	?destroy_with_parent:bool -&#62;
+	?allow_grow:bool -&#62;
+	?allow_shrink:bool -&#62;
+	?icon:GdkPixbuf.pixbuf -&#62;
+	?modal:bool -&#62;
+	?screen:Gdk.screen -&#62;
+	?type_hint:Gdk.Tags.window_type_hint -&#62;
+	?position:Gtk.Tags.window_position -&#62;
+	?wm_name:string -&#62;
+	?wm_class:string -&#62;
+	?border_width:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	?show:bool -&#62; unit -&#62; color_selection_dialog&#13;</PRE
+></TD
+></TR
+></TABLE
+><P
+>This is the most common color selection constructor. It creates a
+color_selection_dialog. It consists of a Frame containing a
+color_selection widget, an HSeparator and an HBox with three buttons,
+"Ok", "Cancel" and "Help". You can reach these buttons by accessing
+the "ok_button", "cancel_button" and "help_button" methods in the
+color_selection_dialog object,
+(i.e., <TT
+CLASS="LITERAL"
+>color_sel_dialog#ok_button</TT
+>).</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method set_has_opacity_control : bool -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>The color selection widget supports adjusting the opacity of a color
+(also known as the alpha channel). This is disabled by
+default. Calling this function with has_opacity set to true enables
+opacity. Likewise, has_opacity set to false will disable opacity.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method set_color : Gdk.color -&#62; unit
+method set_alpha : int -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>You can set the current color explicitly by calling 
+set_color method with a GdkColor. 
+Setting the opacity (alpha channel) is done with 
+set_alpha method. The alpha value should be between
+0 (fully transparent) and 65636 (fully opaque).</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method color : Gdk.color
+method alpha : int</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><P
+>Here's a simple example demonstrating the use of the
+color_selection_dialog. The program displays a window containing a
+drawing area. Clicking on it opens a color selection dialog, and
+changing the color in the color selection dialog changes the
+background color.</P
+><P
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="images/colorsel.png"></SPAN
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: colorsel.ml *)
+
+let dialog_ref = ref None
+let color = ref (`RGB (0, 65535, 0))     (* GDraw.color ref type *)
+
+(* "color_changed" event does not exist in lablgtk2!!! *)
+(*
+let color_changed_cb colorsel drawingarea () =
+  let ncolor = colorsel#color in
+  drawingarea#misc#modify_bg [(`NORMAL, `COLOR ncolor)]
+*)
+
+let response dlg drawingarea resp =
+  let colorsel = dlg#colorsel in
+  begin
+  match resp with
+  | `OK -&#62; color := `COLOR colorsel#color
+  | _ -&#62; ()
+  end;
+  drawingarea#misc#modify_bg [(`NORMAL, !color)];
+  dlg#misc#hide ()
+
+(* Drawingarea button_press event handler *)
+let button_pressed drawingarea ev =
+  (* Create color selection dialog *)
+  let colordlg =
+    match !dialog_ref with
+    | None -&#62;
+      let dlg = GWindow.color_selection_dialog ~title:"Select background color" () in
+      dialog_ref := Some dlg;
+      dlg
+    | Some dlg -&#62; dlg
+  in
+
+  (* Get the ColorSelection widget *)
+  let colorsel = colordlg#colorsel in
+
+  (* set_prev_color does not exist in lablgtk2!!! *)
+  (* colorsel#set_prev_color (GDraw.color !color); *)
+  colorsel#set_color (GDraw.color !color); (* requires Gdk.color type *)
+  colorsel#set_has_palette true;
+
+  (* Connect to the "color_changed" signal *)
+  (* This event does not exist in lablgtk2!!! *)
+  (* Need confirm to lablgtk2 team. *)
+  (* colorsel#connect#color_changed ~callback:(color_changed_cb colorsel drawingarea);
+  *)
+
+  colordlg#connect#response ~callback:(response colordlg drawingarea);
+
+  (* Show the dialog *)
+  colordlg#run ();
+  true
+    
+let main () =
+  (* Create toplevel window, set title and policies (allow_grow, allow_shrink) *)
+  let window = GWindow.window ~title:"Color selection test" ~border_width:10
+    ~allow_grow:true ~allow_shrink:true () in
+
+  (* Attach "destroy" events so we can exit *)
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  (* Create drawingarea, set size and catch button events *)
+  let drawingarea = GMisc.drawing_area ~width:200 ~height:200 ~packing:window#add () in
+  drawingarea#misc#modify_bg [(`NORMAL, !color)];
+  drawingarea#event#add [`BUTTON_PRESS];
+  drawingarea#event#connect#button_press ~callback:(button_pressed drawingarea);
+
+  window#show ();
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1307.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1415.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Calendar</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c953.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>File Selections</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Fixed Container</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Container Widgets"
+HREF="c1436.html"><LINK
+REL="PREVIOUS"
+TITLE="The Alignment widget"
+HREF="x1455.html"><LINK
+REL="NEXT"
+TITLE="Layout Container"
+HREF="x1496.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1455.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Container Widgets</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1496.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-FIXEDCONTAINER"
+>Fixed Container</A
+></H1
+><P
+>The Fixed container allows you to place widgets at a fixed position
+within it's window, relative to it's upper left hand corner. The
+position of the widgets can be changed dynamically.</P
+><P
+><A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.html#VALfixed"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>GPack.fixed</TT
+></A
+>
+is the function associated with the fixed widget:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>val GPack.fixed :
+	?has_window:bool -&#62;
+	?border_width:int -&#62;
+	?width:int -&#62;
+	?height:int -&#62;
+	?packing:(GObj.widget -&#62; unit) -&#62;
+	?show:bool -&#62; unit -&#62; fixed
+
+method put : GObj.widget -&#62; x:int -&#62; y:int -&#62; unit
+method move : GObj.widget -&#62; x:int -&#62; y:int -&#62; unit</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function GPack.fixed allows you to create a new Fixed
+container.</P
+><P
+>put method places <TT
+CLASS="LITERAL"
+>widget</TT
+> in the container <TT
+CLASS="LITERAL"
+>fixed</TT
+> at
+the position specified by <TT
+CLASS="LITERAL"
+>x</TT
+> and <TT
+CLASS="LITERAL"
+>y</TT
+>.</P
+><P
+>move method allows the specified widget to be moved to a new
+position.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>method set_has_window : bool -&#62; unit
+method has_window : bool</PRE
+></TD
+></TR
+></TABLE
+><P
+>Normally, Fixed widgets don't have their own X window. Since this is
+different from the behaviour of Fixed widgets in earlier releases of GTK, 
+the set_has_window method allows the creation of Fixed widgets 
+<I
+CLASS="EMPHASIS"
+>with</I
+> their own window. It has to be called before
+realizing the widget.</P
+><P
+>The following example illustrates how to use the Fixed Container.</P
+><P
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="images/fixed.png"></SPAN
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: fixed.ml *)
+
+(* Global variables to store the position of the widget
+ * within the fixed container *)
+let rx = ref 50
+let ry = ref 50
+
+(* This callback function moves the button to a new position
+ * in the Fixed container. *)
+let move_button but fixed () =
+  rx := (!rx + 30) mod 300;
+  ry := (!ry + 50) mod 300;
+  fixed#move but#coerce ~x:!rx ~y:!ry
+
+let main () =
+  (* Create a new window; set title and border width *)
+  let window = GWindow.window ~title:"Fixed Container" ~border_width:10 () in
+
+  (* Here we connect the "destroy" event to a signal handler *)
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  (* Create a Fixed Container *)
+  let fixed = GPack.fixed ~packing:window#add () in
+
+  for i = 1 to 3 do
+    (* Creates a new button with the label "Press me"
+     * and packs the button into the fixed containers window. *)
+    let button = GButton.button ~label:"Press me"
+	  ~packing:(fixed#put ~x:(i*50) ~y:(i*50)) ()
+    in
+
+    (* When the button receives the "clicked" signal, it will call the
+     * function move_button passing it the Fixed Container as its
+     * argument. *)
+    button#connect#clicked ~callback:(move_button button fixed)
+  done;
+
+  (* Display the window and enter the event loop *)
+  window#show ();
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1455.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1496.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The Alignment widget</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c1436.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Layout Container</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

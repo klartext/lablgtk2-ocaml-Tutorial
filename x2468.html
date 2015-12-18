@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>GEdit</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="GTK Signals"
+HREF="a2390.html"><LINK
+REL="PREVIOUS"
+TITLE="GMenu"
+HREF="x2454.html"><LINK
+REL="NEXT"
+TITLE="GButton"
+HREF="x2486.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2454.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>GTK Signals</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2486.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-GEDIT_SIGNALS"
+>GEdit</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-GEDIT.EDITABLE_SIGNALS"
+>GEdit.editable</A
+></H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>inherits
+	<A
+HREF="a2390.html#SEC-GOBJ.WIDGET_SIGNALS"
+>GObj.widget_signals</A
+>
+method changed : callback:(unit -&#62; unit) -&#62; GtkSignal.id
+method delete_text : callback:(start:int -&#62; stop:int -&#62; unit) -&#62; GtkSignal.id
+method insert_text : callback:(string -&#62; pos:int Pervasives.ref -&#62; unit) -&#62; GtkSignal.id</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-GEDIT.ENTRY_SIGNALS"
+>GEdit.entry</A
+></H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>inherits
+	<A
+HREF="x2468.html#SEC-GEDIT.EDITABLE_SIGNALS"
+>GEdit.editable_signals</A
+>
+method activate : callback:(unit -&#62; unit) -&#62; GtkSignal.id
+method copy_clipboard : callback:(unit -&#62; unit) -&#62; GtkSignal.id
+method cut_clipboard : callback:(unit -&#62; unit) -&#62; GtkSignal.id
+method delete_from_cursor : callback:(Gtk.Tags.delete_type -&#62; int -&#62; unit) -&#62; GtkSignal.id
+method insert_at_cursor : callback:(string -&#62; unit) -&#62; GtkSignal.id
+method move_cursor : callback:(Gtk.Tags.movement_step -&#62; int -&#62; extend:bool -&#62; unit) -&#62;       GtkSignal.id
+method paste_clipboard : callback:(unit -&#62; unit) -&#62; GtkSignal.id
+method populate_popup : callback:(GMenu.menu -&#62; unit) -&#62; GtkSignal.id
+method toggle_overwrite : callback:(unit -&#62; unit) -&#62; GtkSignal.id</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-GEDIT.SPIN_BUTTON_SIGNALS"
+>GEdit.spin_button</A
+></H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>inherits
+	<A
+HREF="x2468.html#SEC-GEDIT.ENTRY_SIGNALS"
+>GEdit.entry_signals</A
+>
+method change_value : callback:(Gtk.Tags.scroll_type -&#62; unit) -&#62; GtkSignal.id
+method input : callback:(unit -&#62; int) -&#62; GtkSignal.id
+method output : callback:(unit -&#62; bool) -&#62; GtkSignal.id
+method value_changed : callback:(unit -&#62; unit) -&#62; GtkSignal.id</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SEC-GEDIT.COMBO_BOX_SIGNALS"
+>GEdit.combo_box</A
+></H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>inherits
+	<A
+HREF="x2430.html#SEC-GCONTAINER.CONTAINER_SIGNALS"
+>GContainer.container_signals</A
+>
+method changed : callback:(unit -&#62; unit) -&#62; GtkSignal.id</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2454.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2486.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>GMenu</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="a2390.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>GButton</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

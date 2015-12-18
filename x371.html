@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>An Upgraded Hello World</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="GTK+ 2.0 Tutorial using Ocaml"
+HREF="book1.html"><LINK
+REL="UP"
+TITLE="Moving On"
+HREF="c349.html"><LINK
+REL="PREVIOUS"
+TITLE="Moving On"
+HREF="c349.html"><LINK
+REL="NEXT"
+TITLE="Packing Widgets"
+HREF="c383.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GTK+ 2.0 Tutorial using Ocaml</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c349.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Moving On</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c383.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SEC-ANUPGRADEDHELLOWORLD"
+>An Upgraded Hello World</A
+></H1
+><P
+>Let's take a look at a slightly improved <I
+CLASS="EMPHASIS"
+>helloworld</I
+> with
+better examples of callbacks. This will also introduce us to our next
+topic, packing widgets.</P
+><P
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="images/helloworld2.png"></SPAN
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>(* file: hello2.ml *)
+
+let clicked msg () =
+  print_endline msg;
+  flush stdout
+
+let delete_event ev =
+ GMain.Main.quit ();
+ false
+
+let main () =
+  (* Create a new window and sets the border width and title of the window. *)
+  let window = GWindow.window ~title:"Hello Buttons!" ~border_width:10 () in
+
+  (* Here we just set a handler for delete_event that immediately
+   * exits GTK. *)
+  window#event#connect#delete ~callback:delete_event;
+
+  (* We create a box to pack widgets into.  This is described in detail
+   * in the "packing" section. The box is not really visible, it
+   * is just used as a tool to arrange widgets.
+   * And put the box into the main window. *)
+  let box1 = GPack.hbox ~packing:window#add () in
+
+  (* Creates a new button with the label "Button 1".
+   * Instead of box1#add, we pack this button into the invisible
+   * box, which has been packed into the window. *)
+  let button = GButton.button ~label:"Button 1" ~packing:box1#pack () in
+    
+  (* Now when the button is clicked, we call the "clicked" function
+   * with "button 1" as its argument *)
+  button#connect#clicked ~callback:(clicked "button 1");
+
+  (* Do these same steps again to create a second button *)
+  let button = GButton.button ~label:"Button 2" ~packing:box1#pack () in
+
+  (* Call the same callback function with a different argument,
+   * passing "button 2" instead. *)
+  button#connect#clicked ~callback:(clicked "button 2");
+
+  (* Display the window. *)
+  window#show ();
+
+  (* Rest in GMain.Main.main and wait for the fun to begin! *)
+  GMain.Main.main ()
+
+let _ = main ()</PRE
+></TD
+></TR
+></TABLE
+><P
+>Compile this program using the same linking arguments as our first
+example.  You'll notice this time there is no easy way to exit the
+program, you have to use your window manager or command line to kill
+it. A good exercise for the reader would be to insert a third "Quit"
+button that will exit the program. You may also wish to play with the
+options to
+<A
+HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.box_skel.html#METHODpack"
+TARGET="_top"
+><TT
+CLASS="LITERAL"
+>box#pack ()</TT
+></A
+>
+while reading the next section.  Try
+resizing the window, and observe the behavior.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c349.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c383.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Moving On</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c349.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Packing Widgets</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
