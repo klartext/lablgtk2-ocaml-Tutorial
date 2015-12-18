@@ -8,7 +8,7 @@ own window) will not work with tooltips.</p><p>The first call you will use creat
 <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GData.html#VALtooltips" target="_top"><tt class="LITERAL">GData.tooltips</tt></a> function.
 You only need to do
 this once for a set of tooltips as the
-<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GData.tooltips.html" target="_top"><tt class="LITERAL">GData.tooltips object</tt></a>
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GData.tooltips-c.html" target="_top"><tt class="LITERAL">GData.tooltips object</tt></a>
 this
 function returns can be used to create multiple tooltips.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GData.tooltips : ?delay:int -&#62; unit -&#62; tooltips</pre></td></tr></table><p>Once you have created a new tooltip, and the widget you wish to use it
 on, simply use this call to set it:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_tip : ?text:string -&#62; ?privat:string -&#62; GObj.widget -&#62; unit</pre></td></tr></table><p>The <tt class="LITERAL">?text</tt> argument is the text you with to say,

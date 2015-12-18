@@ -31,7 +31,7 @@ This is fairly straightforward. Memory is
 allocated for the GtkWidget *window structure so it now points to a
 valid structure. It sets up a new window, but it is not displayed
 until we call
-<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GWindow.window_skel.html#METHODshow" target="_top"><tt class="LITERAL">window#show ()</tt></a>
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GWindow.window_skel-c.html#METHODshow" target="_top"><tt class="LITERAL">window#show ()</tt></a>
 near the end of our program.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">  let window = GWindow.window ~border_width:10 () in</pre></td></tr></table><p>This <tt class="LITERAL">~border_width</tt> option is used
 to set an attribute of a container object.
 This just sets the window so it has a blank area along the inside of
@@ -41,7 +41,7 @@ functions which we will look at in the section on
 this case, the window. Here, the "delete_event" and "destroy" signals
 are caught. The first is emitted when we use the window manager to
 kill the window, or when we use the
-<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.gtkobj.html#METHODdestroy" target="_top"><tt class="LITERAL">window#destroy ()</tt></a>
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.gtkobj-c.html#METHODdestroy" target="_top"><tt class="LITERAL">window#destroy ()</tt></a>
 call passing
 in the window widget as the object to destroy. The second is emitted
 when, in the "delete_event" handler, we return <tt class="LITERAL">false</tt>.
@@ -89,7 +89,7 @@ dispatches the function of our choice. In our example, when the button
 we created is "clicked", the hello() function is called
 , and then the next handler for this signal is called. This
 calls the
-<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.gtkobj.html#METHODdestroy" target="_top"><tt class="LITERAL">window#destroy ()</tt></a>
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.gtkobj-c.html#METHODdestroy" target="_top"><tt class="LITERAL">window#destroy ()</tt></a>
 function,
 destroying the window widget. This causes the window
 to emit the "destroy" signal, which is caught, and calls our destroy()

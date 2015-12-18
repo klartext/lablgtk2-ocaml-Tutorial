@@ -12,7 +12,7 @@ let _ = main ()</pre></td></tr></table><p>You can compile the above program with
 <a href="x141.html">Compiling Hello World</a>.</p><p>The first two lines of code create and display a window.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">  let window = GWindow.window () in
   window#show ();</pre></td></tr></table><p>Rather than create a window of 0x0 size, a window without children is set to
 200x200 by default so you can still manipulate it.</p><p>The
-<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GWindow.window_skel.html#METHODshow" target="_top"><tt class="LITERAL">GWindow.window#show</tt></a>
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GWindow.window_skel-c.html#METHODshow" target="_top"><tt class="LITERAL">GWindow.window#show</tt></a>
 method lets GTK know that we are done setting
 the attributes of this widget, and that it can display it.</p><p>The last line enters the GTK main processing loop.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">  GMain.Main.main ()</pre></td></tr></table><p>GMain.Main.main
 <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMain.Main.html#VALmain" target="_top"><tt class="LITERAL">GMain.Main.main</tt></a>

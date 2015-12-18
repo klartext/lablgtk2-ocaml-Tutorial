@@ -25,18 +25,18 @@ use_underline : default value is false
 justify : default value is `LEFT
 line_wrap : default values is false
 selectable : default value is false</pre></td></tr></table><p>To change the label's text after creation, use the function
-<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel.html#METHODset_text" target="_top"><tt class="LITERAL">GMisc.label#set_text</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_text : string -&#62; unit</pre></td></tr></table><p>The space needed for the new string will be automatically adjusted if
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel-c.html#METHODset_text" target="_top"><tt class="LITERAL">GMisc.label#set_text</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_text : string -&#62; unit</pre></td></tr></table><p>The space needed for the new string will be automatically adjusted if
 needed. You can produce multi-line labels by putting line breaks in
 the label string.</p><p>To retrieve the current string, use
-<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel.html#METHODtext" target="_top"><tt class="LITERAL">GMisc.label#text</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method text : string</pre></td></tr></table><p>The label text can be justified using
-<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel.html#METHODset_justify" target="_top"><tt class="LITERAL">GMisc.label#set_justify</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_justify : Gtk.Tags.justification -&#62; unit</pre></td></tr></table><p>Values for <tt class="LITERAL">Gtk.Tags.justification</tt> are:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">  `LEFT
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel-c.html#METHODtext" target="_top"><tt class="LITERAL">GMisc.label#text</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method text : string</pre></td></tr></table><p>The label text can be justified using
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel-c.html#METHODset_justify" target="_top"><tt class="LITERAL">GMisc.label#set_justify</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_justify : Gtk.Tags.justification -&#62; unit</pre></td></tr></table><p>Values for <tt class="LITERAL">Gtk.Tags.justification</tt> are:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">  `LEFT
   `RIGHT
   `CENTER (the default)
   `FILL</pre></td></tr></table><p>The label widget is also capable of line wrapping the text
 automatically. This can be activated using
-<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel.html#METHODset_line_wrap" target="_top"><tt class="LITERAL">GMisc.label#set_line_wrap</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_line_wrap : bool -&#62; unit</pre></td></tr></table><p>If you want your label underlined, then you can set a pattern on the
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel-c.html#METHODset_line_wrap" target="_top"><tt class="LITERAL">GMisc.label#set_line_wrap</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_line_wrap : bool -&#62; unit</pre></td></tr></table><p>If you want your label underlined, then you can set a pattern on the
 label
-<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel.html#METHODset_pattern" target="_top"><tt class="LITERAL">GMisc.label#set_pattern</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_pattern : string -&#62; unit</pre></td></tr></table><p>The pattern argument indicates how the underlining should look. It
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel-c.html#METHODset_pattern" target="_top"><tt class="LITERAL">GMisc.label#set_pattern</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_pattern : string -&#62; unit</pre></td></tr></table><p>The pattern argument indicates how the underlining should look. It
 consists of a string of underscore and space characters. An underscore
 indicates that the corresponding character in the label should be
 underlined. For example, the string <tt class="LITERAL">"__     __"</tt> would underline the
