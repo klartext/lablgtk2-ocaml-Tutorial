@@ -1,107 +1,11 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Rulers</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="UP"
-TITLE="Miscellaneous Widgets"
-HREF="c953.html"><LINK
-REL="PREVIOUS"
-TITLE="Dialogs"
-HREF="x1071.html"><LINK
-REL="NEXT"
-TITLE="Statusbars"
-HREF="x1135.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x1071.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
->Miscellaneous Widgets</TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x1135.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-RULERS"
->Rulers</A
-></H1
-><P
->Ruler widgets are used to indicate the location of the mouse pointer
+
+<html><head><title>Rulers</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="UP" title="Miscellaneous Widgets" href="c953.html"/><link rel="PREVIOUS" title="Dialogs" href="x1071.html"/><link rel="NEXT" title="Statusbars" href="x1135.html"/></head><body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x1071.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom">Miscellaneous Widgets</td><td width="10%" align="right" valign="bottom"><a href="x1135.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="SECT1"><h1 class="SECT1"><a name="SEC-RULERS">Rulers</a></h1><p>Ruler widgets are used to indicate the location of the mouse pointer
 in a given window. A window can have a vertical ruler spanning across
 the width and a horizontal ruler spanning down the height. A small
 triangular indicator on the ruler shows the exact location of the
-pointer relative to the ruler.</P
-><P
->A ruler must first be created. Horizontal and vertical rulers are
+pointer relative to the ruler.</p><p>A ruler must first be created. Horizontal and vertical rulers are
 created using
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GRange.html#VALruler"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GRange.ruler</TT
-></A
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val GRange.ruler:
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GRange.html#VALruler" target="_top"><tt class="LITERAL">GRange.ruler</tt></a></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GRange.ruler:
 	Gtk.Tags.orientation -&#62;
 	?metric:Gtk.Tags.metric_type -&#62;
 	?lower:float -&#62;
@@ -111,149 +15,35 @@ CLASS="PROGRAMLISTING"
 	?packing:(GObj.widget -&#62; unit) -&#62;
 	?show:bool -&#62; unit -&#62; ruler
 
-metric : default value is `PIXELS</PRE
-></TD
-></TR
-></TABLE
-><P
->Orientation should be given as an argument. It can be
-<TT
-CLASS="LITERAL"
->`HORIZONTAL</TT
-> for horizontal ruler and <TT
-CLASS="LITERAL"
->`VERTICAL</TT
-> for vertical ruler.</P
-><P
->Units
-of measure for rulers can be<TT
-CLASS="LITERAL"
->`PIXELS</TT
->, <TT
-CLASS="LITERAL"
->`INCHES</TT
-> or
-<TT
-CLASS="LITERAL"
->`CENTIMETERS</TT
->. This can be set using</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_metric : Gtk.Tags.metric_type -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The default measure is <TT
-CLASS="LITERAL"
->`PIXELS</TT
->.</P
-><P
->Other important characteristics of a ruler are how to mark the units
+metric : default value is `PIXELS</pre></td></tr></table><p>Orientation should be given as an argument. It can be
+<tt class="LITERAL">`HORIZONTAL</tt> for horizontal ruler and <tt class="LITERAL">`VERTICAL</tt> for vertical ruler.</p><p>Units
+of measure for rulers can be<tt class="LITERAL">`PIXELS</tt>, <tt class="LITERAL">`INCHES</tt> or
+<tt class="LITERAL">`CENTIMETERS</tt>. This can be set using</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_metric : Gtk.Tags.metric_type -&#62; unit</pre></td></tr></table><p>The default measure is <tt class="LITERAL">`PIXELS</tt>.</p><p>Other important characteristics of a ruler are how to mark the units
 of scale and where the position indicator is initially placed. These
-are set for a ruler using</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_lower : float -&#62; unit
+are set for a ruler using</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_lower : float -&#62; unit
 method set_upper : float -&#62; unit
 method set_position : float -&#62; unit
-method set_max_size : float -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The lower and upper define the extent of the ruler, and
+method set_max_size : float -&#62; unit</pre></td></tr></table><p>The lower and upper define the extent of the ruler, and
 max_size is the largest possible number that will be displayed.
 Position defines the initial position of the pointer indicator within
-the ruler.</P
-><P
->A vertical ruler can span an 800 pixel wide window thus</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->vruler#set_lower 0;
+the ruler.</p><p>A vertical ruler can span an 800 pixel wide window thus</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">vruler#set_lower 0;
 vruler#set_upper 800;
 vruler#set_position 0;
-vruler#set_max_size 800;</PRE
-></TD
-></TR
-></TABLE
-><P
->The markings displayed on the ruler will be from 0 to 800, with a
+vruler#set_max_size 800;</pre></td></tr></table><p>The markings displayed on the ruler will be from 0 to 800, with a
 number for every 100 pixels. If instead we wanted the ruler to range
-from 7 to 16, we would code</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->vruler#set_lower 7;
+from 7 to 16, we would code</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">vruler#set_lower 7;
 vruler#set_upper 16;
 vruler#set_position 0;
-vruler#set_max_size 20;</PRE
-></TD
-></TR
-></TABLE
-><P
->The indicator on the ruler is a small triangular mark that indicates
+vruler#set_max_size 20;</pre></td></tr></table><p>The indicator on the ruler is a small triangular mark that indicates
 the position of the pointer relative to the ruler. If the ruler is
 used to follow the mouse pointer, the motion_notify_event signal
 should be connected to the motion_notify_event method of the ruler.
-To follow all mouse movements within a window area, we would use</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->area#event#connect#motion_notify ~callback:(fun ev -&#62; hruler#event#send (ev :&#62; GdkEvent.any));</PRE
-></TD
-></TR
-></TABLE
-><P
->The following example creates a drawing area with a horizontal ruler
+To follow all mouse movements within a window area, we would use</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">area#event#connect#motion_notify ~callback:(fun ev -&#62; hruler#event#send (ev :&#62; GdkEvent.any));</pre></td></tr></table><p>The following example creates a drawing area with a horizontal ruler
 above it and a vertical ruler to the left of it. The size of the
 drawing area is 600 pixels wide by 400 pixels high. The horizontal
 ruler spans from 7 to 13 with a mark every 100 pixels, while the
 vertical ruler spans from 0 to 400 with a mark every 100 pixels.
-Placement of the drawing area and the rulers is done using a table.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/rulers.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: ruler.ml *)
+Placement of the drawing area and the rulers is done using a table.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/rulers.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: ruler.ml *)
 
 let xsize = 600
 let ysize = 400
@@ -290,73 +80,4 @@ let main () =
   window#show ();
   GMain.Main.main ()
 
-let _ = main ()</PRE
-></TD
-></TR
-></TABLE
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x1071.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x1135.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Dialogs</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="c953.html"
-ACCESSKEY="U"
->Up</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Statusbars</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = main ()</pre></td></tr></table></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x1071.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x1135.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Dialogs</td><td width="34%" align="center" valign="top"><a href="c953.html" accesskey="U">Up</a></td><td width="33%" align="right" valign="top">Statusbars</td></tr></table></div></body></html>

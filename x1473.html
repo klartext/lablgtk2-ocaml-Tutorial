@@ -1,104 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Fixed Container</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="UP"
-TITLE="Container Widgets"
-HREF="c1436.html"><LINK
-REL="PREVIOUS"
-TITLE="The Alignment widget"
-HREF="x1455.html"><LINK
-REL="NEXT"
-TITLE="Layout Container"
-HREF="x1496.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x1455.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
->Container Widgets</TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x1496.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-FIXEDCONTAINER"
->Fixed Container</A
-></H1
-><P
->The Fixed container allows you to place widgets at a fixed position
+
+<html><head><title>Fixed Container</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="UP" title="Container Widgets" href="c1436.html"/><link rel="PREVIOUS" title="The Alignment widget" href="x1455.html"/><link rel="NEXT" title="Layout Container" href="x1496.html"/></head><body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x1455.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom">Container Widgets</td><td width="10%" align="right" valign="bottom"><a href="x1496.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="SECT1"><h1 class="SECT1"><a name="SEC-FIXEDCONTAINER">Fixed Container</a></h1><p>The Fixed container allows you to place widgets at a fixed position
 within it's window, relative to it's upper left hand corner. The
-position of the widgets can be changed dynamically.</P
-><P
-><A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.html#VALfixed"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GPack.fixed</TT
-></A
->
-is the function associated with the fixed widget:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val GPack.fixed :
+position of the widgets can be changed dynamically.</p><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.html#VALfixed" target="_top"><tt class="LITERAL">GPack.fixed</tt></a>
+is the function associated with the fixed widget:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GPack.fixed :
 	?has_window:bool -&#62;
 	?border_width:int -&#62;
 	?width:int -&#62;
@@ -107,70 +11,15 @@ CLASS="PROGRAMLISTING"
 	?show:bool -&#62; unit -&#62; fixed
 
 method put : GObj.widget -&#62; x:int -&#62; y:int -&#62; unit
-method move : GObj.widget -&#62; x:int -&#62; y:int -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The function GPack.fixed allows you to create a new Fixed
-container.</P
-><P
->put method places <TT
-CLASS="LITERAL"
->widget</TT
-> in the container <TT
-CLASS="LITERAL"
->fixed</TT
-> at
-the position specified by <TT
-CLASS="LITERAL"
->x</TT
-> and <TT
-CLASS="LITERAL"
->y</TT
->.</P
-><P
->move method allows the specified widget to be moved to a new
-position.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_has_window : bool -&#62; unit
-method has_window : bool</PRE
-></TD
-></TR
-></TABLE
-><P
->Normally, Fixed widgets don't have their own X window. Since this is
+method move : GObj.widget -&#62; x:int -&#62; y:int -&#62; unit</pre></td></tr></table><p>The function GPack.fixed allows you to create a new Fixed
+container.</p><p>put method places <tt class="LITERAL">widget</tt> in the container <tt class="LITERAL">fixed</tt> at
+the position specified by <tt class="LITERAL">x</tt> and <tt class="LITERAL">y</tt>.</p><p>move method allows the specified widget to be moved to a new
+position.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_has_window : bool -&#62; unit
+method has_window : bool</pre></td></tr></table><p>Normally, Fixed widgets don't have their own X window. Since this is
 different from the behaviour of Fixed widgets in earlier releases of GTK, 
 the set_has_window method allows the creation of Fixed widgets 
-<I
-CLASS="EMPHASIS"
->with</I
-> their own window. It has to be called before
-realizing the widget.</P
-><P
->The following example illustrates how to use the Fixed Container.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/fixed.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: fixed.ml *)
+<i class="EMPHASIS">with</i> their own window. It has to be called before
+realizing the widget.</p><p>The following example illustrates how to use the Fixed Container.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/fixed.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: fixed.ml *)
 
 (* Global variables to store the position of the widget
  * within the fixed container *)
@@ -211,73 +60,4 @@ let main () =
   window#show ();
   GMain.Main.main ()
 
-let _ = Printexc.print main ()</PRE
-></TD
-></TR
-></TABLE
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x1455.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x1496.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->The Alignment widget</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="c1436.html"
-ACCESSKEY="U"
->Up</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Layout Container</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = Printexc.print main ()</pre></td></tr></table></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x1455.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x1496.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">The Alignment widget</td><td width="34%" align="center" valign="top"><a href="c1436.html" accesskey="U">Up</a></td><td width="33%" align="right" valign="top">Layout Container</td></tr></table></div></body></html>

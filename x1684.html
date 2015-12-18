@@ -1,107 +1,11 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Notebooks</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="UP"
-TITLE="Container Widgets"
-HREF="c1436.html"><LINK
-REL="PREVIOUS"
-TITLE="Toolbar"
-HREF="x1637.html"><LINK
-REL="NEXT"
-TITLE="Menu Widget"
-HREF="c1731.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x1637.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
->Container Widgets</TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="c1731.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-NOTEBOOKS"
->Notebooks</A
-></H1
-><P
->The NoteBook Widget is a collection of "pages" that overlap each
+
+<html><head><title>Notebooks</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="UP" title="Container Widgets" href="c1436.html"/><link rel="PREVIOUS" title="Toolbar" href="x1637.html"/><link rel="NEXT" title="Menu Widget" href="c1731.html"/></head><body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x1637.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom">Container Widgets</td><td width="10%" align="right" valign="bottom"><a href="c1731.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="SECT1"><h1 class="SECT1"><a name="SEC-NOTEBOOKS">Notebooks</a></h1><p>The NoteBook Widget is a collection of "pages" that overlap each
 other, each page contains different information with only one page
 visible at a time. This widget has become more common lately in GUI
 programming, and it is a good way to show blocks of similar
-information that warrant separation in their display.</P
-><P
->The first function call you will need to know, as you can probably
+information that warrant separation in their display.</p><p>The first function call you will need to know, as you can probably
 guess by now, is used to create a new notebook widget: see
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.html#VALnotebook"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GPack.notebook</TT
-></A
->.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val GPack.notebook :
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.html#VALnotebook" target="_top"><tt class="LITERAL">GPack.notebook</tt></a>.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GPack.notebook :
 	?enable_popup:bool -&#62;
 	?homogeneous_tabs:bool -&#62;
 	?scrollable:bool -&#62;
@@ -113,65 +17,16 @@ CLASS="PROGRAMLISTING"
 	?width:int -&#62;
 	?height:int -&#62;
 	?packing:(GObj.widget -&#62; unit) -&#62;
-	?show:bool -&#62; unit -&#62; notebook</PRE
-></TD
-></TR
-></TABLE
-><P
->Once the notebook has been created, there are a number of functions
-that operate on the notebook widget. Let's look at them individually.</P
-><P
->The first one we will look at is how to position the page indicators.
+	?show:bool -&#62; unit -&#62; notebook</pre></td></tr></table><p>Once the notebook has been created, there are a number of functions
+that operate on the notebook widget. Let's look at them individually.</p><p>The first one we will look at is how to position the page indicators.
 These page indicators or "tabs" as they are referred to, can be
-positioned in four ways: top, bottom, left, or right.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_tab_pos : Gtk.Tags.position -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->Gtk.Tags.position will be one of the following, which are pretty self
-explanatory:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->  `LEFT
+positioned in four ways: top, bottom, left, or right.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_tab_pos : Gtk.Tags.position -&#62; unit</pre></td></tr></table><p>Gtk.Tags.position will be one of the following, which are pretty self
+explanatory:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">  `LEFT
   `RIGHT
   `TOP
-  `BOTTOM</PRE
-></TD
-></TR
-></TABLE
-><P
-><TT
-CLASS="LITERAL"
->`TOP</TT
-> is the default.</P
-><P
->Next we will look at how to add pages to the notebook. There are three
+  `BOTTOM</pre></td></tr></table><p><tt class="LITERAL">`TOP</tt> is the default.</p><p>Next we will look at how to add pages to the notebook. There are three
 ways to add pages to the NoteBook. Let's look at the first two
-together as they are quite similar.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method append_page :
+together as they are quite similar.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method append_page :
 	?tab_label:GObj.widget -&#62;
 	?menu_label:GObj.widget -&#62;
 	GObj.widget -&#62; unit
@@ -179,188 +34,44 @@ CLASS="PROGRAMLISTING"
 method prepend_page :
 	?tab_label:GObj.widget -&#62;
 	?menu_label:GObj.widget -&#62;
-	GObj.widget -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->These functions add pages to the notebook by inserting them from the
+	GObj.widget -&#62; unit</pre></td></tr></table><p>These functions add pages to the notebook by inserting them from the
 back of the notebook (append), or the front of the notebook (prepend).
 The given widget is placed within the notebook page, and
-<TT
-CLASS="LITERAL"
->tab_label</TT
-> is the label for the page being added. The given
+<tt class="LITERAL">tab_label</tt> is the label for the page being added. The given
 widget must be created separately, and is typically a set of options
-setup within one of the other container widgets, such as a table.</P
-><P
->The final function for adding a page to the notebook contains all of
+setup within one of the other container widgets, such as a table.</p><p>The final function for adding a page to the notebook contains all of
 the properties of the previous two, but it allows you to specify what
-position you want the page to be in the notebook.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method insert_page :
+position you want the page to be in the notebook.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method insert_page :
 	?tab_label:GObj.widget -&#62;
 	?menu_label:GObj.widget -&#62;
 	pos:int -&#62;
-	GObj.widget -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The parameters are the same as _append_ and _prepend_ except it
-contains an extra parameter, <TT
-CLASS="LITERAL"
->pos</TT
->.  This parameter is used to
+	GObj.widget -&#62; unit</pre></td></tr></table><p>The parameters are the same as _append_ and _prepend_ except it
+contains an extra parameter, <tt class="LITERAL">pos</tt>.  This parameter is used to
 specify what place this page will be inserted into the first page
-having position zero.</P
-><P
->Now that we know how to add a page, lets see how we can remove a page
-from the notebook.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method remove_page : int -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->This function takes the page number of int type and removes it
-from the notebook.</P
-><P
->To find out what the current page is in a notebook use the function:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method current_page : int</PRE
-></TD
-></TR
-></TABLE
-><P
->These next two functions are simple calls to move the notebook page
+having position zero.</p><p>Now that we know how to add a page, lets see how we can remove a page
+from the notebook.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method remove_page : int -&#62; unit</pre></td></tr></table><p>This function takes the page number of int type and removes it
+from the notebook.</p><p>To find out what the current page is in a notebook use the function:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method current_page : int</pre></td></tr></table><p>These next two functions are simple calls to move the notebook page
 forward or backward. Simply provide the respective function call with
 the notebook widget you wish to operate on. Note: When the NoteBook is
 currently on the last page, and next_page() is called, the
 notebook will wrap back to the first page. Likewise, if the NoteBook
 is on the first page, and prev_page() is called, the
-notebook will wrap to the last page.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method next_page : unit -&#62; unit
-method previous_page : unit -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->This next function sets the "active" page. If you wish the notebook to
+notebook will wrap to the last page.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method next_page : unit -&#62; unit
+method previous_page : unit -&#62; unit</pre></td></tr></table><p>This next function sets the "active" page. If you wish the notebook to
 be opened to page 5 for example, you would use this function.  Without
-using this function, the notebook defaults to the first page.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method goto_page : int -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The next two functions add or remove the notebook page tabs and the
-notebook border respectively.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_show_tabs : bool -&#62; unit
-method set_show_border : bool -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The next function is useful when the you have a large number of pages,
+using this function, the notebook defaults to the first page.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method goto_page : int -&#62; unit</pre></td></tr></table><p>The next two functions add or remove the notebook page tabs and the
+notebook border respectively.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_show_tabs : bool -&#62; unit
+method set_show_border : bool -&#62; unit</pre></td></tr></table><p>The next function is useful when the you have a large number of pages,
 and the tabs don't fit on the page. It allows the tabs to be scrolled
-through using two arrow buttons.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_scrollable : bool -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
-><TT
-CLASS="LITERAL"
->show_tabs</TT
->, <TT
-CLASS="LITERAL"
->show_border</TT
-> and <TT
-CLASS="LITERAL"
->scrollable</TT
-> methods can be either
-true or false.</P
-><P
->Now let's look at an example, it is expanded from the 
-<TT
-CLASS="FILENAME"
->testgtk.c</TT
-> code
+through using two arrow buttons.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_scrollable : bool -&#62; unit</pre></td></tr></table><p><tt class="LITERAL">show_tabs</tt>, <tt class="LITERAL">show_border</tt> and <tt class="LITERAL">scrollable</tt> methods can be either
+true or false.</p><p>Now let's look at an example, it is expanded from the 
+<tt class="FILENAME">testgtk.c</tt> code
 that comes with the GTK distribution. This small program creates a
 window with a notebook and six buttons. The notebook contains 11
 pages, added in three different ways, appended, inserted, and
 prepended. The buttons allow you rotate the tab positions, add/remove
 the tabs and border, remove a page, change pages in both a forward and
-backward manner, and exit the program.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/notebook.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: notebook.ml *)
+backward manner, and exit the program.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/notebook.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: notebook.ml *)
 
 (* This function rotates the position of the tabs *)
 let rotate_book notebook () =
@@ -449,76 +160,5 @@ let main () =
   window#show ();
   GMain.Main.main ()
 
-let _ = Printexc.print main ()</PRE
-></TD
-></TR
-></TABLE
-><P
->I hope this helps you on your way with creating notebooks for your
-GTK applications.</P
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x1637.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="c1731.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Toolbar</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="c1436.html"
-ACCESSKEY="U"
->Up</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Menu Widget</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = Printexc.print main ()</pre></td></tr></table><p>I hope this helps you on your way with creating notebooks for your
+GTK applications.</p></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x1637.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="c1731.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Toolbar</td><td width="34%" align="center" valign="top"><a href="c1436.html" accesskey="U">Up</a></td><td width="33%" align="right" valign="top">Menu Widget</td></tr></table></div></body></html>

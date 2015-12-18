@@ -1,105 +1,9 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Frames</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="UP"
-TITLE="Container Widgets"
-HREF="c1436.html"><LINK
-REL="PREVIOUS"
-TITLE="Layout Container"
-HREF="x1496.html"><LINK
-REL="NEXT"
-TITLE="Aspect Frames"
-HREF="x1538.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x1496.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
->Container Widgets</TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x1538.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-FRAMES"
->Frames</A
-></H1
-><P
->Frames can be used to enclose one or a group of widgets with a box
+
+<html><head><title>Frames</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="UP" title="Container Widgets" href="c1436.html"/><link rel="PREVIOUS" title="Layout Container" href="x1496.html"/><link rel="NEXT" title="Aspect Frames" href="x1538.html"/></head><body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x1496.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom">Container Widgets</td><td width="10%" align="right" valign="bottom"><a href="x1538.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="SECT1"><h1 class="SECT1"><a name="SEC-FRAMES">Frames</a></h1><p>Frames can be used to enclose one or a group of widgets with a box
 which can optionally be labelled. The position of the label and the
-style of the box can be altered to suit.</P
-><P
->A Frame can be created with the function
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GBin.html#VALframe"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GBin.frame</TT
-></A
->
-:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val frame :
+style of the box can be altered to suit.</p><p>A Frame can be created with the function
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GBin.html#VALframe" target="_top"><tt class="LITERAL">GBin.frame</tt></a>
+:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val frame :
 	?label:string -&#62;
 	?label_xalign:Gtk.clampf -&#62;
 	?label_yalign:Gtk.clampf -&#62;
@@ -108,115 +12,19 @@ CLASS="PROGRAMLISTING"
 	?width:int -&#62;
 	?height:int -&#62;
 	?packing:(GObj.widget -&#62; unit) -&#62;
-	?show:bool -&#62; unit -&#62; frame</PRE
-></TD
-></TR
-></TABLE
-><P
->The label is by default placed in the upper left hand corner of the
-frame. A value of NULL for the <TT
-CLASS="LITERAL"
->label</TT
-> argument will result in no
+	?show:bool -&#62; unit -&#62; frame</pre></td></tr></table><p>The label is by default placed in the upper left hand corner of the
+frame. A value of NULL for the <tt class="LITERAL">label</tt> argument will result in no
 label being displayed. The text of the label can be changed using the
-next function.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_label : string option -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The position of the label can be changed using these functions:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_label_xalign : float -&#62; unit
-method set_label_yalign : float -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
-><TT
-CLASS="LITERAL"
->xalign</TT
-> and <TT
-CLASS="LITERAL"
->yalign</TT
-> take values between 0.0 and 1.0. <TT
-CLASS="LITERAL"
->xalign</TT
->
+next function.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_label : string option -&#62; unit</pre></td></tr></table><p>The position of the label can be changed using these functions:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_label_xalign : float -&#62; unit
+method set_label_yalign : float -&#62; unit</pre></td></tr></table><p><tt class="LITERAL">xalign</tt> and <tt class="LITERAL">yalign</tt> take values between 0.0 and 1.0. <tt class="LITERAL">xalign</tt>
 indicates the position of the label along the top horizontal of the
-frame. <TT
-CLASS="LITERAL"
->yalign</TT
-> is not currently used. The default value of xalign
-is 0.0 which places the label at the left hand end of the frame.</P
-><P
->The next function alters the style of the box that is used to outline
-the frame.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_shadow_type : Gtk.Tags.shadow_type -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The <TT
-CLASS="LITERAL"
->type</TT
-> argument can take one of the following values:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->  `NONE
+frame. <tt class="LITERAL">yalign</tt> is not currently used. The default value of xalign
+is 0.0 which places the label at the left hand end of the frame.</p><p>The next function alters the style of the box that is used to outline
+the frame.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_shadow_type : Gtk.Tags.shadow_type -&#62; unit</pre></td></tr></table><p>The <tt class="LITERAL">type</tt> argument can take one of the following values:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">  `NONE
   `IN
   `OUT
   `ETCHED_IN (the default)
-  `ETCHED_OUT</PRE
-></TD
-></TR
-></TABLE
-><P
->The following code example illustrates the use of the Frame widget.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/frame.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: frame.ml *)
+  `ETCHED_OUT</pre></td></tr></table><p>The following code example illustrates the use of the Frame widget.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/frame.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: frame.ml *)
 
 let main () =
   (* Create a new window; set title and border width *)
@@ -234,73 +42,4 @@ let main () =
   window#show ();
   GMain.Main.main ()
 
-let _ = Printexc.print main ()</PRE
-></TD
-></TR
-></TABLE
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x1496.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x1538.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Layout Container</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="c1436.html"
-ACCESSKEY="U"
->Up</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Aspect Frames</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = Printexc.print main ()</pre></td></tr></table></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x1496.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x1538.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Layout Container</td><td width="34%" align="center" valign="top"><a href="c1436.html" accesskey="U">Up</a></td><td width="33%" align="right" valign="top">Aspect Frames</td></tr></table></div></body></html>

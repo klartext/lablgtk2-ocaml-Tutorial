@@ -1,285 +1,30 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Common Range Functions</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="UP"
-TITLE="Range Widgets"
-HREF="c834.html"><LINK
-REL="PREVIOUS"
-TITLE="Scale Widgets"
-HREF="x852.html"><LINK
-REL="NEXT"
-TITLE="Key and Mouse bindings"
-HREF="x926.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x852.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
->Range Widgets</TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x926.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-COMMONRANGEFUNCTIONS"
->Common Range Functions</A
-></H1
-><P
->The Range widget class is fairly complicated internally, but, like
+
+<html><head><title>Common Range Functions</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="UP" title="Range Widgets" href="c834.html"/><link rel="PREVIOUS" title="Scale Widgets" href="x852.html"/><link rel="NEXT" title="Key and Mouse bindings" href="x926.html"/></head><body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x852.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom">Range Widgets</td><td width="10%" align="right" valign="bottom"><a href="x926.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="SECT1"><h1 class="SECT1"><a name="SEC-COMMONRANGEFUNCTIONS">Common Range Functions</a></h1><p>The Range widget class is fairly complicated internally, but, like
 all the "base class" widgets, most of its complexity is only
 interesting if you want to hack on it. Also, almost all of the
 functions and signals it defines are only really used in writing
 derived widgets. There are, however, a few useful functions that
-will work on all range widgets.</P
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="AEN891"
->Setting the Update Policy</A
-></H2
-><P
->The "update policy" of a range widget defines at what points during
-user interaction it will change the <TT
-CLASS="LITERAL"
->value</TT
-> field of its
+will work on all range widgets.</p><div class="SECT2"><h2 class="SECT2"><a name="AEN891">Setting the Update Policy</a></h2><p>The "update policy" of a range widget defines at what points during
+user interaction it will change the <tt class="LITERAL">value</tt> field of its
 Adjustment and emit the "value_changed" signal on this
 Adjustment. The update policies, defined
 as type
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/Gtk.Tags.html#TYPEupdate_type"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->Gtk.Tags.update_type</TT
-></A
->,
-are:</P
-><P
-></P
-><DIV
-CLASS="VARIABLELIST"
-><DL
-><DT
-><TT
-CLASS="LITERAL"
->`CONTINUOUS</TT
-></DT
-><DD
-><P
->This is the default. The
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/Gtk.Tags.html#TYPEupdate_type" target="_top"><tt class="LITERAL">Gtk.Tags.update_type</tt></a>,
+are:</p><p></p><div class="VARIABLELIST"><dl><dt><tt class="LITERAL">`CONTINUOUS</tt></dt><dd><p>This is the default. The
 "value_changed" signal is emitted continuously, i.e., whenever the
-slider is moved by even the tiniest amount.</P
-></DD
-><DT
-><TT
-CLASS="LITERAL"
->`DISCONTINUOUS</TT
-></DT
-><DD
-><P
->The "value_changed" signal is
+slider is moved by even the tiniest amount.</p></dd><dt><tt class="LITERAL">`DISCONTINUOUS</tt></dt><dd><p>The "value_changed" signal is
 only emitted once the slider has stopped moving and the user has
-released the mouse button.</P
-></DD
-><DT
-><TT
-CLASS="LITERAL"
->`DELAYED</TT
-></DT
-><DD
-><P
->The "value_changed" signal is emitted
+released the mouse button.</p></dd><dt><tt class="LITERAL">`DELAYED</tt></dt><dd><p>The "value_changed" signal is emitted
 when the user releases the mouse button, or if the slider stops moving
-for a short period of time.</P
-></DD
-></DL
-></DIV
-><P
->The update policy of a range widget can be set by calling
-this function:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_update_policy : Gtk.Tags.update_type -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="AEN915"
->Getting and Setting Adjustments</A
-></H2
-><P
->Getting and setting the adjustment for a range widget "on the fly" is
-done, predictably, with:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method adjustment : GData.adjustment
-method set_adjustment : GData.adjustment -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
-><TT
-CLASS="LITERAL"
->adjustment</TT
-> method returns the adjustment to
-which <TT
-CLASS="LITERAL"
->range</TT
-> is connected.</P
-><P
-><TT
-CLASS="LITERAL"
->set_adjustment</TT
-> method does absolutely nothing if you pass it
-the adjustment that <TT
-CLASS="LITERAL"
->range</TT
-> is already using, regardless of whether
+for a short period of time.</p></dd></dl></div><p>The update policy of a range widget can be set by calling
+this function:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_update_policy : Gtk.Tags.update_type -&#62; unit</pre></td></tr></table></div><div class="SECT2"><h2 class="SECT2"><a name="AEN915">Getting and Setting Adjustments</a></h2><p>Getting and setting the adjustment for a range widget "on the fly" is
+done, predictably, with:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method adjustment : GData.adjustment
+method set_adjustment : GData.adjustment -&#62; unit</pre></td></tr></table><p><tt class="LITERAL">adjustment</tt> method returns the adjustment to
+which <tt class="LITERAL">range</tt> is connected.</p><p><tt class="LITERAL">set_adjustment</tt> method does absolutely nothing if you pass it
+the adjustment that <tt class="LITERAL">range</tt> is already using, regardless of whether
 you changed any of its fields or not. If you pass it a new
 Adjustment, it will disconnect the old one if it exists,
 connect the appropriate signals to the new one, and
-call the private function <TT
-CLASS="LITERAL"
->gtk_range_adjustment_changed()</TT
->, which
+call the private function <tt class="LITERAL">gtk_range_adjustment_changed()</tt>, which
 will (or at least, is supposed to...) recalculate the size and/or
-position of the slider and redraw if necessary.</P
-></DIV
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x852.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x926.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Scale Widgets</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="c834.html"
-ACCESSKEY="U"
->Up</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Key and Mouse bindings</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+position of the slider and redraw if necessary.</p></div></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x852.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x926.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Scale Widgets</td><td width="34%" align="center" valign="top"><a href="c834.html" accesskey="U">Up</a></td><td width="33%" align="right" valign="top">Key and Mouse bindings</td></tr></table></div></body></html>

@@ -1,212 +1,30 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Packing Widgets</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="PREVIOUS"
-TITLE="An Upgraded Hello World"
-HREF="x371.html"><LINK
-REL="NEXT"
-TITLE="Details of Boxes"
-HREF="x400.html"></HEAD
-><BODY
-CLASS="CHAPTER"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x371.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
-></TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x400.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="CHAPTER"
-><H1
-><A
-NAME="CH-PACKINGWIDGETS"
-></A
->Packing Widgets</H1
-><P
->When creating an application, you'll want to put more than one widget
-inside a window. Our first <I
-CLASS="EMPHASIS"
->helloworld</I
-> example only used one
+
+<html><head><title>Packing Widgets</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="PREVIOUS" title="An Upgraded Hello World" href="x371.html"/><link rel="NEXT" title="Details of Boxes" href="x400.html"/></head><body class="CHAPTER" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x371.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom"></td><td width="10%" align="right" valign="bottom"><a href="x400.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="CHAPTER"><h1><a name="CH-PACKINGWIDGETS"></a>Packing Widgets</h1><p>When creating an application, you'll want to put more than one widget
+inside a window. Our first <i class="EMPHASIS">helloworld</i> example only used one
 widget so we could simply use a #add (or #pack) method call to "pack" the
 widget into the window. But when you want to put more than one widget
 into a window, how do you control where that widget is positioned?
-This is where packing comes in.</P
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-THEORYOFPACKINGBOXES"
->Theory of Packing Boxes</A
-></H1
-><P
->Most packing is done by creating boxes. These
+This is where packing comes in.</p><div class="SECT1"><h1 class="SECT1"><a name="SEC-THEORYOFPACKINGBOXES">Theory of Packing Boxes</a></h1><p>Most packing is done by creating boxes. These
 are invisible widget containers that we can pack our widgets into
 which come in two forms, a horizontal box, and a vertical box. When
 packing widgets into a horizontal box, the objects are inserted
 horizontally from left to right or right to left depending on the call
 used. In a vertical box, widgets are packed from top to bottom or vice
 versa. You may use any combination of boxes inside or beside other
-boxes to create the desired effect.</P
-><P
->To create a new horizontal box, we use a call to
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.html#VALhbox"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GPack.hbox ()</TT
-></A
->, and
+boxes to create the desired effect.</p><p>To create a new horizontal box, we use a call to
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.html#VALhbox" target="_top"><tt class="LITERAL">GPack.hbox ()</tt></a>, and
 for vertical boxes,
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.html#VALvbox"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GPack.vbox ()</TT
-></A
->.
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.html#VALvbox" target="_top"><tt class="LITERAL">GPack.vbox ()</tt></a>.
 The
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.box_skel.html#METHODpack"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->box#pack</TT
-></A
->
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.box_skel.html#METHODpack" target="_top"><tt class="LITERAL">box#pack</tt></a>
 or
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GContainer.container.html#METHODadd"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->box#add</TT
-></A
->
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GContainer.container.html#METHODadd" target="_top"><tt class="LITERAL">box#add</tt></a>
 method is used to place objects inside of these containers.
 
 An object may be another container or a
 widget. In fact, many widgets are actually containers themselves,
-including the button, but we usually only use a label inside a button.</P
-><P
->By using this method, GTK knows where you want to place your widgets
+including the button, but we usually only use a label inside a button.</p><p>By using this method, GTK knows where you want to place your widgets
 so it can do automatic resizing and other nifty things. There are also
 a number of options as to how your widgets should be packed. As you
 can imagine, this method gives us a quite a bit of flexibility when
-placing and creating widgets.</P
-></DIV
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x371.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x400.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->An Upgraded Hello World</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
->&nbsp;</TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Details of Boxes</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+placing and creating widgets.</p></div></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x371.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x400.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">An Upgraded Hello World</td><td width="34%" align="center" valign="top">&nbsp;</td><td width="33%" align="right" valign="top">Details of Boxes</td></tr></table></div></body></html>

@@ -1,116 +1,12 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Viewports</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="UP"
-TITLE="Container Widgets"
-HREF="c1436.html"><LINK
-REL="PREVIOUS"
-TITLE="Paned Window Widgets"
-HREF="x1558.html"><LINK
-REL="NEXT"
-TITLE="Scrolled Windows"
-HREF="x1595.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x1558.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
->Container Widgets</TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x1595.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-VIEWPORTS"
->Viewports</A
-></H1
-><P
->It is unlikely that you will ever need to use the Viewport widget
+
+<html><head><title>Viewports</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="UP" title="Container Widgets" href="c1436.html"/><link rel="PREVIOUS" title="Paned Window Widgets" href="x1558.html"/><link rel="NEXT" title="Scrolled Windows" href="x1595.html"/></head><body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x1558.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom">Container Widgets</td><td width="10%" align="right" valign="bottom"><a href="x1595.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="SECT1"><h1 class="SECT1"><a name="SEC-VIEWPORTS">Viewports</a></h1><p>It is unlikely that you will ever need to use the Viewport widget
 directly. You are much more likely to use the
-<A
-HREF="x1595.html"
->Scrolled Window</A
-> widget which
-itself uses the Viewport.</P
-><P
->A viewport widget allows you to place a larger widget within it such
+<a href="x1595.html">Scrolled Window</a> widget which
+itself uses the Viewport.</p><p>A viewport widget allows you to place a larger widget within it such
 that you can view a part of it at a time. It uses
-<A
-HREF="c766.html"
->Adjustments</A
-> to define the area that
-is currently in view.</P
-><P
->A Viewport is created with the function
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GBin.html#VALviewport"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GBin.viewport</TT
-></A
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val GBin.viewport :
+<a href="c766.html">Adjustments</a> to define the area that
+is currently in view.</p><p>A Viewport is created with the function
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GBin.html#VALviewport" target="_top"><tt class="LITERAL">GBin.viewport</tt></a></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GBin.viewport :
 	?hadjustment:GData.adjustment -&#62;
 	?vadjustment:GData.adjustment -&#62;
 	?shadow_type:Gtk.Tags.shadow_type -&#62;
@@ -118,130 +14,14 @@ CLASS="PROGRAMLISTING"
 	?width:int -&#62;
 	?height:int -&#62;
 	?packing:(GObj.widget -&#62; unit) -&#62;
-	?show:bool -&#62; unit -&#62; viewport</PRE
-></TD
-></TR
-></TABLE
-><P
->As you can see you can specify the horizontal and vertical Adjustments
+	?show:bool -&#62; unit -&#62; viewport</pre></td></tr></table><p>As you can see you can specify the horizontal and vertical Adjustments
 that the widget is to use when you create the widget. It will create
-its own if you don't pass the arguments.</P
-><P
->You can get and set the adjustments after the widget has been created
-using the following four functions:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method hadjustment : GData.adjustment
+its own if you don't pass the arguments.</p><p>You can get and set the adjustments after the widget has been created
+using the following four functions:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method hadjustment : GData.adjustment
 method vadjustment : GData.adjustment
 method set_hadjustment : GData.adjustment -&#62; unit
-method set_vadjustment : GData.adjustment -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The other viewport function is used to alter its appearance:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_shadow_type : Gtk.Tags.shadow_type -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->Possible values for the <TT
-CLASS="LITERAL"
->Gtk.Tags.shadow_type</TT
-> parameter are:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->  `NONE,
+method set_vadjustment : GData.adjustment -&#62; unit</pre></td></tr></table><p>The other viewport function is used to alter its appearance:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_shadow_type : Gtk.Tags.shadow_type -&#62; unit</pre></td></tr></table><p>Possible values for the <tt class="LITERAL">Gtk.Tags.shadow_type</tt> parameter are:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">  `NONE,
   `IN,
   `OUT,
   `ETCHED_IN,
-  `ETCHED_OUT</PRE
-></TD
-></TR
-></TABLE
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x1558.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x1595.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Paned Window Widgets</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="c1436.html"
-ACCESSKEY="U"
->Up</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Scrolled Windows</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+  `ETCHED_OUT</pre></td></tr></table></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x1558.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x1595.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Paned Window Widgets</td><td width="34%" align="center" valign="top"><a href="c1436.html" accesskey="U">Up</a></td><td width="33%" align="right" valign="top">Scrolled Windows</td></tr></table></div></body></html>

@@ -1,104 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->File Selections</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="UP"
-TITLE="Miscellaneous Widgets"
-HREF="c953.html"><LINK
-REL="PREVIOUS"
-TITLE="Color Selection"
-HREF="x1390.html"><LINK
-REL="NEXT"
-TITLE="Container Widgets"
-HREF="c1436.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x1390.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
->Miscellaneous Widgets</TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="c1436.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-FILESELECTIONS"
->File Selections</A
-></H1
-><P
->The file selection widget is a quick and simple way to display a File
+
+<html><head><title>File Selections</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="UP" title="Miscellaneous Widgets" href="c953.html"/><link rel="PREVIOUS" title="Color Selection" href="x1390.html"/><link rel="NEXT" title="Container Widgets" href="c1436.html"/></head><body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x1390.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom">Miscellaneous Widgets</td><td width="10%" align="right" valign="bottom"><a href="c1436.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="SECT1"><h1 class="SECT1"><a name="SEC-FILESELECTIONS">File Selections</a></h1><p>The file selection widget is a quick and simple way to display a File
 dialog box. It comes complete with Ok, Cancel, and Help buttons, a
-great way to cut down on programming time.</P
-><P
->To create a new file selection box use
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GWindow.html#VALfile_selection"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GWindow.file_selection</TT
-></A
->:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val GWindow.file_selection :
+great way to cut down on programming time.</p><p>To create a new file selection box use
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GWindow.html#VALfile_selection" target="_top"><tt class="LITERAL">GWindow.file_selection</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GWindow.file_selection :
 	?title:string -&#62;
 	?show_fileops:bool -&#62;
 	?filename:string -&#62;
@@ -118,86 +22,19 @@ CLASS="PROGRAMLISTING"
 	?border_width:int -&#62;
 	?width:int -&#62;
 	?height:int -&#62;
-	?show:bool -&#62; unit -&#62; file_selection</PRE
-></TD
-></TR
-></TABLE
-><P
->To set the filename, for example to bring up a specific directory, or
-give a default filename, use <TT
-CLASS="LITERAL"
->filename</TT
-> argument or
-this function:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_filename : string -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->To grab the text that the user has entered or clicked on, use this 
-function:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method filename : string</PRE
-></TD
-></TR
-></TABLE
-><P
->There are also pointers to the widgets contained within the file 
-selection widget. These are:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method dir_list : string GList.clist
+	?show:bool -&#62; unit -&#62; file_selection</pre></td></tr></table><p>To set the filename, for example to bring up a specific directory, or
+give a default filename, use <tt class="LITERAL">filename</tt> argument or
+this function:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_filename : string -&#62; unit</pre></td></tr></table><p>To grab the text that the user has entered or clicked on, use this 
+function:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method filename : string</pre></td></tr></table><p>There are also pointers to the widgets contained within the file 
+selection widget. These are:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method dir_list : string GList.clist
 method file_list : string GList.clist
 method get_selections : string list
 method ok_button : GButton.button
 method cancel_button : GButton.button
-method help_button : GButton.button</PRE
-></TD
-></TR
-></TABLE
-><P
->Most likely you will want to use the ok_button, cancel_button, and
-help_button methods in signaling their use.</P
-><P
->Included example is nothing much to creating a file
+method help_button : GButton.button</pre></td></tr></table><p>Most likely you will want to use the ok_button, cancel_button, and
+help_button methods in signaling their use.</p><p>Included example is nothing much to creating a file
 selection widget. While in this example the Help button appears on the
-screen, it does nothing as there is not a signal attached to it.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/filesel.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: filesel.ml *)
+screen, it does nothing as there is not a signal attached to it.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/filesel.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: filesel.ml *)
 
 (* Get the selected filename and print it to the console *)
 let file_ok_sel filew () =
@@ -222,73 +59,4 @@ let main () =
   (* Rest in main and wait for the fun to begin! *)
   GMain.Main.main ()
 
-let _ = Printexc.print main ()</PRE
-></TD
-></TR
-></TABLE
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x1390.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="c1436.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Color Selection</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="c953.html"
-ACCESSKEY="U"
->Up</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Container Widgets</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = Printexc.print main ()</pre></td></tr></table></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x1390.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="c1436.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Color Selection</td><td width="34%" align="center" valign="top"><a href="c953.html" accesskey="U">Up</a></td><td width="33%" align="right" valign="top">Container Widgets</td></tr></table></div></body></html>

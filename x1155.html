@@ -1,104 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Text Entries</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="UP"
-TITLE="Miscellaneous Widgets"
-HREF="c953.html"><LINK
-REL="PREVIOUS"
-TITLE="Statusbars"
-HREF="x1135.html"><LINK
-REL="NEXT"
-TITLE="Spin Buttons"
-HREF="x1183.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x1135.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
->Miscellaneous Widgets</TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x1183.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-TEXTENTRIES"
->Text Entries</A
-></H1
-><P
->The Entry widget allows text to be typed and displayed in a single line
+
+<html><head><title>Text Entries</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="UP" title="Miscellaneous Widgets" href="c953.html"/><link rel="PREVIOUS" title="Statusbars" href="x1135.html"/><link rel="NEXT" title="Spin Buttons" href="x1183.html"/></head><body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x1135.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom">Miscellaneous Widgets</td><td width="10%" align="right" valign="bottom"><a href="x1183.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="SECT1"><h1 class="SECT1"><a name="SEC-TEXTENTRIES">Text Entries</a></h1><p>The Entry widget allows text to be typed and displayed in a single line
 text box. The text may be set with function calls that allow new text
-to replace, prepend or append the current contents of the Entry widget.</P
-><P
->Create a new Entry widget with the function
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GEdit.html#VALentry"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GEdit.entry</TT
-></A
->.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val GEdit.entry :
+to replace, prepend or append the current contents of the Entry widget.</p><p>Create a new Entry widget with the function
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GEdit.html#VALentry" target="_top"><tt class="LITERAL">GEdit.entry</tt></a>.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GEdit.entry :
 	?text:string -&#62;
 	?visibility:bool -&#62;
 	?max_length:int -&#62;
@@ -109,125 +13,23 @@ CLASS="PROGRAMLISTING"
 	?width:int -&#62;
 	?height:int -&#62;
 	?packing:(GObj.widget -&#62; unit) -&#62;
-	?show:bool -&#62; unit -&#62; entry</PRE
-></TD
-></TR
-></TABLE
-><P
->The next method alters the text which is currently
-within the Entry widget.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_text : string -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The set_text method sets the contents of the Entry widget,
+	?show:bool -&#62; unit -&#62; entry</pre></td></tr></table><p>The next method alters the text which is currently
+within the Entry widget.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_text : string -&#62; unit</pre></td></tr></table><p>The set_text method sets the contents of the Entry widget,
 replacing the current contents. Note that the class Entry implements the Editable
 interface (yes, gobject supports Java-like interfaces) which contains some more
 functions for manipulating the contents.
- </P
-><P
->The contents of the Entry can be retrieved by using a call to the
-following method. This is useful in the callback functions described below.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method text : string</PRE
-></TD
-></TR
-></TABLE
-><P
->If we don't want the contents of the Entry to be changed by someone typing
-into it, we can change its editable state.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_editable : bool -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The method above allows us to toggle the editable state of the
-Entry widget by passing in a true or false value as argument.</P
-><P
->If we are using the Entry where we don't want the text entered to be
+ </p><p>The contents of the Entry can be retrieved by using a call to the
+following method. This is useful in the callback functions described below.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method text : string</pre></td></tr></table><p>If we don't want the contents of the Entry to be changed by someone typing
+into it, we can change its editable state.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_editable : bool -&#62; unit</pre></td></tr></table><p>The method above allows us to toggle the editable state of the
+Entry widget by passing in a true or false value as argument.</p><p>If we are using the Entry where we don't want the text entered to be
 visible, for example when a password is being entered, we can use the
-following method, which also takes a boolean flag.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_visibility : bool -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->A region of the text may be set as selected by using the following
+following method, which also takes a boolean flag.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_visibility : bool -&#62; unit</pre></td></tr></table><p>A region of the text may be set as selected by using the following
 method. This would most often be used after setting some default
-text in an Entry, making it easy for the user to remove it.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method select_region : start:int -&#62; stop:int -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->If we want to catch when the user has entered text, we can connect to
-the <TT
-CLASS="LITERAL"
->activate</TT
-> or <TT
-CLASS="LITERAL"
->changed</TT
-> signal. Activate is raised when the
+text in an Entry, making it easy for the user to remove it.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method select_region : start:int -&#62; stop:int -&#62; unit</pre></td></tr></table><p>If we want to catch when the user has entered text, we can connect to
+the <tt class="LITERAL">activate</tt> or <tt class="LITERAL">changed</tt> signal. Activate is raised when the
 user hits the enter key within the Entry widget. Changed is raised
 when the text changes at all, e.g., for every character entered or
-removed.</P
-><P
->The following code is an example of using an Entry widget.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/entry.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: entry.ml *)
+removed.</p><p>The following code is an example of using an Entry widget.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/entry.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: entry.ml *)
 
 let enter_cb entry () =
   let text = entry#text in
@@ -270,73 +72,4 @@ let main () =
   window#show ();
   GMain.Main.main ()
 
-let _ = Printexc.print main ()</PRE
-></TD
-></TR
-></TABLE
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x1135.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x1183.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Statusbars</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="c953.html"
-ACCESSKEY="U"
->Up</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Spin Buttons</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = Printexc.print main ()</pre></td></tr></table></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x1135.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x1183.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Statusbars</td><td width="34%" align="center" valign="top"><a href="c953.html" accesskey="U">Up</a></td><td width="33%" align="right" valign="top">Spin Buttons</td></tr></table></div></body></html>

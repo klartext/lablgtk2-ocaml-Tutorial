@@ -1,111 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Miscellaneous Widgets</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="PREVIOUS"
-TITLE="Example"
-HREF="x944.html"><LINK
-REL="NEXT"
-TITLE="Arrows"
-HREF="x997.html"></HEAD
-><BODY
-CLASS="CHAPTER"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x944.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
-></TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x997.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="CHAPTER"
-><H1
-><A
-NAME="CH-MISCWIDGETS"
-></A
->Miscellaneous Widgets</H1
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-LABELS"
->Labels</A
-></H1
-><P
->Labels are used a lot in GTK, and are relatively simple. Labels emit
+
+<html><head><title>Miscellaneous Widgets</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="PREVIOUS" title="Example" href="x944.html"/><link rel="NEXT" title="Arrows" href="x997.html"/></head><body class="CHAPTER" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x944.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom"></td><td width="10%" align="right" valign="bottom"><a href="x997.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="CHAPTER"><h1><a name="CH-MISCWIDGETS"></a>Miscellaneous Widgets</h1><div class="SECT1"><h1 class="SECT1"><a name="SEC-LABELS">Labels</a></h1><p>Labels are used a lot in GTK, and are relatively simple. Labels emit
 no signals as they do not have an associated X window. If you need to
-catch signals, or do clipping, place it inside a <A
-HREF="c1436.html#SEC-EVENTBOX"
->EventBox</A
-> widget or a Button widget.</P
-><P
->To create a new label, use
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.html#VALlabel"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GMisc.label</TT
-></A
->:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val GMisc.label : ?text:string -&#62;
+catch signals, or do clipping, place it inside a <a href="c1436.html#SEC-EVENTBOX">EventBox</a> widget or a Button widget.</p><p>To create a new label, use
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.html#VALlabel" target="_top"><tt class="LITERAL">GMisc.label</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GMisc.label : ?text:string -&#62;
 	?markup:string -&#62;
 	?use_underline:bool -&#62;
 	?mnemonic_widget:#GObj.widget -&#62;
@@ -127,182 +24,28 @@ markup : overrides text if both are present
 use_underline : default value is false
 justify : default value is `LEFT
 line_wrap : default values is false
-selectable : default value is false</PRE
-></TD
-></TR
-></TABLE
-><P
->To change the label's text after creation, use the function
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.label_skel.html#METHODset_text"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GMisc.label#set_text</TT
-></A
->:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_text : string -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The space needed for the new string will be automatically adjusted if
+selectable : default value is false</pre></td></tr></table><p>To change the label's text after creation, use the function
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel.html#METHODset_text" target="_top"><tt class="LITERAL">GMisc.label#set_text</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_text : string -&#62; unit</pre></td></tr></table><p>The space needed for the new string will be automatically adjusted if
 needed. You can produce multi-line labels by putting line breaks in
-the label string.</P
-><P
->To retrieve the current string, use
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.label_skel.html#METHODtext"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GMisc.label#text</TT
-></A
->:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method text : string</PRE
-></TD
-></TR
-></TABLE
-><P
->The label text can be justified using
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.label_skel.html#METHODset_justify"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GMisc.label#set_justify</TT
-></A
->:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_justify : Gtk.Tags.justification -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->Values for <TT
-CLASS="LITERAL"
->Gtk.Tags.justification</TT
-> are:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->  `LEFT
+the label string.</p><p>To retrieve the current string, use
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel.html#METHODtext" target="_top"><tt class="LITERAL">GMisc.label#text</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method text : string</pre></td></tr></table><p>The label text can be justified using
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel.html#METHODset_justify" target="_top"><tt class="LITERAL">GMisc.label#set_justify</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_justify : Gtk.Tags.justification -&#62; unit</pre></td></tr></table><p>Values for <tt class="LITERAL">Gtk.Tags.justification</tt> are:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">  `LEFT
   `RIGHT
   `CENTER (the default)
-  `FILL</PRE
-></TD
-></TR
-></TABLE
-><P
->The label widget is also capable of line wrapping the text
+  `FILL</pre></td></tr></table><p>The label widget is also capable of line wrapping the text
 automatically. This can be activated using
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.label_skel.html#METHODset_line_wrap"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GMisc.label#set_line_wrap</TT
-></A
->:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_line_wrap : bool -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->If you want your label underlined, then you can set a pattern on the
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel.html#METHODset_line_wrap" target="_top"><tt class="LITERAL">GMisc.label#set_line_wrap</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_line_wrap : bool -&#62; unit</pre></td></tr></table><p>If you want your label underlined, then you can set a pattern on the
 label
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.label_skel.html#METHODset_pattern"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GMisc.label#set_pattern</TT
-></A
->:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_pattern : string -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The pattern argument indicates how the underlining should look. It
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel.html#METHODset_pattern" target="_top"><tt class="LITERAL">GMisc.label#set_pattern</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_pattern : string -&#62; unit</pre></td></tr></table><p>The pattern argument indicates how the underlining should look. It
 consists of a string of underscore and space characters. An underscore
 indicates that the corresponding character in the label should be
-underlined. For example, the string <TT
-CLASS="LITERAL"
->"__     __"</TT
-> would underline the
-first two characters and eight and ninth characters.</P
-><P
->Below is a short example to illustrate these functions. This example
+underlined. For example, the string <tt class="LITERAL">"__     __"</tt> would underline the
+first two characters and eight and ninth characters.</p><p>Below is a short example to illustrate these functions. This example
 makes use of the Frame widget to better demonstrate the label
-styles. You can ignore this for now as the <A
-HREF="x1510.html"
->Frame</A
-> 
-widget is explained later on.</P
-><P
->In GTK+ 2.0, label texts can contain markup for font and other text attribute 
+styles. You can ignore this for now as the <a href="x1510.html">Frame</a> 
+widget is explained later on.</p><p>In GTK+ 2.0, label texts can contain markup for font and other text attribute 
 changes, and labels may be selectable (for copy-and-paste). These advanced features
-won't be explained here.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/label.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: label.ml *)
+won't be explained here.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/label.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: label.ml *)
 
 let main () =
   let window = GWindow.window ~title:"Labels" ~border_width:5 () in
@@ -353,70 +96,4 @@ let main () =
   window #show ();
   GMain.Main.main ()
 
-let _ = Printexc.print main ()</PRE
-></TD
-></TR
-></TABLE
-></DIV
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x944.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x997.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Example</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
->&nbsp;</TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Arrows</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = Printexc.print main ()</pre></td></tr></table></div></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x944.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x997.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Example</td><td width="34%" align="center" valign="top">&nbsp;</td><td width="33%" align="right" valign="top">Arrows</td></tr></table></div></body></html>

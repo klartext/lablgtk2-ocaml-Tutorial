@@ -1,206 +1,26 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Getting Started</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="PREVIOUS"
-TITLE="Introduction"
-HREF="c33.html"><LINK
-REL="NEXT"
-TITLE="Compiling Hello World"
-HREF="x141.html"></HEAD
-><BODY
-CLASS="CHAPTER"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="c33.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
-></TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x141.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="CHAPTER"
-><H1
-><A
-NAME="CH-GETTINGSTARTED"
-></A
->Getting Started</H1
-><P
->To begin our introduction to GTK, we'll start with the simplest
+
+<html><head><title>Getting Started</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="PREVIOUS" title="Introduction" href="c33.html"/><link rel="NEXT" title="Compiling Hello World" href="x141.html"/></head><body class="CHAPTER" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="c33.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom"></td><td width="10%" align="right" valign="bottom"><a href="x141.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="CHAPTER"><h1><a name="CH-GETTINGSTARTED"></a>Getting Started</h1><p>To begin our introduction to GTK, we'll start with the simplest
 program possible. This program will create a 200x200 pixel window and
-has no way of exiting except to be killed by using the shell.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/base.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: base.ml *)
+has no way of exiting except to be killed by using the shell.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/base.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: base.ml *)
 
 let main () =
   let window = GWindow.window () in
   window#show ();
   GMain.Main.main ()
 
-let _ = main ()</PRE
-></TD
-></TR
-></TABLE
-><P
->You can compile the above program with ocamlc using:</P
-><P
-><P
-CLASS="LITERALLAYOUT"
-><TT
-CLASS="LITERAL"
->ocamlc -I +lablgtk2 -o base lablgtk.cma gtkInit.cmo base.ml</TT
-></P
-></P
-><P
->The meaning of the unusual compilation options is explained below in
-<A
-HREF="x141.html"
->Compiling Hello World</A
->.</P
-><P
->The first two lines of code create and display a window.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->  let window = GWindow.window () in
-  window#show ();</PRE
-></TD
-></TR
-></TABLE
-><P
->Rather than create a window of 0x0 size, a window without children is set to
-200x200 by default so you can still manipulate it.</P
-><P
->The
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GWindow.window_skel.html#METHODshow"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GWindow.window#show</TT
-></A
->
+let _ = main ()</pre></td></tr></table><p>You can compile the above program with ocamlc using:</p><p></p><p class="LITERALLAYOUT"><tt class="LITERAL">ocamlc -I +lablgtk2 -o base lablgtk.cma gtkInit.cmo base.ml</tt></p><p>The meaning of the unusual compilation options is explained below in
+<a href="x141.html">Compiling Hello World</a>.</p><p>The first two lines of code create and display a window.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">  let window = GWindow.window () in
+  window#show ();</pre></td></tr></table><p>Rather than create a window of 0x0 size, a window without children is set to
+200x200 by default so you can still manipulate it.</p><p>The
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GWindow.window_skel.html#METHODshow" target="_top"><tt class="LITERAL">GWindow.window#show</tt></a>
 method lets GTK know that we are done setting
-the attributes of this widget, and that it can display it.</P
-><P
->The last line enters the GTK main processing loop.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->  GMain.Main.main ()</PRE
-></TD
-></TR
-></TABLE
-><P
->GMain.Main.main
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMain.Main.html#VALmain"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GMain.Main.main</TT
-></A
->
+the attributes of this widget, and that it can display it.</p><p>The last line enters the GTK main processing loop.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">  GMain.Main.main ()</pre></td></tr></table><p>GMain.Main.main
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMain.Main.html#VALmain" target="_top"><tt class="LITERAL">GMain.Main.main</tt></a>
 is another call you will see in every GTK application.
 When control reaches this point, GTK will sleep waiting for events
 (such as button or key presses), timeouts, or file IO notifications to
-occur. In our simple example, however, events are ignored.</P
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-HELLOWORLD"
->Hello World in GTK</A
-></H1
-><P
->Now for a program with a widget (a button). It's the classic
-hello world a la GTK.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/helloworld.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: hello.ml *)
+occur. In our simple example, however, events are ignored.</p><div class="SECT1"><h1 class="SECT1"><a name="SEC-HELLOWORLD">Hello World in GTK</a></h1><p>Now for a program with a widget (a button). It's the classic
+hello world a la GTK.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/helloworld.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: hello.ml *)
 
 (* This is a callback function. *)
 let hello () =
@@ -259,70 +79,4 @@ let main () =
    * mouse event). *)
   GMain.Main.main ()
 
-let _ = main ()</PRE
-></TD
-></TR
-></TABLE
-></DIV
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="c33.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x141.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Introduction</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
->&nbsp;</TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Compiling Hello World</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = main ()</pre></td></tr></table></div></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="c33.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x141.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Introduction</td><td width="34%" align="center" valign="top">&nbsp;</td><td width="33%" align="right" valign="top">Compiling Hello World</td></tr></table></div></body></html>

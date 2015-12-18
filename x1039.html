@@ -1,264 +1,38 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Progress Bars</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="UP"
-TITLE="Miscellaneous Widgets"
-HREF="c953.html"><LINK
-REL="PREVIOUS"
-TITLE="The Tooltips Object"
-HREF="x1016.html"><LINK
-REL="NEXT"
-TITLE="Dialogs"
-HREF="x1071.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x1016.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
->Miscellaneous Widgets</TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x1071.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-PROGRESSBARS"
->Progress Bars</A
-></H1
-><P
->Progress bars are used to show the status of an operation. They are
+
+<html><head><title>Progress Bars</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="UP" title="Miscellaneous Widgets" href="c953.html"/><link rel="PREVIOUS" title="The Tooltips Object" href="x1016.html"/><link rel="NEXT" title="Dialogs" href="x1071.html"/></head><body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x1016.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom">Miscellaneous Widgets</td><td width="10%" align="right" valign="bottom"><a href="x1071.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="SECT1"><h1 class="SECT1"><a name="SEC-PROGRESSBARS">Progress Bars</a></h1><p>Progress bars are used to show the status of an operation. They are
 pretty easy to use, as you will see with the code below. But first
 lets start out with the calls to create a new progress bar using
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GRange.html#VALprogress_bar"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GRange.progress_bar</TT
-></A
->.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val GRange.progress_bar:
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GRange.html#VALprogress_bar" target="_top"><tt class="LITERAL">GRange.progress_bar</tt></a>.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GRange.progress_bar:
 	?orientation:Gtk.Tags.progress_bar_orientation -&#62;
 	?pulse_step:float -&#62;
 	?packing:(GObj.widget -&#62; unit) -&#62;
 	?show:bool -&#62; unit -&#62; progress_bar
 
 orientation : default value is `LEFT_TO_RIGHT
-pulse_step : default value is 0.1</PRE
-></TD
-></TR
-></TABLE
-><P
->Now that the progress bar has been created we can use it.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_fraction : float -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The argument is the amount "completed", meaning the amount the
+pulse_step : default value is 0.1</pre></td></tr></table><p>Now that the progress bar has been created we can use it.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_fraction : float -&#62; unit</pre></td></tr></table><p>The argument is the amount "completed", meaning the amount the
 progress bar has been filled from 0-100%. This is passed to the
-method as a float number ranging from 0.0 to 1.0</P
-><P
->GTK v1.2 has added new functionality to the progress bar that enables
+method as a float number ranging from 0.0 to 1.0</p><p>GTK v1.2 has added new functionality to the progress bar that enables
 it to display its value in different ways, and to inform the user of
-its current value and its range.</P
-><P
->A progress bar may be set to one of a number of orientations using the
-function</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_orientation : Gtk.Tags.progress_bar_orientation -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The <TT
-CLASS="LITERAL"
->orientation</TT
-> argument may take one of the following
-values to indicate the direction in which the progress bar moves:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->  `LEFT_TO_RIGHT
+its current value and its range.</p><p>A progress bar may be set to one of a number of orientations using the
+function</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_orientation : Gtk.Tags.progress_bar_orientation -&#62; unit</pre></td></tr></table><p>The <tt class="LITERAL">orientation</tt> argument may take one of the following
+values to indicate the direction in which the progress bar moves:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">  `LEFT_TO_RIGHT
   `RIGHT_TO_LEFT
   `BOTTOM_TO_TOP
-  `TOP_TO_BOTTOM</PRE
-></TD
-></TR
-></TABLE
-><P
->As well as indicating the amount of progress that has occured, the
+  `TOP_TO_BOTTOM</pre></td></tr></table><p>As well as indicating the amount of progress that has occured, the
 progress bar may be set to just indicate that there is some activity. 
 This can be useful in situations where progress cannot be measured against 
 a value range. The following function indicates that some progress has been 
-made.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method pulse : unit -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The step size of the activity indicator is set using the following 
-function.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_pulse_step : float -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->When not in activity mode, the progress bar can also display a
+made.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method pulse : unit -&#62; unit</pre></td></tr></table><p>The step size of the activity indicator is set using the following 
+function.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_pulse_step : float -&#62; unit</pre></td></tr></table><p>When not in activity mode, the progress bar can also display a
 configurable text string within its trough, using the following
-function.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_text : string -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->You can turn off the display of the string by calling set_text method
-again with empty string as an argument.</P
-><P
->The current text setting of a progressbar can be retrieved with the 
-following function.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method text : string</PRE
-></TD
-></TR
-></TABLE
-><P
->Progress Bars are usually used with timeouts or other such functions
-(see section on <A
-HREF="c1941.html"
->Timeouts and Idle Functions</A
->) 
+function.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_text : string -&#62; unit</pre></td></tr></table><p>You can turn off the display of the string by calling set_text method
+again with empty string as an argument.</p><p>The current text setting of a progressbar can be retrieved with the 
+following function.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method text : string</pre></td></tr></table><p>Progress Bars are usually used with timeouts or other such functions
+(see section on <a href="c1941.html">Timeouts and Idle Functions</a>) 
 to give the illusion of multitasking. All will employ the
 set_fraction or pulse methods in the 
-same manner.</P
-><P
->Here is an example of the progress bar, updated using timeouts. This
-code also shows you how to reset the Progress Bar.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/progressbar.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: progressbar.ml *)
+same manner.</p><p>Here is an example of the progress bar, updated using timeouts. This
+code also shows you how to reset the Progress Bar.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/progressbar.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: progressbar.ml *)
 
 let pulse_mode = ref false
 
@@ -354,73 +128,4 @@ let main () =
   window#show ();
   GMain.Main.main ()
 
-let _ = main ()</PRE
-></TD
-></TR
-></TABLE
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x1016.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x1071.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->The Tooltips Object</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="c953.html"
-ACCESSKEY="U"
->Up</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Dialogs</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = main ()</pre></td></tr></table></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x1016.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x1071.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">The Tooltips Object</td><td width="34%" align="center" valign="top"><a href="c953.html" accesskey="U">Up</a></td><td width="33%" align="right" valign="top">Dialogs</td></tr></table></div></body></html>

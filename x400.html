@@ -1,126 +1,15 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Details of Boxes</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="UP"
-TITLE="Packing Widgets"
-HREF="c383.html"><LINK
-REL="PREVIOUS"
-TITLE="Packing Widgets"
-HREF="c383.html"><LINK
-REL="NEXT"
-TITLE="Packing Demonstration Program"
-HREF="x456.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="c383.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
->Packing Widgets</TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x456.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-DETAILSOFBOXES"
->Details of Boxes</A
-></H1
-><P
->Because of this flexibility, packing boxes in GTK can be confusing at
+
+<html><head><title>Details of Boxes</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="UP" title="Packing Widgets" href="c383.html"/><link rel="PREVIOUS" title="Packing Widgets" href="c383.html"/><link rel="NEXT" title="Packing Demonstration Program" href="x456.html"/></head><body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="c383.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom">Packing Widgets</td><td width="10%" align="right" valign="bottom"><a href="x456.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="SECT1"><h1 class="SECT1"><a name="SEC-DETAILSOFBOXES">Details of Boxes</a></h1><p>Because of this flexibility, packing boxes in GTK can be confusing at
 first. There are a lot of options, and it's not immediately obvious how
 they all fit together. In the end, however, there are basically five
-different styles.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/packbox1.png"></SPAN
-></P
-><P
->Each line contains one horizontal box (hbox) with several buttons. The
+different styles.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/packbox1.png"/></span></p><p>Each line contains one horizontal box (hbox) with several buttons. The
 call to
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.box_skel.html#METHODpack"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->#pack</TT
-></A
->
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.box_skel.html#METHODpack" target="_top"><tt class="LITERAL">#pack</tt></a>
 method is shorthand for the call to pack each of the
 buttons into the hbox. Each of the buttons is packed into the hbox the
-same way.</P
-><P
->This is the declaration of the
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.box_skel.html#METHODpack"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->#pack</TT
-></A
->
-method.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method pack :
+same way.</p><p>This is the declaration of the
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.box_skel.html#METHODpack" target="_top"><tt class="LITERAL">#pack</tt></a>
+method.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method pack :
 	?from:Gtk.Tags.pack_type -&#62;
 	?expand:bool -&#62;
 	?fill:bool -&#62;
@@ -129,113 +18,32 @@ CLASS="PROGRAMLISTING"
 
 from : default value is `START
 expand : default vaue is false
-fill : default value is true, ignored if expand is false</PRE
-></TD
-></TR
-></TABLE
-><P
->The first optional argument <TT
-CLASS="LITERAL"
->from</TT
->
-can have <TT
-CLASS="LITERAL"
->`START</TT
-> or <TT
-CLASS="LITERAL"
->`END</TT
->.
-The <TT
-CLASS="LITERAL"
->~from:`START</TT
-> will start at the top
+fill : default value is true, ignored if expand is false</pre></td></tr></table><p>The first optional argument <tt class="LITERAL">from</tt>
+can have <tt class="LITERAL">`START</tt> or <tt class="LITERAL">`END</tt>.
+The <tt class="LITERAL">~from:`START</tt> will start at the top
 and work its way down in a vbox, and pack left to right in an hbox.
-The <TT
-CLASS="LITERAL"
->~from:`END</TT
-> will do the opposite,
+The <tt class="LITERAL">~from:`END</tt> will do the opposite,
 packing from bottom to top in a vbox, and right to left in an hbox.
-Using <TT
-CLASS="LITERAL"
->from</TT
-> option allows us
+Using <tt class="LITERAL">from</tt> option allows us
 to right justify or left justify our widgets and may be mixed in any
-way to achieve the desired effect.</P
-><P
->The <TT
-CLASS="LITERAL"
->expand</TT
-> argument
+way to achieve the desired effect.</p><p>The <tt class="LITERAL">expand</tt> argument
 controls whether the widgets are laid out in the box to fill in all
 the extra space in the box so the box is expanded to fill the area
-allotted to it (<TT
-CLASS="LITERAL"
->true</TT
->);
-or the box is shrunk to just fit the widgets (<TT
-CLASS="LITERAL"
->false</TT
->).
-Setting expand to <TT
-CLASS="LITERAL"
->false</TT
-> will allow you to do right and left
+allotted to it (<tt class="LITERAL">true</tt>);
+or the box is shrunk to just fit the widgets (<tt class="LITERAL">false</tt>).
+Setting expand to <tt class="LITERAL">false</tt> will allow you to do right and left
 justification of your widgets.  Otherwise, they will all expand to fit
-into the box.</P
-><P
->The <TT
-CLASS="LITERAL"
->fill</TT
-> argument to the
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.box_skel.html#METHODpack"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->#pack</TT
-></A
->
+into the box.</p><p>The <tt class="LITERAL">fill</tt> argument to the
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.box_skel.html#METHODpack" target="_top"><tt class="LITERAL">#pack</tt></a>
 method control
 whether the
-extra space is allocated to the objects themselves (<TT
-CLASS="LITERAL"
->true</TT
->),
-or as extra padding in the box around these objects (<TT
-CLASS="LITERAL"
->false</TT
->).
+extra space is allocated to the objects themselves (<tt class="LITERAL">true</tt>),
+or as extra padding in the box around these objects (<tt class="LITERAL">false</tt>).
 It only has an effect
-if the <TT
-CLASS="LITERAL"
->expand</TT
-> argument is also <TT
-CLASS="LITERAL"
->true</TT
->.</P
-><P
-> The last argument is the object you are packing into the box.
+if the <tt class="LITERAL">expand</tt> argument is also <tt class="LITERAL">true</tt>.</p><p> The last argument is the object you are packing into the box.
 The objects will all be buttons for now, so
-we'll be packing buttons into boxes.</P
-><P
->When creating a new box, the function looks like this
-(<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.html#VALhbox"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GPack.hbox ()</TT
-></A
->):</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->GPack.hbox :
+we'll be packing buttons into boxes.</p><p>When creating a new box, the function looks like this
+(<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.html#VALhbox" target="_top"><tt class="LITERAL">GPack.hbox ()</tt></a>):</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">GPack.hbox :
 	?homogeneous:bool -&#62;
 	?spacing:int -&#62;
 	?border_width:int -&#62;
@@ -246,129 +54,16 @@ CLASS="PROGRAMLISTING"
 	unit -&#62; box
 
 spacing: 0 by default
-homogeneous: false by default</PRE
-></TD
-></TR
-></TABLE
-><P
->The <TT
-CLASS="LITERAL"
->homogeneous</TT
-> argument to
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.html#VALhbox"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GPack.hbox ()</TT
-></A
->
+homogeneous: false by default</pre></td></tr></table><p>The <tt class="LITERAL">homogeneous</tt> argument to
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.html#VALhbox" target="_top"><tt class="LITERAL">GPack.hbox ()</tt></a>
 (and the same for
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.html#VALvbox"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GPack.vbox ()</TT
-></A
->)
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.html#VALvbox" target="_top"><tt class="LITERAL">GPack.vbox ()</tt></a>)
 controls whether each object in the box has the same
 size (i.e., the same width in an hbox, or the same height in a
 vbox). If it is set, the #pack method essentially
-as if the <TT
-CLASS="LITERAL"
->expand</TT
-> argument was always turned on.</P
-><P
->What's the difference between <TT
-CLASS="LITERAL"
->spacing</TT
->
-(set when the box is created) and <TT
-CLASS="LITERAL"
->padding</TT
-> (set when elements are packed)? <TT
-CLASS="LITERAL"
->Spacing</TT
-> is added between
-objects, and <TT
-CLASS="LITERAL"
->padding</TT
-> is added on either side of an object.
-The following figure should make it clearer:</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/packbox2.png"></SPAN
-></P
-><P
->Here is the code used to create the above images. I've commented it
+as if the <tt class="LITERAL">expand</tt> argument was always turned on.</p><p>What's the difference between <tt class="LITERAL">spacing</tt>
+(set when the box is created) and <tt class="LITERAL">padding</tt> (set when elements are packed)? <tt class="LITERAL">Spacing</tt> is added between
+objects, and <tt class="LITERAL">padding</tt> is added on either side of an object.
+The following figure should make it clearer:</p><p><span class="INLINEMEDIAOBJECT"><img src="images/packbox2.png"/></span></p><p>Here is the code used to create the above images. I've commented it
 fairly heavily so I hope you won't have any problems following
-it. Compile it yourself and play with it.</P
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="c383.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x456.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Packing Widgets</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="c383.html"
-ACCESSKEY="U"
->Up</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Packing Demonstration Program</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+it. Compile it yourself and play with it.</p></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="c383.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x456.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Packing Widgets</td><td width="34%" align="center" valign="top"><a href="c383.html" accesskey="U">Up</a></td><td width="33%" align="right" valign="top">Packing Demonstration Program</td></tr></table></div></body></html>

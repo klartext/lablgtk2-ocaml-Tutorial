@@ -1,166 +1,27 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Container Widgets</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="PREVIOUS"
-TITLE="File Selections"
-HREF="x1415.html"><LINK
-REL="NEXT"
-TITLE="The Alignment widget"
-HREF="x1455.html"></HEAD
-><BODY
-CLASS="CHAPTER"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x1415.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
-></TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x1455.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="CHAPTER"
-><H1
-><A
-NAME="CH-CONTAINERWIDGETS"
-></A
->Container Widgets</H1
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-EVENTBOX"
->The EventBox</A
-></H1
-><P
->Some GTK widgets don't have associated X windows, so they just draw on
+
+<html><head><title>Container Widgets</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="PREVIOUS" title="File Selections" href="x1415.html"/><link rel="NEXT" title="The Alignment widget" href="x1455.html"/></head><body class="CHAPTER" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x1415.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom"></td><td width="10%" align="right" valign="bottom"><a href="x1455.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="CHAPTER"><h1><a name="CH-CONTAINERWIDGETS"></a>Container Widgets</h1><div class="SECT1"><h1 class="SECT1"><a name="SEC-EVENTBOX">The EventBox</a></h1><p>Some GTK widgets don't have associated X windows, so they just draw on
 their parents. Because of this, they cannot receive events and if they
 are incorrectly sized, they don't clip so you can get messy
 overwriting, etc. If you require more from these widgets, the EventBox
-is for you.</P
-><P
->At first glance, the EventBox widget might appear to be totally
+is for you.</p><p>At first glance, the EventBox widget might appear to be totally
 useless. It draws nothing on the screen and responds to no
 events. However, it does serve a function - it provides an X window
 for its child widget. This is important as many GTK widgets do not
 have an associated X window. Not having an X window saves memory and
 improves performance, but also has some drawbacks. A widget without an
 X window cannot receive events, and does not perform any clipping on
-its contents. Although the name <I
-CLASS="EMPHASIS"
->EventBox</I
-> emphasizes the
+its contents. Although the name <i class="EMPHASIS">EventBox</i> emphasizes the
 event-handling function, the widget can also be used for clipping.
-(and more, see the example below).</P
-><P
->To create a new EventBox widget, use
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GBin.html#VALevent_box"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GBin.event_box</TT
-></A
->:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val GBin.event_box :
+(and more, see the example below).</p><p>To create a new EventBox widget, use
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GBin.html#VALevent_box" target="_top"><tt class="LITERAL">GBin.event_box</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GBin.event_box :
 	?border_width:int -&#62;
 	?width:int -&#62;
 	?height:int -&#62;
 	?packing:(GObj.widget -&#62; unit) -&#62;
-	?show:bool -&#62; unit -&#62; event_box</PRE
-></TD
-></TR
-></TABLE
-><P
->A child widget can then be added to this EventBox:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method add : GObj.widget -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The following example demonstrates both uses of an EventBox - a label
+	?show:bool -&#62; unit -&#62; event_box</pre></td></tr></table><p>A child widget can then be added to this EventBox:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method add : GObj.widget -&#62; unit</pre></td></tr></table><p>The following example demonstrates both uses of an EventBox - a label
 is created that is clipped to a small box, and set up so that a
 mouse-click on the label causes the program to exit. Resizing the
-window reveals varying amounts of the label.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/eventbox.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: event_box.ml *)
+window reveals varying amounts of the label.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/eventbox.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: event_box.ml *)
 
 let main () =
   (* Create a new window; set title and border width *)
@@ -191,70 +52,4 @@ let main () =
   window#show ();
   GMain.Main.main ()
 
-let _ = Printexc.print main ()</PRE
-></TD
-></TR
-></TABLE
-></DIV
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x1415.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x1455.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->File Selections</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
->&nbsp;</TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->The Alignment widget</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = Printexc.print main ()</pre></td></tr></table></div></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x1415.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x1455.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">File Selections</td><td width="34%" align="center" valign="top">&nbsp;</td><td width="33%" align="right" valign="top">The Alignment widget</td></tr></table></div></body></html>

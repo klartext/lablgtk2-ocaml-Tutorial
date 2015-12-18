@@ -1,108 +1,12 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Aspect Frames</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="UP"
-TITLE="Container Widgets"
-HREF="c1436.html"><LINK
-REL="PREVIOUS"
-TITLE="Frames"
-HREF="x1510.html"><LINK
-REL="NEXT"
-TITLE="Paned Window Widgets"
-HREF="x1558.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x1510.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
->Container Widgets</TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x1558.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-ASPECTFRAMES"
->Aspect Frames</A
-></H1
-><P
->The aspect frame widget is like a frame widget, except that it also
+
+<html><head><title>Aspect Frames</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="UP" title="Container Widgets" href="c1436.html"/><link rel="PREVIOUS" title="Frames" href="x1510.html"/><link rel="NEXT" title="Paned Window Widgets" href="x1558.html"/></head><body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x1510.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom">Container Widgets</td><td width="10%" align="right" valign="bottom"><a href="x1558.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="SECT1"><h1 class="SECT1"><a name="SEC-ASPECTFRAMES">Aspect Frames</a></h1><p>The aspect frame widget is like a frame widget, except that it also
 enforces the aspect ratio (that is, the ratio of the width to the
 height) of the child widget to have a certain value, adding extra
 space if necessary. This is useful, for instance, if you want to
 preview a larger image. The size of the preview should vary when the
 user resizes the window, but the aspect ratio needs to always match
-the original image.</P
-><P
->To create a new aspect frame use
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GBin.html#VALaspect_frame"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GBin.aspect_frame</TT
-></A
->:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val GBin.aspect_frame :
+the original image.</p><p>To create a new aspect frame use
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GBin.html#VALaspect_frame" target="_top"><tt class="LITERAL">GBin.aspect_frame</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GBin.aspect_frame :
 	?obey_child:bool -&#62;
 	?ratio:float -&#62;
 	?xalign:Gtk.clampf -&#62;
@@ -115,63 +19,15 @@ CLASS="PROGRAMLISTING"
 	?width:int -&#62;
 	?height:int -&#62;
 	?packing:(GObj.widget -&#62; unit) -&#62;
-	?show:bool -&#62; unit -&#62; aspect_frame</PRE
-></TD
-></TR
-></TABLE
-><P
-><TT
-CLASS="LITERAL"
->xalign</TT
-> and <TT
-CLASS="LITERAL"
->yalign</TT
-> specify alignment as with Alignment
-widgets. If <TT
-CLASS="LITERAL"
->obey_child</TT
-> is true, the aspect ratio of a child
+	?show:bool -&#62; unit -&#62; aspect_frame</pre></td></tr></table><p><tt class="LITERAL">xalign</tt> and <tt class="LITERAL">yalign</tt> specify alignment as with Alignment
+widgets. If <tt class="LITERAL">obey_child</tt> is true, the aspect ratio of a child
 widget will match the aspect ratio of the ideal size it requests.
-Otherwise, it is given by <TT
-CLASS="LITERAL"
->ratio</TT
->.</P
-><P
->To change the options of an existing aspect frame, you can use:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_xalign : float -&#62; unit
+Otherwise, it is given by <tt class="LITERAL">ratio</tt>.</p><p>To change the options of an existing aspect frame, you can use:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_xalign : float -&#62; unit
 method set_yalign : float -&#62; unit
 method set_ratio : float -&#62; unit
-method set_obey_child : bool -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->As an example, the following program uses an AspectFrame to present a
+method set_obey_child : bool -&#62; unit</pre></td></tr></table><p>As an example, the following program uses an AspectFrame to present a
 drawing area whose aspect ratio will always be 2:1, no matter how the
-user resizes the top-level window.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/aspectframe.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: aspectframe.ml *)
+user resizes the top-level window.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/aspectframe.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: aspectframe.ml *)
 
 let main () =
   (* Create a new window; set title and border width *)
@@ -199,73 +55,4 @@ let main () =
   window#show ();
   GMain.Main.main ()
 
-let _ = Printexc.print main ()</PRE
-></TD
-></TR
-></TABLE
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x1510.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x1558.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Frames</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="c1436.html"
-ACCESSKEY="U"
->Up</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Paned Window Widgets</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = Printexc.print main ()</pre></td></tr></table></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x1510.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x1558.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Frames</td><td width="34%" align="center" valign="top"><a href="c1436.html" accesskey="U">Up</a></td><td width="33%" align="right" valign="top">Paned Window Widgets</td></tr></table></div></body></html>

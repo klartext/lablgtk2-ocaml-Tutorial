@@ -1,271 +1,38 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Calendar</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="UP"
-TITLE="Miscellaneous Widgets"
-HREF="c953.html"><LINK
-REL="PREVIOUS"
-TITLE="Combo Box"
-HREF="x1278.html"><LINK
-REL="NEXT"
-TITLE="Color Selection"
-HREF="x1390.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x1278.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
->Miscellaneous Widgets</TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x1390.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-CALENDAR"
->Calendar</A
-></H1
-><P
->The Calendar widget is an effective way to display and retrieve
+
+<html><head><title>Calendar</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="UP" title="Miscellaneous Widgets" href="c953.html"/><link rel="PREVIOUS" title="Combo Box" href="x1278.html"/><link rel="NEXT" title="Color Selection" href="x1390.html"/></head><body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x1278.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom">Miscellaneous Widgets</td><td width="10%" align="right" valign="bottom"><a href="x1390.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="SECT1"><h1 class="SECT1"><a name="SEC-CALENDAR">Calendar</a></h1><p>The Calendar widget is an effective way to display and retrieve
 monthly date related information. It is a very simple widget to create
-and work with.</P
-><P
->Creating a GtkCalendar widget is a simple as: (see
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.html#VALcalendar"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GMisc.calendar</TT
-></A
->)</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val GMisc.calendar :
+and work with.</p><p>Creating a GtkCalendar widget is a simple as: (see
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.html#VALcalendar" target="_top"><tt class="LITERAL">GMisc.calendar</tt></a>)</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GMisc.calendar :
 	?options:Gtk.Tags.calendar_display_options list -&#62;
 	?packing:(GObj.widget -&#62; unit) -&#62;
-	?show:bool -&#62; unit -&#62; calendar</PRE
-></TD
-></TR
-></TABLE
-><P
->There might be times where you need to change a lot of information
+	?show:bool -&#62; unit -&#62; calendar</pre></td></tr></table><p>There might be times where you need to change a lot of information
 within this widget and the following functions allow you to make
 multiple change to a Calendar widget without the user seeing multiple
-on-screen updates.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method freeze : unit -&#62; unit
-method thaw : unit -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->They work just like the freeze/thaw functions of every other
-widget.</P
-><P
->The Calendar widget has a few options that allow you to change the way
-the widget both looks and operates by using the function</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method display_options : Gtk.Tags.calendar_display_options list -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The <TT
-CLASS="LITERAL"
->flags</TT
-> argument can be formed by combining either of the
-following five options:</P
-><P
-></P
-><DIV
-CLASS="VARIABLELIST"
-><DL
-><DT
-><TT
-CLASS="LITERAL"
->`SHOW_HEADING</TT
-></DT
-><DD
-><P
->this option specifies that the month and year should be shown 
-when drawing the calendar.</P
-></DD
-><DT
-><TT
-CLASS="LITERAL"
->`SHOW_DAY_NAMES</TT
-></DT
-><DD
-><P
->this option specifies that the three letter descriptions should 
-be displayed for each day (eg Mon,Tue, etc.).</P
-></DD
-><DT
-><TT
-CLASS="LITERAL"
->`NO_MONTH_CHANGE</TT
-></DT
-><DD
-><P
->this option states that the user
+on-screen updates.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method freeze : unit -&#62; unit
+method thaw : unit -&#62; unit</pre></td></tr></table><p>They work just like the freeze/thaw functions of every other
+widget.</p><p>The Calendar widget has a few options that allow you to change the way
+the widget both looks and operates by using the function</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method display_options : Gtk.Tags.calendar_display_options list -&#62; unit</pre></td></tr></table><p>The <tt class="LITERAL">flags</tt> argument can be formed by combining either of the
+following five options:</p><p></p><div class="VARIABLELIST"><dl><dt><tt class="LITERAL">`SHOW_HEADING</tt></dt><dd><p>this option specifies that the month and year should be shown 
+when drawing the calendar.</p></dd><dt><tt class="LITERAL">`SHOW_DAY_NAMES</tt></dt><dd><p>this option specifies that the three letter descriptions should 
+be displayed for each day (eg Mon,Tue, etc.).</p></dd><dt><tt class="LITERAL">`NO_MONTH_CHANGE</tt></dt><dd><p>this option states that the user
 should not and can not change the currently displayed month. This can
 be good if you only need to display a particular month such as if you
 are displaying 12 calendar widgets for every month in a particular
-year.</P
-></DD
-><DT
-><TT
-CLASS="LITERAL"
->`SHOW_WEEK_NUMBERS</TT
-></DT
-><DD
-><P
->this option specifies that the
+year.</p></dd><dt><tt class="LITERAL">`SHOW_WEEK_NUMBERS</tt></dt><dd><p>this option specifies that the
 number for each week should be displayed down the left side of the
-calendar. (eg. Jan 1 = Week 1,Dec 31 = Week 52).</P
-></DD
-><DT
-><TT
-CLASS="LITERAL"
->`WEEK_START_MONDAY</TT
-></DT
-><DD
-><P
->this option states that the
+calendar. (eg. Jan 1 = Week 1,Dec 31 = Week 52).</p></dd><dt><tt class="LITERAL">`WEEK_START_MONDAY</tt></dt><dd><p>this option states that the
 calander week will start on Monday instead of Sunday which is the
 default. This only affects the order in which days are displayed from
-left to right.</P
-></DD
-></DL
-></DIV
-><P
->The following functions are used to set the the currently displayed
-date:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method select_month : month:int -&#62; year:int -&#62; unit
-method select_day : int -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->With <TT
-CLASS="LITERAL"
->select_day()</TT
-> the specified day number is
+left to right.</p></dd></dl></div><p>The following functions are used to set the the currently displayed
+date:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method select_month : month:int -&#62; year:int -&#62; unit
+method select_day : int -&#62; unit</pre></td></tr></table><p>With <tt class="LITERAL">select_day()</tt> the specified day number is
 selected within the current month, if that is possible. A
-<TT
-CLASS="LITERAL"
->day</TT
-> value of 0 will deselect any current selection.</P
-><P
->In addition to having a day selected, any number of days in the month
+<tt class="LITERAL">day</tt> value of 0 will deselect any current selection.</p><p>In addition to having a day selected, any number of days in the month
 may be "marked". A marked day is highlighted within the calendar
 display. The following functions are provided to manipulate marked
-days:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method mark_day : int -&#62; unit
+days:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method mark_day : int -&#62; unit
 method unmark_day : int -&#62; unit
-method clear_marks : unit</PRE
-></TD
-></TR
-></TABLE
-><P
->For example:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->let calendar = GMisc.calendar in
+method clear_marks : unit</pre></td></tr></table><p>For example:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">let calendar = GMisc.calendar in
 
 ...
 
@@ -274,110 +41,12 @@ if calendar#mark_day 7 then (
     (* day is marked *)
 ) else (
     ...
-)</PRE
-></TD
-></TR
-></TABLE
-><P
->Note that marks are persistent across month and year changes.</P
-><P
->The final Calendar widget function is used to retrieve the currently
-selected date, month and/or year.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method date : int * int * int</PRE
-></TD
-></TR
-></TABLE
-><P
->The Calendar widget can generate a number of signals indicating date
+)</pre></td></tr></table><p>Note that marks are persistent across month and year changes.</p><p>The final Calendar widget function is used to retrieve the currently
+selected date, month and/or year.</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method date : int * int * int</pre></td></tr></table><p>The Calendar widget can generate a number of signals indicating date
 selection and change. The names of these signals are self explanatory,
 and are; see
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GMisc.calendar_signals.html"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GMisc.calendar_signals</TT
-></A
->:</P
-><P
-></P
-><UL
-><LI
-><P
-> <TT
-CLASS="LITERAL"
->month_changed</TT
-></P
-></LI
-><LI
-><P
-> <TT
-CLASS="LITERAL"
->day_selected</TT
-></P
-></LI
-><LI
-><P
-> <TT
-CLASS="LITERAL"
->day_selected_double_click</TT
-></P
-></LI
-><LI
-><P
-> <TT
-CLASS="LITERAL"
->prev_month</TT
-></P
-></LI
-><LI
-><P
-> <TT
-CLASS="LITERAL"
->next_month</TT
-></P
-></LI
-><LI
-><P
-> <TT
-CLASS="LITERAL"
->prev_year</TT
-></P
-></LI
-><LI
-><P
-> <TT
-CLASS="LITERAL"
->next_year</TT
-></P
-></LI
-></UL
-><P
->That just leaves us with the need to put all of this together into
-example code.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/calendar.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: calendar.ml *)
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.calendar_signals.html" target="_top"><tt class="LITERAL">GMisc.calendar_signals</tt></a>:</p><p></p><ul><li><p> <tt class="LITERAL">month_changed</tt></p></li><li><p> <tt class="LITERAL">day_selected</tt></p></li><li><p> <tt class="LITERAL">day_selected_double_click</tt></p></li><li><p> <tt class="LITERAL">prev_month</tt></p></li><li><p> <tt class="LITERAL">next_month</tt></p></li><li><p> <tt class="LITERAL">prev_year</tt></p></li><li><p> <tt class="LITERAL">next_year</tt></p></li></ul><p>That just leaves us with the need to put all of this together into
+example code.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/calendar.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: calendar.ml *)
 
 type signals =
   { mutable last_sig: GMisc.label;
@@ -507,73 +176,4 @@ let main () =
   (* Enter the event loop *)
   GMain.Main.main ()
 
-let _ = Printexc.print main ()</PRE
-></TD
-></TR
-></TABLE
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x1278.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x1390.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Combo Box</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="c953.html"
-ACCESSKEY="U"
->Up</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Color Selection</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = Printexc.print main ()</pre></td></tr></table></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x1278.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x1390.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Combo Box</td><td width="34%" align="center" valign="top"><a href="c953.html" accesskey="U">Up</a></td><td width="33%" align="right" valign="top">Color Selection</td></tr></table></div></body></html>

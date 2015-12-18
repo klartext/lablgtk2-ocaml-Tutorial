@@ -1,122 +1,19 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Spin Buttons</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="UP"
-TITLE="Miscellaneous Widgets"
-HREF="c953.html"><LINK
-REL="PREVIOUS"
-TITLE="Text Entries"
-HREF="x1155.html"><LINK
-REL="NEXT"
-TITLE="Combo Box"
-HREF="x1278.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x1155.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
->Miscellaneous Widgets</TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x1278.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-SPINBUTTONS"
->Spin Buttons</A
-></H1
-><P
->The Spin Button widget is generally used to allow the user to select a
+
+<html><head><title>Spin Buttons</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="UP" title="Miscellaneous Widgets" href="c953.html"/><link rel="PREVIOUS" title="Text Entries" href="x1155.html"/><link rel="NEXT" title="Combo Box" href="x1278.html"/></head><body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x1155.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom">Miscellaneous Widgets</td><td width="10%" align="right" valign="bottom"><a href="x1278.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="SECT1"><h1 class="SECT1"><a name="SEC-SPINBUTTONS">Spin Buttons</a></h1><p>The Spin Button widget is generally used to allow the user to select a
 value from a range of numeric values. It consists of a text
 entry box with up and down arrow buttons attached to the
 side. Selecting one of the buttons causes the value to "spin" up and
 down the range of possible values. The entry box may also be edited
-directly to enter a specific value.</P
-><P
->The Spin Button allows the value to have zero or a number of decimal
+directly to enter a specific value.</p><p>The Spin Button allows the value to have zero or a number of decimal
 places and to be incremented/decremented in configurable steps. The
 action of holding down one of the buttons optionally results in an
 acceleration of change in the value according to how long it is
-depressed.</P
-><P
->The Spin Button uses an <A
-HREF="c766.html"
->Adjustment</A
->
+depressed.</p><p>The Spin Button uses an <a href="c766.html">Adjustment</a>
 object to hold information about the range of values that the spin
-button can take. This makes for a powerful Spin Button widget.</P
-><P
->Recall that an adjustment widget is created with the 
+button can take. This makes for a powerful Spin Button widget.</p><p>Recall that an adjustment widget is created with the 
 function
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GData.html#VALadjustment"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GData.adjustment</TT
-></A
->,
-which illustrates the information that it holds:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val GData.adjustment :
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GData.html#VALadjustment" target="_top"><tt class="LITERAL">GData.adjustment</tt></a>,
+which illustrates the information that it holds:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GData.adjustment :
 	?value:float -&#62;
 	?lower:float -&#62;
 	?upper:float -&#62;
@@ -128,88 +25,13 @@ lower : default value is 0.
 upper : default value is 100.
 step_incr : default value is 1.
 page_incr : default value is 10.
-page_size : default value is 10.</PRE
-></TD
-></TR
-></TABLE
-><P
->These attributes of an Adjustment are used by the Spin Button in the
-following way:</P
-><P
-></P
-><UL
-><LI
-><P
-> <TT
-CLASS="LITERAL"
->value</TT
->: initial value for the Spin Button</P
-></LI
-><LI
-><P
-> <TT
-CLASS="LITERAL"
->lower</TT
->: lower range value</P
-></LI
-><LI
-><P
-> <TT
-CLASS="LITERAL"
->upper</TT
->: upper range value</P
-></LI
-><LI
-><P
-> <TT
-CLASS="LITERAL"
->step_increment</TT
->: value to increment/decrement when pressing
-mouse button 1 on a button</P
-></LI
-><LI
-><P
-> <TT
-CLASS="LITERAL"
->page_increment</TT
->: value to increment/decrement when pressing
-mouse button 2 on a button</P
-></LI
-><LI
-><P
-> <TT
-CLASS="LITERAL"
->page_size</TT
->: unused</P
-></LI
-></UL
-><P
->Additionally, mouse button 3 can be used to jump directly to the
-<TT
-CLASS="LITERAL"
->upper</TT
-> or <TT
-CLASS="LITERAL"
->lower</TT
-> values when used to select one of the
+page_size : default value is 10.</pre></td></tr></table><p>These attributes of an Adjustment are used by the Spin Button in the
+following way:</p><p></p><ul><li><p> <tt class="LITERAL">value</tt>: initial value for the Spin Button</p></li><li><p> <tt class="LITERAL">lower</tt>: lower range value</p></li><li><p> <tt class="LITERAL">upper</tt>: upper range value</p></li><li><p> <tt class="LITERAL">step_increment</tt>: value to increment/decrement when pressing
+mouse button 1 on a button</p></li><li><p> <tt class="LITERAL">page_increment</tt>: value to increment/decrement when pressing
+mouse button 2 on a button</p></li><li><p> <tt class="LITERAL">page_size</tt>: unused</p></li></ul><p>Additionally, mouse button 3 can be used to jump directly to the
+<tt class="LITERAL">upper</tt> or <tt class="LITERAL">lower</tt> values when used to select one of the
 buttons. Lets look at how to create a Spin Button using
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GEdit.html#VALspin_button"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GEdit.spin_button</TT
-></A
->:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val GEdit.spin_button :
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GEdit.html#VALspin_button" target="_top"><tt class="LITERAL">GEdit.spin_button</tt></a>:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GEdit.spin_button :
 	?adjustment:GData.adjustment -&#62;
 	?rate:float -&#62;
 	?digits:int -&#62;
@@ -221,304 +43,49 @@ CLASS="PROGRAMLISTING"
 	?width:int -&#62;
 	?height:int -&#62;
 	?packing:(GObj.widget -&#62; unit) -&#62;
-	?show:bool -&#62; unit -&#62; spin_button</PRE
-></TD
-></TR
-></TABLE
-><P
->The <TT
-CLASS="LITERAL"
->rate</TT
-> argument take a value between 0.0 and 1.0 and
+	?show:bool -&#62; unit -&#62; spin_button</pre></td></tr></table><p>The <tt class="LITERAL">rate</tt> argument take a value between 0.0 and 1.0 and
 indicates the amount of acceleration that the Spin Button has. The
-<TT
-CLASS="LITERAL"
->digits</TT
-> argument specifies the number of decimal places to which
-the value will be displayed.</P
-><P
->A Spin Button can be reconfigured after creation using the following
-methods:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_adjustment : GData.adjustment -&#62; unit
+<tt class="LITERAL">digits</tt> argument specifies the number of decimal places to which
+the value will be displayed.</p><p>A Spin Button can be reconfigured after creation using the following
+methods:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_adjustment : GData.adjustment -&#62; unit
 method set_rate : float -&#62; unit
-method set_digits : int -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The adjustment can be retrieved using the following function:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method adjustment : GData.adjustment</PRE
-></TD
-></TR
-></TABLE
-><P
->The value that a Spin Button is currently displaying can be changed
-using the following function:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_value : float -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The current value of a Spin Button can be retrieved as either a
-floating point or integer value with the following functions:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method value : float
-method value_as_int : int</PRE
-></TD
-></TR
-></TABLE
-><P
->If you want to alter the value of a Spin Button relative to its current
-value, then the following function can be used:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method spin : Gtk.Tags.spin_type -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The argument can take one of the following values:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->  `STEP_FORWARD
+method set_digits : int -&#62; unit</pre></td></tr></table><p>The adjustment can be retrieved using the following function:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method adjustment : GData.adjustment</pre></td></tr></table><p>The value that a Spin Button is currently displaying can be changed
+using the following function:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_value : float -&#62; unit</pre></td></tr></table><p>The current value of a Spin Button can be retrieved as either a
+floating point or integer value with the following functions:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method value : float
+method value_as_int : int</pre></td></tr></table><p>If you want to alter the value of a Spin Button relative to its current
+value, then the following function can be used:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method spin : Gtk.Tags.spin_type -&#62; unit</pre></td></tr></table><p>The argument can take one of the following values:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">  `STEP_FORWARD
   `STEP_BACKWARD
   `PAGE_FORWARD
   `PAGE_BACKWARD
   `HOME
   `END
-  `USER_DEFINED of float</PRE
-></TD
-></TR
-></TABLE
-><P
->This function packs in quite a bit of functionality, which I will
+  `USER_DEFINED of float</pre></td></tr></table><p>This function packs in quite a bit of functionality, which I will
 attempt to clearly explain. Many of these settings use values from the
-Adjustment object that is associated with a Spin Button.</P
-><P
-><TT
-CLASS="LITERAL"
->`STEP_FORWARD</TT
-> and <TT
-CLASS="LITERAL"
->`STEP_BACKWARD</TT
-> change the
-value of the Spin Button by the amount specified by <TT
-CLASS="LITERAL"
->increment</TT
->,
-unless <TT
-CLASS="LITERAL"
->increment</TT
-> is equal to 0, in which case the value is
-changed by the value of <TT
-CLASS="LITERAL"
->step_increment</TT
-> in theAdjustment.</P
-><P
-><TT
-CLASS="LITERAL"
->`PAGE_FORWARD</TT
-> and <TT
-CLASS="LITERAL"
->`PAGE_BACKWARD</TT
-> simply
-alter the value of the Spin Button by <TT
-CLASS="LITERAL"
->increment</TT
->.</P
-><P
-><TT
-CLASS="LITERAL"
->`HOME</TT
-> sets the value of the Spin Button to the bottom of
-the Adjustments range.</P
-><P
-><TT
-CLASS="LITERAL"
->`END</TT
-> sets the value of the Spin Button to the top of the
-Adjustments range.</P
-><P
-><TT
-CLASS="LITERAL"
->`USER_DEFINED</TT
-> simply alters the value of the Spin Button
-by the specified amount.</P
-><P
->We move away from functions for setting and retreving the range attributes
+Adjustment object that is associated with a Spin Button.</p><p><tt class="LITERAL">`STEP_FORWARD</tt> and <tt class="LITERAL">`STEP_BACKWARD</tt> change the
+value of the Spin Button by the amount specified by <tt class="LITERAL">increment</tt>,
+unless <tt class="LITERAL">increment</tt> is equal to 0, in which case the value is
+changed by the value of <tt class="LITERAL">step_increment</tt> in theAdjustment.</p><p><tt class="LITERAL">`PAGE_FORWARD</tt> and <tt class="LITERAL">`PAGE_BACKWARD</tt> simply
+alter the value of the Spin Button by <tt class="LITERAL">increment</tt>.</p><p><tt class="LITERAL">`HOME</tt> sets the value of the Spin Button to the bottom of
+the Adjustments range.</p><p><tt class="LITERAL">`END</tt> sets the value of the Spin Button to the top of the
+Adjustments range.</p><p><tt class="LITERAL">`USER_DEFINED</tt> simply alters the value of the Spin Button
+by the specified amount.</p><p>We move away from functions for setting and retreving the range attributes
 of the Spin Button now, and move onto functions that effect the
-appearance and behaviour of the Spin Button widget itself.</P
-><P
->The first of these functions is used to constrain the text box of the
+appearance and behaviour of the Spin Button widget itself.</p><p>The first of these functions is used to constrain the text box of the
 Spin Button such that it may only contain a numeric value. This
 prevents a user from typing anything other than numeric values into
-the text box of a Spin Button:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_numeric : bool -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->You can set whether a Spin Button will wrap around between the upper
-and lower range values with the following function:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_wrap : bool -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->You can set a Spin Button to round the value to the nearest
-<TT
-CLASS="LITERAL"
->step_increment</TT
->, which is set within the Adjustment object used
+the text box of a Spin Button:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_numeric : bool -&#62; unit</pre></td></tr></table><p>You can set whether a Spin Button will wrap around between the upper
+and lower range values with the following function:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_wrap : bool -&#62; unit</pre></td></tr></table><p>You can set a Spin Button to round the value to the nearest
+<tt class="LITERAL">step_increment</tt>, which is set within the Adjustment object used
 with the Spin Button. This is accomplished with the following
-function:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_snap_to_ticks : bool -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The update policy of a Spin Button can be changed with the following
-function:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method set_update_policy : [ `ALWAYS | `IF_VALID ] -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
->The possible values of <TT
-CLASS="LITERAL"
->policy</TT
-> are either <TT
-CLASS="LITERAL"
->`ALWAYS</TT
-> or
-<TT
-CLASS="LITERAL"
->`IF_VALID</TT
->.</P
-><P
->These policies affect the behavior of a Spin Button when parsing
+function:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_snap_to_ticks : bool -&#62; unit</pre></td></tr></table><p>The update policy of a Spin Button can be changed with the following
+function:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method set_update_policy : [ `ALWAYS | `IF_VALID ] -&#62; unit</pre></td></tr></table><p>The possible values of <tt class="LITERAL">policy</tt> are either <tt class="LITERAL">`ALWAYS</tt> or
+<tt class="LITERAL">`IF_VALID</tt>.</p><p>These policies affect the behavior of a Spin Button when parsing
 inserted text and syncing its value with the values of the
-Adjustment.</P
-><P
->In the case of <TT
-CLASS="LITERAL"
->`IF_VALID</TT
-> the Spin Button only value
+Adjustment.</p><p>In the case of <tt class="LITERAL">`IF_VALID</tt> the Spin Button only value
 gets changed if the text input is a numeric value that is within the
 range specified by the Adjustment. Otherwise the text is reset to the
-current value.</P
-><P
->In case of <TT
-CLASS="LITERAL"
->`ALWAYS</TT
-> we ignore errors while converting
-text into a numeric value.</P
-><P
->Finally, you can explicitly request that a Spin Button update itself:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method update : unit</PRE
-></TD
-></TR
-></TABLE
-><P
->It's example time again.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/spinbutton.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: spinbutton.ml *)
+current value.</p><p>In case of <tt class="LITERAL">`ALWAYS</tt> we ignore errors while converting
+text into a numeric value.</p><p>Finally, you can explicitly request that a Spin Button update itself:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method update : unit</pre></td></tr></table><p>It's example time again.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/spinbutton.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: spinbutton.ml *)
 
 let toggle checkbutton f () = f checkbutton#active
 
@@ -598,73 +165,4 @@ let main () =
   (* Enter the event loop *)
   GMain.Main.main ()
 
-let _ = Printexc.print main ()</PRE
-></TD
-></TR
-></TABLE
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x1155.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x1278.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Text Entries</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="c953.html"
-ACCESSKEY="U"
->Up</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Combo Box</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = Printexc.print main ()</pre></td></tr></table></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x1155.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x1278.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Text Entries</td><td width="34%" align="center" valign="top"><a href="c953.html" accesskey="U">Up</a></td><td width="33%" align="right" valign="top">Combo Box</td></tr></table></div></body></html>

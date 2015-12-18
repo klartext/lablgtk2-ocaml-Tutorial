@@ -1,142 +1,18 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->The Button Widget</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="PREVIOUS"
-TITLE="Memory Management"
-HREF="x665.html"><LINK
-REL="NEXT"
-TITLE="Toggle Buttons"
-HREF="x708.html"></HEAD
-><BODY
-CLASS="CHAPTER"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x665.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
-></TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x708.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="CHAPTER"
-><H1
-><A
-NAME="CH-BUTTONWIDGET"
-></A
->The Button Widget</H1
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-NORMALBUTTONS"
->Normal Buttons</A
-></H1
-><P
->We've almost seen all there is to see of the button widget. It's
+
+<html><head><title>The Button Widget</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="PREVIOUS" title="Memory Management" href="x665.html"/><link rel="NEXT" title="Toggle Buttons" href="x708.html"/></head><body class="CHAPTER" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x665.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom"></td><td width="10%" align="right" valign="bottom"><a href="x708.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="CHAPTER"><h1><a name="CH-BUTTONWIDGET"></a>The Button Widget</h1><div class="SECT1"><h1 class="SECT1"><a name="SEC-NORMALBUTTONS">Normal Buttons</a></h1><p>We've almost seen all there is to see of the button widget. It's
 pretty simple. There is however more than one way to create a button. You can
 use the
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GButton.html#VALbutton"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GButton.button</TT
-></A
->
-function with <TT
-CLASS="LITERAL"
->~label</TT
-> or <TT
-CLASS="LITERAL"
->~mnemonic</TT
-> option to create 
-a button with a label, use <TT
-CLASS="LITERAL"
->~stock</TT
-> option to create a button
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GButton.html#VALbutton" target="_top"><tt class="LITERAL">GButton.button</tt></a>
+function with <tt class="LITERAL">~label</tt> or <tt class="LITERAL">~mnemonic</tt> option to create 
+a button with a label, use <tt class="LITERAL">~stock</tt> option to create a button
 containing the image and text from a stock item or use it without these options to
 create a blank button. It's then up to you to pack a label or pixmap into 
 this new button. To do this, create a new box which is packed into button
-using <TT
-CLASS="LITERAL"
->#add</TT
-> method, and then pack your objects into 
-this box using the usual <TT
-CLASS="LITERAL"
->#pack</TT
-> method.</P
-><P
->Here's an example of using <TT
-CLASS="LITERAL"
->GButton.button</TT
-> to create a button with a
+using <tt class="LITERAL">#add</tt> method, and then pack your objects into 
+this box using the usual <tt class="LITERAL">#pack</tt> method.</p><p>Here's an example of using <tt class="LITERAL">GButton.button</tt> to create a button with a
 image and a label in it. I've broken up the code to create a box from the rest 
 so you can use it in your programs. There are further examples of using images 
-later in the tutorial.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/buttons.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: button.ml *)
+later in the tutorial.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/buttons.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: button.ml *)
 
 open GMain
 
@@ -177,125 +53,9 @@ let main () =
   window#show ();
   Main.main ()
 
-let _ = main ()</PRE
-></TD
-></TR
-></TABLE
-><P
->The xpm_label_box() function could be used to pack images and labels into
-any widget that can be a container.</P
-><P
->The Button widget has the following signals; see
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GButton.button_signals.html"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GButton.button_signals</TT
-></A
->:</P
-><P
-></P
-><UL
-><LI
-><P
-><TT
-CLASS="LITERAL"
->pressed</TT
-> - emitted when pointer button is pressed within
-Button widget</P
-></LI
-><LI
-><P
-><TT
-CLASS="LITERAL"
->released</TT
-> - emitted when pointer button is released within
-Button widget</P
-></LI
-><LI
-><P
-><TT
-CLASS="LITERAL"
->clicked</TT
-> - emitted when pointer button is pressed and then
-released within Button widget</P
-></LI
-><LI
-><P
-><TT
-CLASS="LITERAL"
->enter</TT
-> - emitted when pointer enters Button widget</P
-></LI
-><LI
-><P
-><TT
-CLASS="LITERAL"
->leave</TT
-> - emitted when pointer leaves Button widget</P
-></LI
-></UL
-></DIV
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x665.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x708.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Memory Management</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
->&nbsp;</TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Toggle Buttons</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = main ()</pre></td></tr></table><p>The xpm_label_box() function could be used to pack images and labels into
+any widget that can be a container.</p><p>The Button widget has the following signals; see
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GButton.button_signals.html" target="_top"><tt class="LITERAL">GButton.button_signals</tt></a>:</p><p></p><ul><li><p><tt class="LITERAL">pressed</tt> - emitted when pointer button is pressed within
+Button widget</p></li><li><p><tt class="LITERAL">released</tt> - emitted when pointer button is released within
+Button widget</p></li><li><p><tt class="LITERAL">clicked</tt> - emitted when pointer button is pressed and then
+released within Button widget</p></li><li><p><tt class="LITERAL">enter</tt> - emitted when pointer enters Button widget</p></li><li><p><tt class="LITERAL">leave</tt> - emitted when pointer leaves Button widget</p></li></ul></div></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x665.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x708.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Memory Management</td><td width="34%" align="center" valign="top">&nbsp;</td><td width="33%" align="right" valign="top">Toggle Buttons</td></tr></table></div></body></html>

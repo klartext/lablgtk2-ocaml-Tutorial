@@ -1,143 +1,20 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<HTML
-><HEAD
-><TITLE
->Paned Window Widgets</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE="GTK+ 2.0 Tutorial using Ocaml"
-HREF="book1.html"><LINK
-REL="UP"
-TITLE="Container Widgets"
-HREF="c1436.html"><LINK
-REL="PREVIOUS"
-TITLE="Aspect Frames"
-HREF="x1538.html"><LINK
-REL="NEXT"
-TITLE="Viewports"
-HREF="x1577.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->GTK+ 2.0 Tutorial using Ocaml</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="x1538.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
->Container Widgets</TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="x1577.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="SEC-PANEDWINDOWWIDGETS"
->Paned Window Widgets</A
-></H1
-><P
->The paned window widgets are useful when you want to divide an area
+
+<html><head><title>Paned Window Widgets</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"/><link rel="HOME" title="GTK+ 2.0 Tutorial using Ocaml" href="book1.html"/><link rel="UP" title="Container Widgets" href="c1436.html"/><link rel="PREVIOUS" title="Aspect Frames" href="x1538.html"/><link rel="NEXT" title="Viewports" href="x1577.html"/></head><body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><th colspan="3" align="center">GTK+ 2.0 Tutorial using Ocaml</th></tr><tr><td width="10%" align="left" valign="bottom"><a href="x1538.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="80%" align="center" valign="bottom">Container Widgets</td><td width="10%" align="right" valign="bottom"><a href="x1577.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr></table><hr align="LEFT" width="100%"/></div><div class="SECT1"><h1 class="SECT1"><a name="SEC-PANEDWINDOWWIDGETS">Paned Window Widgets</a></h1><p>The paned window widgets are useful when you want to divide an area
 into two parts, with the relative size of the two parts controlled by
 the user. A groove is drawn between the two portions with a handle
 that the user can drag to change the ratio. The division can either be
-horizontal (`HORIZONTAL) or vertical (`VERTICAL).</P
-><P
->To create a new paned window, call 
-<A
-HREF="http://compiler.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk-2.4.0/doc/html/GPack.html#VALpaned"
-TARGET="_top"
-><TT
-CLASS="LITERAL"
->GPack.paned</TT
-></A
-> with orientation(`HORIZONTAL or `VERTICAL):</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->val GPack.paned :
+horizontal (`HORIZONTAL) or vertical (`VERTICAL).</p><p>To create a new paned window, call 
+<a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.html#VALpaned" target="_top"><tt class="LITERAL">GPack.paned</tt></a> with orientation(`HORIZONTAL or `VERTICAL):</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">val GPack.paned :
 	Gtk.Tags.orientation -&#62;
 	?border_width:int -&#62;
 	?width:int -&#62;
 	?height:int -&#62;
 	?packing:(GObj.widget -&#62; unit) -&#62;
-	?show:bool -&#62; unit -&#62; paned</PRE
-></TD
-></TR
-></TABLE
-><P
->After creating the paned window widget, you need to add child widgets
-to its two halves. To do this, use the functions:</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->method add1 : GObj.widget -&#62; unit
-method add2 : GObj.widget -&#62; unit</PRE
-></TD
-></TR
-></TABLE
-><P
-><TT
-CLASS="LITERAL"
->add1</TT
-> method adds the child widget to the left or top half of
-the paned window. <TT
-CLASS="LITERAL"
->add2</TT
-> method adds the child widget to the
-right or bottom half of the paned window.</P
-><P
->As an example, we will create part of the user interface of an
+	?show:bool -&#62; unit -&#62; paned</pre></td></tr></table><p>After creating the paned window widget, you need to add child widgets
+to its two halves. To do this, use the functions:</p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">method add1 : GObj.widget -&#62; unit
+method add2 : GObj.widget -&#62; unit</pre></td></tr></table><p><tt class="LITERAL">add1</tt> method adds the child widget to the left or top half of
+the paned window. <tt class="LITERAL">add2</tt> method adds the child widget to the
+right or bottom half of the paned window.</p><p>As an example, we will create part of the user interface of an
 imaginary email program. A window is divided into two portions
 vertically, with the top portion being a list of email messages and
 the bottom portion the text of the email message. Most of the program
@@ -145,29 +22,11 @@ is pretty straightforward. A couple of points to note: text can't be
 added to a Text widget until it is realized. This could be done by
 calling #misc#realize method, but as a demonstration of an
 alternate technique, we connect a handler to the "realize" signal to
-add the text. Also, we need to add the <TT
-CLASS="LITERAL"
->GTK_SHRINK</TT
-> option to some
+add the text. Also, we need to add the <tt class="LITERAL">GTK_SHRINK</tt> option to some
 of the items in the table containing the text window and its
 scrollbars, so that when the bottom portion is made smaller, the
 correct portions shrink instead of being pushed off the bottom of the
-window.</P
-><P
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
-><IMG
-SRC="images/paned.png"></SPAN
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="PROGRAMLISTING"
->(* file: paned.ml *)
+window.</p><p><span class="INLINEMEDIAOBJECT"><img src="images/paned.png"/></span></p><table border="0" bgcolor="#E0E0E0" width="100%"><tr><td><pre class="PROGRAMLISTING">(* file: paned.ml *)
 
 let cols = new GTree.column_list
 let str_col = cols#add Gobject.Data.string
@@ -237,73 +96,4 @@ let main () =
   window#show ();
   GMain.Main.main ()
 
-let _ = Printexc.print main ()</PRE
-></TD
-></TR
-></TABLE
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="x1538.html"
-ACCESSKEY="P"
->&#60;&#60;&#60; Previous</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="book1.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="x1577.html"
-ACCESSKEY="N"
->Next &#62;&#62;&#62;</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Aspect Frames</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="c1436.html"
-ACCESSKEY="U"
->Up</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Viewports</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+let _ = Printexc.print main ()</pre></td></tr></table></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"/><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="33%" align="left" valign="top"><a href="x1538.html" accesskey="P">&#60;&#60;&#60; Previous</a></td><td width="34%" align="center" valign="top"><a href="book1.html" accesskey="H">Home</a></td><td width="33%" align="right" valign="top"><a href="x1577.html" accesskey="N">Next &#62;&#62;&#62;</a></td></tr><tr><td width="33%" align="left" valign="top">Aspect Frames</td><td width="34%" align="center" valign="top"><a href="c1436.html" accesskey="U">Up</a></td><td width="33%" align="right" valign="top">Viewports</td></tr></table></div></body></html>
