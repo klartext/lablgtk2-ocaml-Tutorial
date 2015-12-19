@@ -1,0 +1,93 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1455.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Container Widgets</td>
+<td align="left"><a href="x1496.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Fixed Container</h1>
+<p>The Fixed container allows you to place widgets at a fixed position within it's window, relative to it's upper left hand corner. The position of the widgets can be changed dynamically.</p>
+<p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.html#VALfixed"><code class="LITERAL">GPack.fixed</code></a> is the function associated with the fixed widget:</p>
+<pre class="PROGRAMLISTING"><code>val GPack.fixed :
+    ?has_window:bool -&gt;
+    ?border_width:int -&gt;
+    ?width:int -&gt;
+    ?height:int -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; fixed
+
+method put : GObj.widget -&gt; x:int -&gt; y:int -&gt; unit
+method move : GObj.widget -&gt; x:int -&gt; y:int -&gt; unit</code></pre>
+<p>The function GPack.fixed allows you to create a new Fixed container.</p>
+<p>put method places <code class="LITERAL">widget</code> in the container <code class="LITERAL">fixed</code> at the position specified by <code class="LITERAL">x</code> and <code class="LITERAL">y</code>.</p>
+<p>move method allows the specified widget to be moved to a new position.</p>
+<pre class="PROGRAMLISTING"><code>method set_has_window : bool -&gt; unit
+method has_window : bool</code></pre>
+<p>Normally, Fixed widgets don't have their own X window. Since this is different from the behaviour of Fixed widgets in earlier releases of GTK, the set_has_window method allows the creation of Fixed widgets <em>with</em> their own window. It has to be called before realizing the widget.</p>
+<p>The following example illustrates how to use the Fixed Container.</p>
+<p><img src="images/fixed.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: fixed.ml *)
+
+(* Global variables to store the position of the widget
+ * within the fixed container *)
+let rx = ref 50
+let ry = ref 50
+
+(* This callback function moves the button to a new position
+ * in the Fixed container. *)
+let move_button but fixed () =
+  rx := (!rx + 30) mod 300;
+  ry := (!ry + 50) mod 300;
+  fixed#move but#coerce ~x:!rx ~y:!ry
+
+let main () =
+  (* Create a new window; set title and border width *)
+  let window = GWindow.window ~title:&quot;Fixed Container&quot; ~border_width:10 () in
+
+  (* Here we connect the &quot;destroy&quot; event to a signal handler *)
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  (* Create a Fixed Container *)
+  let fixed = GPack.fixed ~packing:window#add () in
+
+  for i = 1 to 3 do
+    (* Creates a new button with the label &quot;Press me&quot;
+     * and packs the button into the fixed containers window. *)
+    let button = GButton.button ~label:&quot;Press me&quot;
+      ~packing:(fixed#put ~x:(i*50) ~y:(i*50)) ()
+    in
+
+    (* When the button receives the &quot;clicked&quot; signal, it will call the
+     * function move_button passing it the Fixed Container as its
+     * argument. *)
+    button#connect#clicked ~callback:(move_button button fixed)
+  done;
+
+  (* Display the window and enter the event loop *)
+  window#show ();
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1455.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1496.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">The Alignment widget</td>
+<td align="left"><a href="c1436.html">Up</a></td>
+<td align="left">Layout Container</td>
+</tr>
+</tbody>
+</table>

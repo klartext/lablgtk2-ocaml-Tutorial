@@ -1,0 +1,84 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1510.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Container Widgets</td>
+<td align="left"><a href="x1558.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Aspect Frames</h1>
+<p>The aspect frame widget is like a frame widget, except that it also enforces the aspect ratio (that is, the ratio of the width to the height) of the child widget to have a certain value, adding extra space if necessary. This is useful, for instance, if you want to preview a larger image. The size of the preview should vary when the user resizes the window, but the aspect ratio needs to always match the original image.</p>
+<p>To create a new aspect frame use <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GBin.html#VALaspect_frame"><code class="LITERAL">GBin.aspect_frame</code></a>:</p>
+<pre class="PROGRAMLISTING"><code>val GBin.aspect_frame :
+    ?obey_child:bool -&gt;
+    ?ratio:float -&gt;
+    ?xalign:Gtk.clampf -&gt;
+    ?yalign:Gtk.clampf -&gt;
+    ?label:string -&gt;
+    ?label_xalign:Gtk.clampf -&gt;
+    ?label_yalign:Gtk.clampf -&gt;
+    ?shadow_type:Gtk.Tags.shadow_type -&gt;
+    ?border_width:int -&gt;
+    ?width:int -&gt;
+    ?height:int -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; aspect_frame</code></pre>
+<p><code class="LITERAL">xalign</code> and <code class="LITERAL">yalign</code> specify alignment as with Alignment widgets. If <code class="LITERAL">obey_child</code> is true, the aspect ratio of a child widget will match the aspect ratio of the ideal size it requests. Otherwise, it is given by <code class="LITERAL">ratio</code>.</p>
+<p>To change the options of an existing aspect frame, you can use:</p>
+<pre class="PROGRAMLISTING"><code>method set_xalign : float -&gt; unit
+method set_yalign : float -&gt; unit
+method set_ratio : float -&gt; unit
+method set_obey_child : bool -&gt; unit</code></pre>
+<p>As an example, the following program uses an AspectFrame to present a drawing area whose aspect ratio will always be 2:1, no matter how the user resizes the top-level window.</p>
+<p><img src="images/aspectframe.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: aspectframe.ml *)
+
+let main () =
+  (* Create a new window; set title and border width *)
+  let window = GWindow.window ~title:&quot;Aspect Frame&quot; ~border_width:10 () in
+
+  (* Here we connect the &quot;destroy&quot; event to a signal handler *)
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  (* Create a Frame
+   * Set the frame&#39;s label
+   * Align the label at the right of the frame
+   * Set the style of the frame *)
+  let aspect_frame = GBin.aspect_frame ~label:&quot;2x1&quot;
+    ~xalign:0.5 (* center x *)
+    ~yalign:0.5 (* center y *)
+    ~ratio:2.0  (* xsize/ysize = 2.0 *)
+    ~obey_child:false (* ignore child&#39;s aspect *)
+    ~packing:window#add () in
+
+  (* Now add a child widget to the aspect frame *)
+  (* Ask for a 200x200 widnow, but the AspectFrame will give us a 200x100
+   * window since we are forcing a 2x1 aspect ratio *)
+  let drawing_area = GMisc.drawing_area ~width:200 ~height:200 ~packing:aspect_frame#add () in
+
+  window#show ();
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1510.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1558.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Frames</td>
+<td align="left"><a href="c1436.html">Up</a></td>
+<td align="left">Paned Window Widgets</td>
+</tr>
+</tbody>
+</table>

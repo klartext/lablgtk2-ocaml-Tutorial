@@ -1,0 +1,198 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1155.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Miscellaneous Widgets</td>
+<td align="left"><a href="x1278.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Spin Buttons</h1>
+<p>The Spin Button widget is generally used to allow the user to select a value from a range of numeric values. It consists of a text entry box with up and down arrow buttons attached to the side. Selecting one of the buttons causes the value to &quot;spin&quot; up and down the range of possible values. The entry box may also be edited directly to enter a specific value.</p>
+<p>The Spin Button allows the value to have zero or a number of decimal places and to be incremented/decremented in configurable steps. The action of holding down one of the buttons optionally results in an acceleration of change in the value according to how long it is depressed.</p>
+<p>The Spin Button uses an <a href="c766.html">Adjustment</a> object to hold information about the range of values that the spin button can take. This makes for a powerful Spin Button widget.</p>
+<p>Recall that an adjustment widget is created with the function <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GData.html#VALadjustment"><code class="LITERAL">GData.adjustment</code></a>, which illustrates the information that it holds:</p>
+<pre class="PROGRAMLISTING"><code>val GData.adjustment :
+    ?value:float -&gt;
+    ?lower:float -&gt;
+    ?upper:float -&gt;
+    ?step_incr:float -&gt;
+    ?page_incr:float -&gt;
+    ?page_size:float -&gt; unit -&gt; adjustment
+
+lower : default value is 0.
+upper : default value is 100.
+step_incr : default value is 1.
+page_incr : default value is 10.
+page_size : default value is 10.</code></pre>
+<p>These attributes of an Adjustment are used by the Spin Button in the following way:</p>
+<p></p>
+<ul>
+<li><p><code class="LITERAL">value</code>: initial value for the Spin Button</p></li>
+<li><p><code class="LITERAL">lower</code>: lower range value</p></li>
+<li><p><code class="LITERAL">upper</code>: upper range value</p></li>
+<li><p><code class="LITERAL">step_increment</code>: value to increment/decrement when pressing mouse button 1 on a button</p></li>
+<li><p><code class="LITERAL">page_increment</code>: value to increment/decrement when pressing mouse button 2 on a button</p></li>
+<li><p><code class="LITERAL">page_size</code>: unused</p></li>
+</ul>
+<p>Additionally, mouse button 3 can be used to jump directly to the <code class="LITERAL">upper</code> or <code class="LITERAL">lower</code> values when used to select one of the buttons. Lets look at how to create a Spin Button using <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GEdit.html#VALspin_button"><code class="LITERAL">GEdit.spin_button</code></a>:</p>
+<pre class="PROGRAMLISTING"><code>val GEdit.spin_button :
+    ?adjustment:GData.adjustment -&gt;
+    ?rate:float -&gt;
+    ?digits:int -&gt;
+    ?numeric:bool -&gt;
+    ?snap_to_ticks:bool -&gt;
+    ?update_policy:[ `ALWAYS | `IF_VALID ] -&gt;
+    ?value:float -&gt;
+    ?wrap:bool -&gt;
+    ?width:int -&gt;
+    ?height:int -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; spin_button</code></pre>
+<p>The <code class="LITERAL">rate</code> argument take a value between 0.0 and 1.0 and indicates the amount of acceleration that the Spin Button has. The <code class="LITERAL">digits</code> argument specifies the number of decimal places to which the value will be displayed.</p>
+<p>A Spin Button can be reconfigured after creation using the following methods:</p>
+<pre class="PROGRAMLISTING"><code>method set_adjustment : GData.adjustment -&gt; unit
+method set_rate : float -&gt; unit
+method set_digits : int -&gt; unit</code></pre>
+<p>The adjustment can be retrieved using the following function:</p>
+<pre class="PROGRAMLISTING"><code>method adjustment : GData.adjustment</code></pre>
+<p>The value that a Spin Button is currently displaying can be changed using the following function:</p>
+<pre class="PROGRAMLISTING"><code>method set_value : float -&gt; unit</code></pre>
+<p>The current value of a Spin Button can be retrieved as either a floating point or integer value with the following functions:</p>
+<pre class="PROGRAMLISTING"><code>method value : float
+method value_as_int : int</code></pre>
+<p>If you want to alter the value of a Spin Button relative to its current value, then the following function can be used:</p>
+<pre class="PROGRAMLISTING"><code>method spin : Gtk.Tags.spin_type -&gt; unit</code></pre>
+<p>The argument can take one of the following values:</p>
+<pre class="PROGRAMLISTING"><code>  `STEP_FORWARD
+  `STEP_BACKWARD
+  `PAGE_FORWARD
+  `PAGE_BACKWARD
+  `HOME
+  `END
+  `USER_DEFINED of float</code></pre>
+<p>This function packs in quite a bit of functionality, which I will attempt to clearly explain. Many of these settings use values from the Adjustment object that is associated with a Spin Button.</p>
+<p><code class="LITERAL">`STEP_FORWARD</code> and <code class="LITERAL">`STEP_BACKWARD</code> change the value of the Spin Button by the amount specified by <code class="LITERAL">increment</code>, unless <code class="LITERAL">increment</code> is equal to 0, in which case the value is changed by the value of <code class="LITERAL">step_increment</code> in theAdjustment.</p>
+<p><code class="LITERAL">`PAGE_FORWARD</code> and <code class="LITERAL">`PAGE_BACKWARD</code> simply alter the value of the Spin Button by <code class="LITERAL">increment</code>.</p>
+<p><code class="LITERAL">`HOME</code> sets the value of the Spin Button to the bottom of the Adjustments range.</p>
+<p><code class="LITERAL">`END</code> sets the value of the Spin Button to the top of the Adjustments range.</p>
+<p><code class="LITERAL">`USER_DEFINED</code> simply alters the value of the Spin Button by the specified amount.</p>
+<p>We move away from functions for setting and retreving the range attributes of the Spin Button now, and move onto functions that effect the appearance and behaviour of the Spin Button widget itself.</p>
+<p>The first of these functions is used to constrain the text box of the Spin Button such that it may only contain a numeric value. This prevents a user from typing anything other than numeric values into the text box of a Spin Button:</p>
+<pre class="PROGRAMLISTING"><code>method set_numeric : bool -&gt; unit</code></pre>
+<p>You can set whether a Spin Button will wrap around between the upper and lower range values with the following function:</p>
+<pre class="PROGRAMLISTING"><code>method set_wrap : bool -&gt; unit</code></pre>
+<p>You can set a Spin Button to round the value to the nearest <code class="LITERAL">step_increment</code>, which is set within the Adjustment object used with the Spin Button. This is accomplished with the following function:</p>
+<pre class="PROGRAMLISTING"><code>method set_snap_to_ticks : bool -&gt; unit</code></pre>
+<p>The update policy of a Spin Button can be changed with the following function:</p>
+<pre class="PROGRAMLISTING"><code>method set_update_policy : [ `ALWAYS | `IF_VALID ] -&gt; unit</code></pre>
+<p>The possible values of <code class="LITERAL">policy</code> are either <code class="LITERAL">`ALWAYS</code> or <code class="LITERAL">`IF_VALID</code>.</p>
+<p>These policies affect the behavior of a Spin Button when parsing inserted text and syncing its value with the values of the Adjustment.</p>
+<p>In the case of <code class="LITERAL">`IF_VALID</code> the Spin Button only value gets changed if the text input is a numeric value that is within the range specified by the Adjustment. Otherwise the text is reset to the current value.</p>
+<p>In case of <code class="LITERAL">`ALWAYS</code> we ignore errors while converting text into a numeric value.</p>
+<p>Finally, you can explicitly request that a Spin Button update itself:</p>
+<pre class="PROGRAMLISTING"><code>method update : unit</code></pre>
+<p>It's example time again.</p>
+<p><img src="images/spinbutton.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: spinbutton.ml *)
+
+let toggle checkbutton f () = f checkbutton#active
+
+let get_value spinner label show_type () =
+  let text =
+    match show_type with
+    | `INT -&gt; Printf.sprintf &quot;%d&quot; spinner#value_as_int
+    | _ -&gt; Printf.sprintf &quot;%0.*f&quot; spinner#digits spinner#value
+  in
+  label#set_text text
+
+let main () =
+  (* Create a new window; set title and border width *)
+  let window = GWindow.window ~title:&quot;Spin Button&quot; ~border_width:10 () in
+
+  (* Set a handler for destroy event that immediately exits GTK. *)
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  let main_vbox = GPack.vbox ~border_width:10 ~packing:window#add () in
+
+  let frame = GBin.frame ~label:&quot;Not accelerated&quot; ~packing:main_vbox#add () in
+  let vbox = GPack.vbox ~border_width:5 ~packing:frame#add () in
+
+  (* Day, month, year spinners *)
+  let hbox = GPack.hbox ~packing:vbox#add () in
+
+  let vbox2 = GPack.vbox ~packing:hbox#add () in
+  let label = GMisc.label ~text:&quot;Day :&quot; ~xalign:0.0 ~yalign:0.5 ~packing:vbox2#add () in
+  let adj = GData.adjustment ~value:1.0 ~lower:1.0 ~upper:31.0 ~step_incr:1.0 ~page_incr:5.0 ~page_size:0.0 () in
+  let spinner = GEdit.spin_button ~adjustment:adj ~rate:0.0 ~digits:0 ~wrap:true ~packing:vbox2#add () in
+
+  let vbox2 = GPack.vbox ~packing:hbox#add () in
+  let label = GMisc.label ~text:&quot;Month :&quot; ~xalign:0.0 ~yalign:0.5 ~packing:vbox2#add () in
+  let adj = GData.adjustment ~value:1.0 ~lower:1.0 ~upper:12.0 ~step_incr:1.0 ~page_incr:5.0 ~page_size:0.0 () in
+  let spinner = GEdit.spin_button ~adjustment:adj ~rate:0.0 ~digits:0 ~wrap:true ~packing:vbox2#add () in
+
+  let vbox2 = GPack.vbox ~packing:hbox#add () in
+  let label = GMisc.label ~text:&quot;Year :&quot; ~xalign:0.0 ~yalign:0.5 ~packing:vbox2#add () in
+  let adj = GData.adjustment ~value:1998.0 ~lower:0.0 ~upper:2100.0 ~step_incr:1.0 ~page_incr:100.0 ~page_size:0.0 () in
+  let spinner = GEdit.spin_button ~adjustment:adj ~rate:0.0 ~digits:0 ~wrap:false ~width:55 ~packing:vbox2#add () in
+
+  let frame = GBin.frame ~label:&quot;Accelerated&quot; ~packing:main_vbox#add () in
+  let vbox = GPack.vbox ~border_width:5 ~packing:frame#add () in
+
+  let hbox = GPack.hbox ~packing:vbox#add () in
+
+  let vbox2 = GPack.vbox ~packing:hbox#add () in
+  let label = GMisc.label ~text:&quot;Value :&quot; ~xalign:0.0 ~yalign:0.5 ~packing:vbox2#add () in
+  let adj = GData.adjustment ~value:0.0 ~lower:(-10000.0) ~upper:10000.0 ~step_incr:0.5 ~page_incr:100.0 ~page_size:0.0 () in
+  let spinner1 = GEdit.spin_button ~adjustment:adj ~rate:1.0 ~digits:2 ~width:100 ~packing:vbox2#add () in
+
+  let vbox2 = GPack.vbox ~packing:hbox#add () in
+  let label = GMisc.label ~text:&quot;Digits :&quot; ~xalign:0.0 ~yalign:0.5 ~packing:vbox2#add () in
+  let adj = GData.adjustment ~value:2.0 ~lower:1.0 ~upper:5.0 ~step_incr:1.0 ~page_incr:1.0 ~page_size:0.0 () in
+  let spinner2 = GEdit.spin_button ~adjustment:adj ~rate:0.0 ~digits:0 ~packing:vbox2#add () in
+  adj#connect#value_changed ~callback:(fun () -&gt; spinner1#set_digits spinner2#value_as_int);
+
+  let button = GButton.check_button ~label:&quot;Snap to 0.5-ticks&quot; ~packing:vbox#add () in
+  button#connect#clicked ~callback:(toggle button spinner1#set_snap_to_ticks);
+  let button = GButton.check_button ~label:&quot;Numeric only input mode&quot; ~active:true ~packing:vbox#add () in
+  button#connect#clicked ~callback:(toggle button spinner1#set_numeric);
+
+  let hbox = GPack.hbox ~packing:vbox#add () in
+  let val_label = GMisc.label ~text:&quot;0&quot; ~packing:vbox#add () in
+
+  let button = GButton.button ~label:&quot;Value as Int&quot; ~packing:hbox#add () in
+  button#connect#clicked ~callback:(get_value spinner1 val_label `INT);
+  let button = GButton.button ~label:&quot;Value as Float&quot; ~packing:hbox#add () in
+  button#connect#clicked ~callback:(get_value spinner1 val_label `FLOAT);
+
+  let hbox = GPack.hbox ~packing:main_vbox#add () in
+  let button = GButton.button ~label:&quot;Close&quot; ~packing:hbox#add () in
+  button#connect#clicked ~callback:window#destroy;
+
+  window#show ();
+
+  (* Enter the event loop *)
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1155.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1278.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Text Entries</td>
+<td align="left"><a href="c953.html">Up</a></td>
+<td align="left">Combo Box</td>
+</tr>
+</tbody>
+</table>

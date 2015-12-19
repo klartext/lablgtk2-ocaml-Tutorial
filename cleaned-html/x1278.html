@@ -1,0 +1,66 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1183.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Miscellaneous Widgets</td>
+<td align="left"><a href="x1307.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Combo Box</h1>
+<p>The combo box is another fairly simple widget that is really just a collection of other widgets. From the user's point of view, the widget consists of a text entry box and a pull down menu from which the user can select one of a set of predefined entries. Alternatively, the user can type a different option directly into the text box.</p>
+<p>The following extract child widgets from a Combo Box:</p>
+<pre class="PROGRAMLISTING"><code>method entry : entry
+method list : GList.liste</code></pre>
+<p>As you can see, the Combo Box has two principal parts that you really care about: an entry and a list.</p>
+<p>First off, to create a combo box, use <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GEdit.html#VALcombo"><code class="LITERAL">GEdit.combo</code></a>:</p>
+<pre class="PROGRAMLISTING"><code>val GEdit.combo :
+    ?popdown_strings:string list -&gt;
+    ?allow_empty:bool -&gt;
+    ?case_sensitive:bool -&gt;
+    ?enable_arrow_keys:bool -&gt;
+    ?value_in_list:bool -&gt;
+    ?border_width:int -&gt;
+    ?width:int -&gt;
+    ?height:int -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; combo</code></pre>
+<p>Now, if you want to set the string in the entry section of the combo box, this is done by manipulating the <code class="LITERAL">entry</code> widget directly:</p>
+<pre class="PROGRAMLISTING"><code>combo#entry#set_text &quot;My String&quot;;</code></pre>
+<p>To set the values in the popdown list, one uses the function:</p>
+<pre class="PROGRAMLISTING"><code>method set_popdown_strings : string list -&gt; unit</code></pre>
+<p>At this point you have a working combo box that has been set up. There are a few aspects of its behavior that you can change. These are accomplished with the functions:</p>
+<pre class="PROGRAMLISTING"><code>method set_enable_arrow_keys : bool -&gt; unit
+method set_case_sensitive : bool -&gt; unit</code></pre>
+<p>set_enable_arrow_keys method lets the user change the value in the entry using the up/down arrow keys. This doesn't bring up the list, but rather replaces the current text in the entry with the next list entry (up or down, as your key choice indicates). It does this by searching in the list for the item corresponding to the current value in the entry and selecting the previous/next item accordingly. Usually in an entry the arrow keys are used to change focus (you can do that anyway using TAB). Note that when the current item is the last of the list and you press arrow-down it changes the focus (the same applies with the first item and arrow-up).</p>
+<p>If the current value in the entry is not in the list, then the function of set_enable_arrow_keys is disabled.</p>
+<p>set_case_sensitive method toggles whether or not GTK searches for entries in a case sensitive manner. This is used when the Combo widget is asked to find a value from the list using the current entry in the text box. This completion can be performed in either a case sensitive or insensitive manner, depending upon the use of this function. The Combo widget can also simply complete the current entry if the user presses the key combination MOD-1 and &quot;Tab&quot;. MOD-1 is often mapped to the &quot;Alt&quot; key, by the <code class="LITERAL">xmodmap</code> utility. Note, however that some window managers also use this key combination, which will override its use within GTK.</p>
+<p>Now that we have a combo box, tailored to look and act how we want it, all that remains is being able to get data from the combo box. This is relatively straightforward. The majority of the time, all you are going to care about getting data from is the entry. The entry is accessed simply by <code class="LITERAL">combo#entry</code>. The two principal things that you are going to want to do with it are connect to the activate signal, which indicates that the user has pressed the Return or Enter key, and read the text. The first is accomplished using something like:</p>
+<pre class="PROGRAMLISTING"><code>combo#entry#connect#activate ~callback:my_callback;</code></pre>
+<p>Getting the text at any arbitrary time is accomplished by simply using the entry function such as:</p>
+<pre class="PROGRAMLISTING"><code>let text = combo#entry#text in
+...</code></pre>
+<p>That's about all there is to it. There is a function</p>
+<pre class="PROGRAMLISTING"><code>method disable_activate : unit -&gt; unit</code></pre>
+<p>that will disable the activate signal on the entry widget in the combo box. Personally, I can't think of why you'd want to use it, but it does exist.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1183.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1307.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Spin Buttons</td>
+<td align="left"><a href="c953.html">Up</a></td>
+<td align="left">Calendar</td>
+</tr>
+</tbody>
+</table>

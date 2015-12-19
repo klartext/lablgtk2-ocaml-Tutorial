@@ -1,0 +1,82 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x547.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Widget Overview</td>
+<td align="left"><a href="c655.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Structure of Widgets</h1>
+<p>The following modules provide classes to wrap the raw Gtk+ function calls. Here are the widget classes contained in each module:</p>
+<p></p>
+<ul>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPango.html"><code class="LITERAL">GPango</code></a>: Pango font handling</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/Gdk.html"><code class="LITERAL">Gdk</code></a>: pixmaps, etc...</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.html"><code class="LITERAL">GObj</code></a>: gtkobj, widget, style</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GData.html"><code class="LITERAL">GData</code></a>: data, adjustment, tooltips</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GContainer.html"><code class="LITERAL">GContainer</code></a>: container, item_container</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GWindow.html"><code class="LITERAL">GWindow</code></a>: window, dialog, color_selection_dialog, file_selection, plug</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.html"><code class="LITERAL">GPack</code></a>: box, button_box, table, fixed, layout, packer, paned, notebook</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GBin.html"><code class="LITERAL">GBin</code></a>: scrolled_window, event_box, handle_box, frame, aspect_frame, viewport, socket</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GButton.html"><code class="LITERAL">GButton</code></a>: button, toggle_button, check_button, radio_button, toolbar</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMenu.html"><code class="LITERAL">GMenu</code></a>: menu_item, tearoff_item, check_menu_item, radio_menu_item, menu_shell, menu, option_menu, menu_bar, factory</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.html"><code class="LITERAL">GMisc</code></a>: separator, statusbar, calendar, drawing_area, misc, arrow, image, pixmap, label, tips_query, color_selection, font_selection</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GTree.html"><code class="LITERAL">GTree</code></a>: tree_item, tree, view (also tree/list_store, model)</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GList.html"><code class="LITERAL">GList</code></a>: list_item, liste, clist</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GEdit.html"><code class="LITERAL">GEdit</code></a>: editable, entry, spin_button, combo</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GRange.html"><code class="LITERAL">GRange</code></a>: progress, progress_bar, range, scale, scrollbar</p></li>
+<li><p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GText.html"><code class="LITERAL">GText</code></a>: view (also buffer, iter, mark, tag, tagtable)</p></li>
+</ul>
+<p>Practically, each widget class is composed of:</p>
+<p></p>
+<ul>
+<li><p><code class="LITERAL">coerce</code> method, returning the object coerced to the type widget.</p></li>
+<li><p><code class="LITERAL">as_widget</code> method, returning the raw Gtk widget used for packing, etc...</p></li>
+<li><p><code class="LITERAL">destroy</code> method, sending the destroy signal to the object.</p></li>
+<li><p><code class="LITERAL">get_oid</code> method, the equivalent of Oo.id for Gtk objects.</p></li>
+<li><p><code class="LITERAL">connect</code> sub-object, allowing one to widget specific signals (this is what prevents width subtyping in subclasses.)</p></li>
+<li><p><code class="LITERAL">misc</code> sub-object, giving access to miscellanous functionality of the basic gtkwidget class, and a misc#connect sub-object.</p></li>
+<li><p><code class="LITERAL">event</code> sub-object, for Xevent related functions (only if the widget has an Xwindow), and an event#connect sub-object.</p></li>
+<li><p><code class="LITERAL">drag</code> sub-object, containing drag and drop functions, and a drag#connect sub-object.</p></li>
+<li><p>widget specific methods.</p></li>
+</ul>
+<p>Here is a diagram of the structure (- for methods, + for sub-objects)</p>
+<pre class="PROGRAMLISTING"><code>        - coerce : widget
+        - as_widget : Gtk.widget obj
+        - destroy : unit -&gt; unit
+        - get_oid : int
+        - ...
+        + connect : mywidget_signals
+        |   - after
+        |   - signal_name : callback:(... -&gt; ...) -&gt; GtkSignal.id
+        + misc : misc_ops
+        |   - show, hide, disconnect, ...
+        |   + connect : misc_signals
+        + drag : drag_ops
+        |   - ...
+        |   + connect : drag_signals
+        + event : event_ops
+        |   - add, ...
+        |   + connect : event_signals</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x547.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="c655.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Widgets Without Windows</td>
+<td align="left"><a href="c518.html">Up</a></td>
+<td align="left">Creating Widgets</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,224 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x400.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Packing Widgets</td>
+<td align="left"><a href="x459.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Packing Demonstration Program</h1>
+<pre class="PROGRAMLISTING"><code>(* file: packbox.ml *)
+
+(* Make a new hbox filled with button-labels. Arguments of the
+ * variables we&#39;re interested are passed in to this fuction.
+ * We do not show the box, butdo show everything inside. *)
+let make_box ~homogeneous ~spacing ~expand ~fill ~padding ?packing () =
+  (* Create a new hbox with the appropriate homogeneous
+   * and spacing settings *)
+  let box = GPack.box `HORIZONTAL ~homogeneous ~spacing ?packing () in
+
+  (* Create a series of buttons with the appropriate settings *)
+  let button = GButton.button ~label:&quot;box_pack&quot;
+    ~packing:(box#pack ~expand ~fill ~padding) () in
+
+  let button = GButton.button ~label:&quot;(box&quot;
+    ~packing:(box#pack ~expand ~fill ~padding) () in
+
+  let button = GButton.button ~label:&quot;button,&quot;
+    ~packing:(box#pack ~expand ~fill ~padding) () in
+
+  (* Create a button with the label depending on the value of
+   * expand. *)
+  let button = GButton.button ~label:(if expand then &quot;TRUE,&quot; else &quot;FALSE,&quot;)
+    ~packing:(box#pack ~expand ~fill ~padding) () in
+
+  (* This is the same as the button creation for &quot;expand&quot;. *)
+  let button = GButton.button ~label:(if fill then &quot;TRUE,&quot; else &quot;FALSE,&quot;)
+    ~packing:(box#pack ~expand ~fill ~padding) () in
+
+  let button = GButton.button ~label:(Printf.sprintf &quot;%d)&quot; padding)
+    ~packing:(box#pack ~expand ~fill ~padding) () in
+
+  box
+
+let main () =
+  if Array.length Sys.argv &lt; 2 then (
+    prerr_endline &quot;usage: packbox num, where num is 1, 2, or 3.&quot;;
+    exit 1
+  );
+  let which = int_of_string Sys.argv.(1) in
+
+  (* Create our window *)
+  let window = GWindow.window ~title:&quot;Packing&quot; ~border_width:10 () in
+
+  (* You should always rememeber to connect the destroy signal
+   * to the main window. This is very important for proper intutive
+   * behavior *)
+  window #connect#destroy ~callback:GMain.Main.quit;
+
+  let box1 = GPack.vbox ~packing:window#add () in
+
+  (* which example to show. These correspond to the pictures above. *)
+  begin
+  match which with
+  | 1 -&gt;
+      (* Create a new label. *)
+      let label = GMisc.label ~text:&quot;hbox_new (false, 0);&quot; () in
+
+      (* Align the label to the left side. We&#39;ll discuss this function and
+       * others in the section on Widget Attributes. *)
+      label#set_xalign 0.0;
+      label#set_yalign 0.0;
+
+      (* Pack the label into the vertical box (vobx box1). Remember that
+       * widget added to a vbox will be packed one on top of the otehr in
+       * order. *)
+      box1#pack ~expand:false ~fill:false ~padding:0 label#coerce;
+
+      (* Call our make box function *)
+      let box2 = make_box ~homogeneous:false ~spacing:0
+        ~expand:false ~fill:false ~padding:0 () in
+      box1#pack ~expand:false ~fill:false ~padding:0 box2#coerce;
+
+      (* Call our make box function *)
+      let box2 = make_box ~homogeneous:false ~spacing:0
+        ~expand:true ~fill:false ~padding:0 () in
+      box1#pack ~expand:false ~fill:false ~padding:0 box2#coerce;
+
+      (* Call our make box function *)
+      let box2 = make_box ~homogeneous:false ~spacing:0
+        ~expand:true ~fill:true ~padding:0 () in
+      box1#pack ~expand:false ~fill:false ~padding:0 box2#coerce;
+
+      (* Creates a separator, we&#39;ll learn more about these later,
+       * but they are quite simple. *)
+      let separator = GMisc.separator `HORIZONTAL () in
+      box1#pack ~expand:false ~fill:true ~padding:0 separator#coerce;
+
+      (* Create another new label, and show it. *)
+      let label = GMisc.label ~text:&quot;hbox_new (true, 0);&quot; () in
+      label#set_xalign 0.0;
+      label#set_yalign 0.0;
+      box1#pack ~expand:false ~fill:false ~padding:0 label#coerce;
+
+      let box2 = make_box ~homogeneous:true ~spacing:0
+        ~expand:true ~fill:false ~padding:0 () in
+      box1#pack ~expand:false ~fill:false ~padding:0 box2#coerce;
+
+      let box2 = make_box ~homogeneous:true ~spacing:0
+        ~expand:true ~fill:true ~padding:0 () in
+      box1#pack ~expand:false ~fill:false ~padding:0 box2#coerce;
+
+      (* Another new separator. *)
+      let separator = GMisc.separator `HORIZONTAL () in
+      box1#pack ~expand:false ~fill:true ~padding:5 separator#coerce;
+
+  | 2 -&gt;
+      (* Create a new label, remember box1 is a vbox as created
+       * near the beginning of main().
+       * You can give widget attributes on widget creation.
+       * See: ~xalign, ~yalign, ~packing *)
+      let label = GMisc.label ~text:&quot;hbox_new (false, 10);&quot;
+        ~xalign:0.0 ~yalign:0.0
+        ~packing:(box1#pack ~expand:false ~fill:false ~padding:0) () in
+
+      (* Packing is done in make_box () *)
+      make_box ~homogeneous:false ~spacing:10
+        ~expand:true ~fill:false ~padding:0
+        ~packing:(box1#pack ~expand:false ~fill:false ~padding:0) ();
+
+      (* Same: packing is done in make_box () *)
+      make_box ~homogeneous:false ~spacing:10
+        ~expand:true ~fill:true ~padding:0
+        ~packing:(box1#pack ~expand:false ~fill:false ~padding:0) ();
+
+      (* Packing is done in GMisc.separator () *)
+      GMisc.separator `HORIZONTAL
+        ~packing:(box1#pack ~expand:false ~fill:true ~padding:5) ();
+
+      (* Alignment and packing is done in GMisc.label () *)
+      GMisc.label ~text:&quot;hbox_new (false, 0);&quot;
+        ~xalign:0.0 ~yalign:0.0
+        ~packing:(box1#pack ~expand:false ~fill:false ~padding:0) ();
+
+      make_box ~homogeneous:false ~spacing:0
+        ~expand:true ~fill:false ~padding:10
+        ~packing:(box1#pack ~expand:false ~fill:false ~padding:0) ();
+
+      make_box ~homogeneous:false ~spacing:0
+        ~expand:true ~fill:true ~padding:10
+        ~packing:(box1#pack ~expand:false ~fill:false ~padding:0) ();
+
+      GMisc.separator `HORIZONTAL
+        ~packing:(box1#pack ~expand:false ~fill:true ~padding:5) ();
+
+      ()
+
+  | 3 -&gt;
+      (* This demonstrates the ability to use &quot;pack ~from:`END&quot; to
+       * right justify widgets. First, we create a new box as before. *)
+      let box2 = make_box ~homogeneous:false ~spacing:0
+        ~expand:false ~fill:false ~padding:0 () in
+
+      (* Create the label that will be put at the end.
+       * and pack it using &quot;pack ~from:`END&quot;, so it is put on the right
+       * side of the hbox created in the make_box () call. *)
+      let label = GMisc.label ~text:&quot;end&quot;
+        ~packing:(box2#pack ~from:`END ~expand:false ~fill:false ~padding:0) () in
+      (* Pack box2 into box1 (the vbox remember ? :) *)
+      box1#pack ~expand:false ~fill:false ~padding:0 box2#coerce;
+
+      (* A separator for the bottom.
+       * And pack the separator into the vbox (box1) created near the start
+       * of main () *)
+      let separator = GMisc.separator `HORIZONTAL
+        ~packing:(box1#pack ~expand:false ~fill:true ~padding:5) () in
+
+      (* This explicitly set the separstor to 400 pixels wide by 5 pixels
+       * high. This is so the hbox we created will also be 400 pixels wide,
+       * and the &quot;end&quot; label will be separated from the other labels in the
+       * hbox. Otherwise, all the widgets in the hbox would be packed as
+       * close together as possible. *)
+      separator#misc#set_size_request ~width:400 ~height:5 ()
+
+  | _ -&gt; ()
+  end;
+
+  (* Create another new hbox. remember we can use as many as we need! *)
+  let quitbox = GPack.hbox ~homogeneous:false ~spacing:0
+    ~packing:(box1#pack ~expand:false ~fill:false ~padding:0) () in
+
+  (* Our quit button. *)
+  let button = GButton.button ~label:&quot;Quit&quot;
+    ~packing:(box1#pack ~expand:false ~fill:false ~padding:0) () in
+  button#connect#clicked ~callback:GMain.Main.quit;
+
+  (* Showing the window last so everything pops up at once. *)
+  window#show ();
+
+  (* And of course, our main function. *)
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x400.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x459.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Details of Boxes</td>
+<td align="left"><a href="c383.html">Up</a></td>
+<td align="left">Packing Using Tables</td>
+</tr>
+</tbody>
+</table>

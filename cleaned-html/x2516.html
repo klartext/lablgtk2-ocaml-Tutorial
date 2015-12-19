@@ -1,0 +1,40 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2486.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">GTK Signals</td>
+<td align="left"><a href="x2527.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">GWindow</h1>
+<h2 class="SECT2">GWindow.dialog</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GContainer.container_signals
+method response : callback:(&#39;a -&gt; unit) -&gt; GtkSignal.id
+method close : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GWindow.file_chooser_dialog</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GWindow.dialog_signals
+    GFile.chooser_signals</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2486.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x2527.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">GButton</td>
+<td align="left"><a href="a2390.html">Up</a></td>
+<td align="left">GFile</td>
+</tr>
+</tbody>
+</table>

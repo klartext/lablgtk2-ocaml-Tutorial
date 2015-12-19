@@ -1,0 +1,94 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1390.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Miscellaneous Widgets</td>
+<td align="left"><a href="c1436.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">File Selections</h1>
+<p>The file selection widget is a quick and simple way to display a File dialog box. It comes complete with Ok, Cancel, and Help buttons, a great way to cut down on programming time.</p>
+<p>To create a new file selection box use <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GWindow.html#VALfile_selection"><code class="LITERAL">GWindow.file_selection</code></a>:</p>
+<pre class="PROGRAMLISTING"><code>val GWindow.file_selection :
+    ?title:string -&gt;
+    ?show_fileops:bool -&gt;
+    ?filename:string -&gt;
+    ?select_multiple:bool -&gt;
+    ?parent:#window_skel -&gt;
+    ?destroy_with_parent:bool -&gt;
+    ?allow_grow:bool -&gt;
+    ?allow_shrink:bool -&gt;
+    ?icon:GdkPixbuf.pixbuf -&gt;
+    ?modal:bool -&gt;
+    ?resizable:bool -&gt;
+    ?screen:Gdk.screen -&gt;
+    ?type_hint:Gdk.Tags.window_type_hint -&gt;
+    ?position:Gtk.Tags.window_position -&gt;
+    ?wm_name:string -&gt;
+    ?wm_class:string -&gt;
+    ?border_width:int -&gt;
+    ?width:int -&gt;
+    ?height:int -&gt;
+    ?show:bool -&gt; unit -&gt; file_selection</code></pre>
+<p>To set the filename, for example to bring up a specific directory, or give a default filename, use <code class="LITERAL">filename</code> argument or this function:</p>
+<pre class="PROGRAMLISTING"><code>method set_filename : string -&gt; unit</code></pre>
+<p>To grab the text that the user has entered or clicked on, use this function:</p>
+<pre class="PROGRAMLISTING"><code>method filename : string</code></pre>
+<p>There are also pointers to the widgets contained within the file selection widget. These are:</p>
+<pre class="PROGRAMLISTING"><code>method dir_list : string GList.clist
+method file_list : string GList.clist
+method get_selections : string list
+method ok_button : GButton.button
+method cancel_button : GButton.button
+method help_button : GButton.button</code></pre>
+<p>Most likely you will want to use the ok_button, cancel_button, and help_button methods in signaling their use.</p>
+<p>Included example is nothing much to creating a file selection widget. While in this example the Help button appears on the screen, it does nothing as there is not a signal attached to it.</p>
+<p><img src="images/filesel.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: filesel.ml *)
+
+(* Get the selected filename and print it to the console *)
+let file_ok_sel filew () =
+  print_endline filew#filename;
+  flush stdout
+
+let main () =
+  (* Create a new file selection widget; set default filename *)
+  let filew = GWindow.file_selection ~title:&quot;File selection&quot; ~border_width:10
+    ~filename:&quot;penguin.png&quot; () in
+
+  (* Set a handler for destroy event that immediately exits GTK. *)
+  filew#connect#destroy ~callback:GMain.Main.quit;
+
+  (* Connect the ok_button to file_ok_sel function *)
+  filew#ok_button#connect#clicked ~callback:(file_ok_sel filew);
+
+  (* Connect the cancel_button to destroy the widget *)
+  filew#cancel_button#connect#clicked ~callback:filew#destroy;
+
+  filew#show ();
+  (* Rest in main and wait for the fun to begin! *)
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1390.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="c1436.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Color Selection</td>
+<td align="left"><a href="c953.html">Up</a></td>
+<td align="left">Container Widgets</td>
+</tr>
+</tbody>
+</table>

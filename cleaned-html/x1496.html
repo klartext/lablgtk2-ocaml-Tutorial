@@ -1,0 +1,55 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1473.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Container Widgets</td>
+<td align="left"><a href="x1510.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Layout Container</h1>
+<p>The Layout container is similar to the Fixed container except that it implements an infinite (where infinity is less than 2^32) scrolling area. The X window system has a limitation where windows can be at most 32767 pixels wide or tall. The Layout container gets around this limitation by doing some exotic stuff using window and bit gravities, so that you can have smooth scrolling even when you have many child widgets in your scrolling area.</p>
+<p>A Layout container is created using <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.html#VALlayout"><code class="LITERAL">GPack.layout</code></a>:</p>
+<pre class="PROGRAMLISTING"><code>val GPack.layout :
+    ?hadjustment:GData.adjustment -&gt;
+    ?vadjustment:GData.adjustment -&gt;
+    ?layout_width:int -&gt;
+    ?layout_height:int -&gt;
+    ?border_width:int -&gt;
+    ?width:int -&gt;
+    ?height:int -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; layout</code></pre>
+<p>As you can see, you can optionally specify the Adjustment objects that the Layout widget will use for its scrolling.</p>
+<p>You can add and move widgets in the Layout container using the following two functions:</p>
+<pre class="PROGRAMLISTING"><code>method move : GObj.widget -&gt; x:int -&gt; y:int -&gt; unit
+method put : GObj.widget -&gt; x:int -&gt; y:int -&gt; unit</code></pre>
+<p>The size of the Layout container can be set using the next functions:</p>
+<pre class="PROGRAMLISTING"><code>method set_height : int -&gt; unit
+method set_width : int -&gt; unit</code></pre>
+<p>The final four functions for use with Layout widgets are for manipulating the horizontal and vertical adjustment widgets:</p>
+<pre class="PROGRAMLISTING"><code>method hadjustment : GData.adjustment
+method vadjustment : GData.adjustment
+method set_hadjustment : GData.adjustment -&gt; unit
+method set_vadjustment : GData.adjustment -&gt; unit</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1473.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1510.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Fixed Container</td>
+<td align="left"><a href="c1436.html">Up</a></td>
+<td align="left">Frames</td>
+</tr>
+</tbody>
+</table>

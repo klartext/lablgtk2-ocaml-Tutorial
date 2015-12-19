@@ -1,0 +1,99 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x456.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Packing Widgets</td>
+<td align="left"><a href="x509.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Packing Using Tables</h1>
+<p>Let's take a look at another way of packing - Tables. These can be extremely useful in certain situations.</p>
+<p>Using tables, we create a grid that we can place widgets in. The widgets may take up as many spaces as we specify.</p>
+<p>The first thing to look at, of course, is the <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.html#VALtable"><code class="LITERAL">GPack.table</code></a> function:</p>
+<pre class="PROGRAMLISTING"><code>val GPack.table :
+    ?columns:int -&gt;
+    ?rows:int -&gt;
+    ?homogeneous:bool -&gt;
+    ?row_spacings:int -&gt;
+    ?col_spacings:int -&gt;
+    ?border_width:int -&gt;
+    ?width:int -&gt;
+    ?height:int -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; table</code></pre>
+<p>The <code class="LITERAL">?rows</code> specifies the number of rows to make in the table, while the <code class="LITERAL">?columns</code>, obviously, is the number of columns.</p>
+<p>The <code class="LITERAL">?homogeneous</code> argument has to do with how the table's boxes are sized. If homogeneous is true, the table boxes are resized to the size of the largest widget in the table. If homogeneous is false, the size of a table boxes is dictated by the tallest widget in its same row, and the widest widget in its column.</p>
+<p>The rows and columns are laid out from 0 to n, where n was the number specified in the call to GPack.table. So, if you specify rows = 2 and columns = 2, the layout would look something like this:</p>
+<pre class="PROGRAMLISTING"><code> 0          1          2
+0+----------+----------+
+ |          |          |
+1+----------+----------+
+ |          |          |
+2+----------+----------+</code></pre>
+<p>Note that the coordinate system starts in the upper left hand corner. To place a widget into a box, use the following function:</p>
+<pre class="PROGRAMLISTING"><code>method attach :
+    left:int -&gt;
+    top:int -&gt;
+    ?right:int -&gt;
+    ?bottom:int -&gt;
+    ?expand:Gtk.Tags.expand_type -&gt;
+    ?fill:Gtk.Tags.expand_type -&gt;
+    ?shrink:Gtk.Tags.expand_type -&gt;
+    ?xpadding:int -&gt;
+    ?ypadding:int -&gt; GObj.widget -&gt; unit
+
+left : column number to attach the left side of the widget to
+top : row number to attach the top of the widget to
+right : default value is left+1
+bottom : default value is top+1
+expand : default value is `NONE
+fill : default value is `BOTH
+shrink : default value is `NONE</code></pre>
+<p>The left and right attach arguments specify where to place the widget, and how many boxes to use. If you want a button in the lower right table entry of our 2x2 table, and want it to fill that entry <em>only</em>, left would be = 1, right = 2, top = 1, bottom = 2.</p>
+<p>Now, if you wanted a widget to take up the whole top row of our 2x2 table, you'd use left = 0, right = 2, top = 0, bottom = 1.</p>
+<p>The other options are:</p>
+<p></p>
+<dl>
+<dt><code class="LITERAL">?fill</code></dt>
+<dd><p>If the table box is larger than the widget, and <code class="LITERAL">?fill</code> is specified, the widget will expand to use all the room available.</p>
+</dd>
+<dt><code class="LITERAL">?shrink</code></dt>
+<dd><p>If the table widget was allocated less space then was requested (usually by the user resizing the window), then the widgets would normally just be pushed off the bottom of the window and disappear. If <code class="LITERAL">?shrink</code> is specified, the widgets will shrink with the table.</p>
+</dd>
+<dt><code class="LITERAL">?expand</code></dt>
+<dd><p>This will cause the table to expand to use up any remaining space in the window.</p>
+</dd>
+</dl>
+<p>Padding is just like in boxes, creating a clear area around the widget specified in pixels.</p>
+<p>We also have set_row_spacing and set_col_spacing meethods. These places spacing between the rows at the specified row or column.</p>
+<pre class="PROGRAMLISTING"><code>method set_row_spacing : int -&gt; int -&gt; unit</code></pre>
+<p>and</p>
+<pre class="PROGRAMLISTING"><code>method set_col_spacing : int -&gt; int -&gt; unit</code></pre>
+<p>Note that for columns, the space goes to the right of the column, and for rows, the space goes below the row.</p>
+<p>You can also set a consistent spacing of all rows and/or columns with:</p>
+<pre class="PROGRAMLISTING"><code>method set_row_spacings : int -&gt; unit</code></pre>
+<p>And,</p>
+<pre class="PROGRAMLISTING"><code>method set_col_spacings : int -&gt; unit</code></pre>
+<p>Note that with these calls, the last row and last column do not get any spacing.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x456.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x509.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Packing Demonstration Program</td>
+<td align="left"><a href="c383.html">Up</a></td>
+<td align="left">Table Packing Example</td>
+</tr>
+</tbody>
+</table>

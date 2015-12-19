@@ -1,0 +1,65 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c834.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Range Widgets</td>
+<td align="left"><a href="x888.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Scale Widgets</h1>
+<p>Scale widgets are used to allow the user to visually select and manipulate a value within a specific range. You might want to use a scale widget, for example, to adjust the magnification level on a zoomed preview of a picture, or to control the brightness of a color, or to specify the number of minutes of inactivity before a screensaver takes over the screen.</p>
+<h2 class="SECT2">Creating a Scale Widget</h2>
+<p>As with scrollbars, there is a widget type for horizontal and vertical scale widgets. (Most programmers seem to favour horizontal scale widgets.) The following function <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GRange.html#VALscale"><code class="LITERAL">GRange.scale</code></a> creates vertical or horizontal scale widgets according to the argument;<code class="LITERAL">`VERTICAL</code> or <code class="LITERAL">`HORIZONTAL</code>:</p>
+<pre class="PROGRAMLISTING"><code>val GRange.scale :
+    Gtk.Tags.orientation -&gt;
+    ?adjustment:GData.adjustment -&gt;
+    ?digits:int -&gt;
+    ?draw_value:bool -&gt;
+    ?value_pos:Gtk.Tags.position -&gt;
+    ?inverted:bool -&gt;
+    ?update_policy:Gtk.Tags.update_type -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; scale
+
+digits : default value is 1
+draw_value : default value is false
+value_pos : default value is `LEFT
+inverted : default value is false
+update_policy : default value is `CONTINUOUS</code></pre>
+<p>The <code class="LITERAL">adjustment</code> argument may be given which has already been created with <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GData.html#VALadjustment"><code class="LITERAL">GData.adjustment</code></a>, or may not, in which case, an anonymous Adjustment is created with all of its values set to <code class="LITERAL">0.0</code> (which isn't very useful in this case). In order to avoid confusing yourself, you probably want to create your adjustment with a <code class="LITERAL">page_size</code> of <code class="LITERAL">0.0</code> so that its <code class="LITERAL">upper</code> value actually corresponds to the highest value the user can select. (If you're <em>already</em> thoroughly confused, read the section on <a href="c766.html">Adjustments</a> again for an explanation of what exactly adjustments do and how to create and manipulate them.)</p>
+<h2 class="SECT2">Functions and Signals (well, functions, at least)</h2>
+<p>Scale widgets can display their current value as a number beside the trough. The default behaviour is to show the value, but you can change this with this function:</p>
+<pre class="PROGRAMLISTING"><code>method set_draw_value : bool -&gt; unit</code></pre>
+<p>The value displayed by a scale widget is rounded to one decimal point by default, as is the <code class="LITERAL">value</code> field in its Adjustment. You can change this with:</p>
+<pre class="PROGRAMLISTING"><code>method set_digits : int -&gt; unit</code></pre>
+<p>where <code class="LITERAL">digits</code> is the number of decimal places you want. You can set <code class="LITERAL">digits</code> to anything you like, but no more than 13 decimal places will actually be drawn on screen.</p>
+<p>Finally, the value can be drawn in different positions relative to the trough:</p>
+<pre class="PROGRAMLISTING"><code>method set_value_pos : Gtk.Tags.position -&gt; unit</code></pre>
+<p>The argument can take one of the following values:</p>
+<pre class="PROGRAMLISTING"><code>  `LEFT
+  `RIGHT
+  `TOP
+  `BOTTOM</code></pre>
+<p>If you position the value on the &quot;side&quot; of the trough (e.g., on the top or bottom of a horizontal scale widget), then it will follow the slider up and down the trough.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c834.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x888.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Range Widgets</td>
+<td align="left"><a href="c834.html">Up</a></td>
+<td align="left">Common Range Functions</td>
+</tr>
+</tbody>
+</table>

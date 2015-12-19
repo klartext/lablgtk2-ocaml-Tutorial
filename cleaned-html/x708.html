@@ -1,0 +1,52 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c669.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">The Button Widget</td>
+<td align="left"><a href="x733.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Toggle Buttons</h1>
+<p>Toggle buttons are derived from normal buttons and are very similar, except they will always be in one of two states, alternated by a click. They may be depressed, and when you click again, they will pop back up. Click again, and they will pop back down.</p>
+<p>Toggle buttons are the basis for check buttons and radio buttons, as such, many of the calls used for toggle buttons are inherited by radio and check buttons. I will point these out when we come to them.</p>
+<p>Creating a new toggle button; see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GButton.html#VALtoggle_button"><code class="LITERAL">GButton.toggle_button</code></a>:</p>
+<pre class="PROGRAMLISTING"><code>val GButton.toggle_button :
+    ?label:string -&gt;
+    ?use_mnemonic:bool -&gt;
+    ?stock:GtkStock.id -&gt;
+    ?relief:Gtk.Tags.relief_style -&gt;
+    ?active:bool -&gt;
+    ?draw_indicator:bool -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; toggle_button</code></pre>
+<p>As you can imagine, these work identically to the normal button widget calls. You can create a blank toggle button, and with <code class="LITERAL">~lablel</code> or <code class="LITERAL">~use_mnemonic</code>, a button with a label widget already packed into it. The <code class="LITERAL">use_mnemonic</code> variant additionally parses the label for '_'-prefixed mnemonic characters.</p>
+<p>To retrieve the state of the toggle widget, including radio and check buttons, we use a construct as shown in our example below. This tests the state of the toggle button, by calling the <code class="LITERAL">active</code> method of the toggle widget's structure. The signal of interest to us emitted by toggle buttons (the toggle button, check button, and radio button widgets) is the &quot;toggled&quot; signal. To check the state of these buttons, set up a signal handler to catch the toggled signal, and get its state. The callback will look something like:</p>
+<pre class="PROGRAMLISTING"><code>method toggled : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<p>To force the state of a toggle button, and its children, the radio and check buttons, use this method:</p>
+<pre class="PROGRAMLISTING"><code>method set_active : bool -&gt; unit</code></pre>
+<p>The above call can be used to set the state of the toggle button, and its children the radio and check buttons. Passing a <code class="LITERAL">true</code> or <code class="LITERAL">false</code> as the argument to specify whether it should be down (depressed) or up (released). Default is up, or <code class="LITERAL">false</code>.</p>
+<p>Note that when you use the <code class="LITERAL">set_active</code> method, and the state is actually changed, it causes the &quot;clicked&quot; and &quot;toggled&quot; signals to be emitted from the button.</p>
+<pre class="PROGRAMLISTING"><code>method active : bool</code></pre>
+<p>This returns the current state of the toggle button.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c669.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x733.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">The Button Widget</td>
+<td align="left"><a href="c669.html">Up</a></td>
+<td align="left">Check Buttons</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,81 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c349.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Moving On</td>
+<td align="left"><a href="c383.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">An Upgraded Hello World</h1>
+<p>Let's take a look at a slightly improved <em>helloworld</em> with better examples of callbacks. This will also introduce us to our next topic, packing widgets.</p>
+<p><img src="images/helloworld2.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: hello2.ml *)
+
+let clicked msg () =
+  print_endline msg;
+  flush stdout
+
+let delete_event ev =
+ GMain.Main.quit ();
+ false
+
+let main () =
+  (* Create a new window and sets the border width and title of the window. *)
+  let window = GWindow.window ~title:&quot;Hello Buttons!&quot; ~border_width:10 () in
+
+  (* Here we just set a handler for delete_event that immediately
+   * exits GTK. *)
+  window#event#connect#delete ~callback:delete_event;
+
+  (* We create a box to pack widgets into.  This is described in detail
+   * in the &quot;packing&quot; section. The box is not really visible, it
+   * is just used as a tool to arrange widgets.
+   * And put the box into the main window. *)
+  let box1 = GPack.hbox ~packing:window#add () in
+
+  (* Creates a new button with the label &quot;Button 1&quot;.
+   * Instead of box1#add, we pack this button into the invisible
+   * box, which has been packed into the window. *)
+  let button = GButton.button ~label:&quot;Button 1&quot; ~packing:box1#pack () in
+    
+  (* Now when the button is clicked, we call the &quot;clicked&quot; function
+   * with &quot;button 1&quot; as its argument *)
+  button#connect#clicked ~callback:(clicked &quot;button 1&quot;);
+
+  (* Do these same steps again to create a second button *)
+  let button = GButton.button ~label:&quot;Button 2&quot; ~packing:box1#pack () in
+
+  (* Call the same callback function with a different argument,
+   * passing &quot;button 2&quot; instead. *)
+  button#connect#clicked ~callback:(clicked &quot;button 2&quot;);
+
+  (* Display the window. *)
+  window#show ();
+
+  (* Rest in GMain.Main.main and wait for the fun to begin! *)
+  GMain.Main.main ()
+
+let _ = main ()</code></pre>
+<p>Compile this program using the same linking arguments as our first example. You'll notice this time there is no easy way to exit the program, you have to use your window manager or command line to kill it. A good exercise for the reader would be to insert a third &quot;Quit&quot; button that will exit the program. You may also wish to play with the options to <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.box_skel-c.html#METHODpack"><code class="LITERAL">box#pack ()</code></a> while reading the next section. Try resizing the window, and observe the behavior.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c349.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="c383.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Moving On</td>
+<td align="left"><a href="c349.html">Up</a></td>
+<td align="left">Packing Widgets</td>
+</tr>
+</tbody>
+</table>

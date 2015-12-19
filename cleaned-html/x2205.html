@@ -1,0 +1,142 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c2196.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Scribble, A Simple Example Drawing Program</td>
+<td align="left"><a href="x2247.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Event Handling</h1>
+<p>The GTK signals we have already discussed are for high-level actions, such as a menu item being selected. However, sometimes it is useful to learn about lower-level occurrences, such as the mouse being moved, or a key being pressed. There are also GTK signals corresponding to these low-level <em>events</em>. The handlers for these signals have an extra parameter which is a structure containing information about the event. For instance, motion event handlers are passed a GdkEvent.Motion structure which looks (in part) like: see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GdkEvent.Motion.html"><code class="LITERAL">GdkEvent.Motion</code></a></p>
+<pre class="PROGRAMLISTING"><code>type t = [ `MOTION_NOTIFY ] Gdk.event 
+val cast : GdkEvent.any -&gt; t
+
+val time : [&lt; GdkEvent.timed ] Gdk.event -&gt; int32
+val x : t -&gt; float
+val y : t -&gt; float
+val axes : t -&gt; (float * float) option
+val state : t -&gt; int
+val is_hint : t -&gt; bool
+val device : t -&gt; Gdk.device
+val x_root : t -&gt; float
+val y_root : t -&gt; float</code></pre>
+<p><code class="LITERAL">x</code> and <code class="LITERAL">y</code> give the coordinates of the event. <code class="LITERAL">state</code> specifies the modifier state when the event occurred (that is, it specifies which modifier keys and mouse buttons were pressed). It can contain some of the following:</p>
+<pre class="PROGRAMLISTING"><code>`SHIFT
+`LOCK
+`CONTROL
+`MOD1
+`MOD2
+`MOD3
+`MOD4
+`MOD5
+`BUTTON1
+`BUTTON2
+`BUTTON3
+`BUTTON4
+`BUTTON5</code></pre>
+<p>You can test the state whether it includes the given modifier or not, using one of the followings:</p>
+<pre class="PROGRAMLISTING"><code>val Gdk.Convert.test_modifier : Gdk.Tags.modifier -&gt; int -&gt; bool
+val Gdk.Convert.modifier : int -&gt; Gdk.Tags.modifier list</code></pre>
+<p>As for other signals, to determine what happens when an event occurs we call <code class="LITERAL">connect</code> method. But we also need let GTK know which events we want to be notified about. To do this, we call the method:</p>
+<pre class="PROGRAMLISTING"><code>method event#add : Gdk.Tags.event_mask list -&gt; unit</code></pre>
+<p>The argument specifies the events we are interested in. It is the list of constants that specify different types of events. For future reference the Gdk.Tags.event_mask are:</p>
+<pre class="PROGRAMLISTING"><code>type event_mask = [ `ALL_EVENTS
+    | `BUTTON1_MOTION
+    | `BUTTON2_MOTION
+    | `BUTTON3_MOTION
+    | `BUTTON_MOTION
+    | `BUTTON_PRESS
+    | `BUTTON_RELEASE
+    | `ENTER_NOTIFY
+    | `EXPOSURE
+    | `FOCUS_CHANGE
+    | `KEY_PRESS
+    | `KEY_RELEASE
+    | `LEAVE_NOTIFY
+    | `POINTER_MOTION
+    | `POINTER_MOTION_HINT
+    | `PROPERTY_CHANGE
+    | `PROXIMITY_IN
+    | `PROXIMITY_OUT
+    | `SCROLL
+    | `STRUCTURE
+    | `SUBSTRUCTURE
+    | `VISIBILITY_NOTIFY ] </code></pre>
+<p>There are a few subtle points that have to be observed when calling <code class="LITERAL">event#add</code> method. First, it must be called before the X window for a GTK widget is created. In practical terms, this means you should call it immediately after creating the widget. Second, the widget must have an associated X window. For efficiency, many widget types do not have their own window, but draw in their parent's window. These widgets are:</p>
+<pre class="PROGRAMLISTING"><code>GtkAlignment
+GtkArrow
+GtkBin
+GtkBox
+GtkImage
+GtkItem
+GtkLabel
+GtkPixmap
+GtkScrolledWindow
+GtkSeparator
+GtkTable
+GtkAspectFrame
+GtkFrame
+GtkVBox
+GtkHBox
+GtkVSeparator
+GtkHSeparator</code></pre>
+<p>To capture events for these widgets, you need to use an EventBox widget. See the section on the <a href="c1436.html#SEC-EVENTBOX">EventBox</a> widget for details.</p>
+<p>For our drawing program, we want to know when the mouse button is pressed and when the mouse is moved, so we specify <code class="LITERAL">`POINTER_MOTION</code> and <code class="LITERAL">`BUTTON_PRESS</code>. We also want to know when we need to redraw our window, so we specify <code class="LITERAL">`EXPOSURE</code>. Although we want to be notified via a Configure event when our window size changes, we don't have to specify the corresponding <code class="LITERAL">`STRUCTURE</code> flag, because it is automatically specified for all windows.</p>
+<p>It turns out, however, that there is a problem with just specifying <code class="LITERAL">`POINTER_MOTION</code>. This will cause the server to add a new motion event to the event queue every time the user moves the mouse. Imagine that it takes us 0.1 seconds to handle a motion event, but the X server queues a new motion event every 0.05 seconds. We will soon get way behind the users drawing. If the user draws for 5 seconds, it will take us another 5 seconds to catch up after they release the mouse button! What we would like is to only get one motion event for each event we process. The way to do this is to specify <code class="LITERAL">`POINTER_MOTION_HINT</code>.</p>
+<p>When we specify <code class="LITERAL">`POINTER_MOTION_HINT</code>, the server sends us a motion event the first time the pointer moves after entering our window, or after a button press or release event. Subsequent motion events will be suppressed until we explicitly ask for the position of the pointer using the function:</p>
+<pre class="PROGRAMLISTING"><code>val Gdk.Window.get_pointer_location : Gdk.window -&gt; int * int</code></pre>
+<p>There is another method, <code class="LITERAL">misc#pointer</code> method which has a simpler interface:</p>
+<pre class="PROGRAMLISTING"><code>method misc#pointer : int * int</code></pre>
+<p>The code to set the events for our window then looks like:</p>
+<pre class="PROGRAMLISTING"><code>  drawing_area#event#connect#expose ~callback:expose;
+  drawing_area#event#connect#configure ~callback:configure;
+  drawing_area#event#connect#motion_notify ~callback:motion_notify;
+  drawing_area#event#connect#button_press ~callback:button_pressed;
+
+  drawing_area#event#add [`EXPOSURE;
+    `LEAVE_NOTIFY;
+    `BUTTON_PRESS;
+    `POINTER_MOTION;
+    `POINTER_MOTION_HINT];</code></pre>
+<p>We'll save the &quot;expose&quot; and &quot;configure&quot; callbacks for later. The &quot;motion_notify&quot; and &quot;button_pressed&quot; callbacks are pretty simple:</p>
+<pre class="PROGRAMLISTING"><code>let button_pressed area backing ev =
+  if GdkEvent.Button.button ev = 1 then (
+    let x = int_of_float (GdkEvent.Button.x ev) in
+    let y = int_of_float (GdkEvent.Button.y ev) in
+    draw_brush area backing x y
+  );
+  true
+
+let motion_notify area backing ev =
+  let (x, y) =
+    if GdkEvent.Motion.is_hint ev
+    then area#misc#pointer
+    else
+      (int_of_float (GdkEvent.Motion.x ev), int_of_float (GdkEvent.Motion.y ev))
+  in
+  let state = GdkEvent.Motion.state ev in
+  if Gdk.Convert.test_modifier `BUTTON1 state
+  then draw_brush area backing x y;
+  true</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c2196.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x2247.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Scribble, A Simple Example Drawing Program</td>
+<td align="left"><a href="c2196.html">Up</a></td>
+<td align="left">The DrawingArea Widget, And Drawing</td>
+</tr>
+</tbody>
+</table>

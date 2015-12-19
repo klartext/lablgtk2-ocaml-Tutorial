@@ -1,0 +1,54 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x852.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Range Widgets</td>
+<td align="left"><a href="x926.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Common Range Functions</h1>
+<p>The Range widget class is fairly complicated internally, but, like all the &quot;base class&quot; widgets, most of its complexity is only interesting if you want to hack on it. Also, almost all of the functions and signals it defines are only really used in writing derived widgets. There are, however, a few useful functions that will work on all range widgets.</p>
+<h2 class="SECT2">Setting the Update Policy</h2>
+<p>The &quot;update policy&quot; of a range widget defines at what points during user interaction it will change the <code class="LITERAL">value</code> field of its Adjustment and emit the &quot;value_changed&quot; signal on this Adjustment. The update policies, defined as type <a href="http://lablgtk.forge.ocamlcore.org/refdoc/Gtk.Tags.html#TYPEupdate_type"><code class="LITERAL">Gtk.Tags.update_type</code></a>, are:</p>
+<p></p>
+<dl>
+<dt><code class="LITERAL">`CONTINUOUS</code></dt>
+<dd><p>This is the default. The &quot;value_changed&quot; signal is emitted continuously, i.e., whenever the slider is moved by even the tiniest amount.</p>
+</dd>
+<dt><code class="LITERAL">`DISCONTINUOUS</code></dt>
+<dd><p>The &quot;value_changed&quot; signal is only emitted once the slider has stopped moving and the user has released the mouse button.</p>
+</dd>
+<dt><code class="LITERAL">`DELAYED</code></dt>
+<dd><p>The &quot;value_changed&quot; signal is emitted when the user releases the mouse button, or if the slider stops moving for a short period of time.</p>
+</dd>
+</dl>
+<p>The update policy of a range widget can be set by calling this function:</p>
+<pre class="PROGRAMLISTING"><code>method set_update_policy : Gtk.Tags.update_type -&gt; unit</code></pre>
+<h2 class="SECT2">Getting and Setting Adjustments</h2>
+<p>Getting and setting the adjustment for a range widget &quot;on the fly&quot; is done, predictably, with:</p>
+<pre class="PROGRAMLISTING"><code>method adjustment : GData.adjustment
+method set_adjustment : GData.adjustment -&gt; unit</code></pre>
+<p><code class="LITERAL">adjustment</code> method returns the adjustment to which <code class="LITERAL">range</code> is connected.</p>
+<p><code class="LITERAL">set_adjustment</code> method does absolutely nothing if you pass it the adjustment that <code class="LITERAL">range</code> is already using, regardless of whether you changed any of its fields or not. If you pass it a new Adjustment, it will disconnect the old one if it exists, connect the appropriate signals to the new one, and call the private function <code class="LITERAL">gtk_range_adjustment_changed()</code>, which will (or at least, is supposed to...) recalculate the size and/or position of the slider and redraw if necessary.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x852.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x926.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Scale Widgets</td>
+<td align="left"><a href="c834.html">Up</a></td>
+<td align="left">Key and Mouse bindings</td>
+</tr>
+</tbody>
+</table>

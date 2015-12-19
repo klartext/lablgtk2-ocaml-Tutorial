@@ -1,0 +1,46 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1930.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"></td>
+<td align="left"><a href="c1941.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>Setting Widget Attributes</h1>
+<p>This describes the functions used to operate on widgets. These can be used to set style, padding, size, etc. You can get access these method through misc method, for example, button#misc#hide ().</p>
+<p>For full descriptions, see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.misc_ops-c.html"><code class="LITERAL">GObj.misc_ops</code></a>.</p>
+<p>(Maybe I should make a whole section on accelerators.)</p>
+<pre class="PROGRAMLISTING"><code>method activate : unit -&gt; bool
+method set_name : string -&gt; unit
+method name : string
+method set_sensitive : bool -&gt; unit
+method set_style : style -&gt; unit
+method style : style
+method set_size_request : ?width:int -&gt; ?height:int -&gt; unit -&gt; unit
+method set_can_focus : bool -&gt; unit
+method grab_focus : unit -&gt; unit
+method realize : unit -&gt; unit
+method show : unit -&gt; unit
+method hide : unit -&gt; unit</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1930.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="c1941.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Text View</td>
+<td align="left"> </td>
+<td align="left">Timeouts and Idle Functions</td>
+</tr>
+</tbody>
+</table>

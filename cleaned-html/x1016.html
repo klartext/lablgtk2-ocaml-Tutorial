@@ -1,0 +1,50 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x997.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Miscellaneous Widgets</td>
+<td align="left"><a href="x1039.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">The Tooltips Object</h1>
+<p>These are the little text strings that pop up when you leave your pointer over a button or other widget for a few seconds. They are easy to use, so I will just explain them without giving an example. If you want to see some code, take a look at the <code class="FILENAME">testgtk.ml</code> program distributed with LablGTK.</p>
+<p>Widgets that do not receive events (widgets that do not have their own window) will not work with tooltips.</p>
+<p>The first call you will use creates a new tooltip using <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GData.html#VALtooltips"><code class="LITERAL">GData.tooltips</code></a> function. You only need to do this once for a set of tooltips as the <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GData.tooltips-c.html"><code class="LITERAL">GData.tooltips object</code></a> this function returns can be used to create multiple tooltips.</p>
+<pre class="PROGRAMLISTING"><code>val GData.tooltips : ?delay:int -&gt; unit -&gt; tooltips</code></pre>
+<p>Once you have created a new tooltip, and the widget you wish to use it on, simply use this call to set it:</p>
+<pre class="PROGRAMLISTING"><code>method set_tip : ?text:string -&gt; ?privat:string -&gt; GObj.widget -&gt; unit</code></pre>
+<p>The <code class="LITERAL">?text</code> argument is the text you with to say, which is followed by the widget you wish to have this tooltip pop up for wish it to say. The <code class="LITERAL">?privat</code> argument is a text string that can be used as an identifier when using GtkTipsQuery to implement context sensitive help. For now, you don't have to give it.</p>
+<p>Here's a short example:</p>
+<pre class="PROGRAMLISTING"><code>let tooltips = GData.tooltips () in
+let button = GButton.button ~label:&quot;This is button1&quot; () in
+.
+.
+.
+tooltips#set_tip button#coerce ~text:&quot;This is button1&quot;;</code></pre>
+<p>There are other calls that can be used with tooltips. I will just list them with a brief description of what they do.</p>
+<pre class="PROGRAMLISTING"><code>method enable : unit -&gt; unit</code></pre>
+<p>Enable a disabled set of tooltips.</p>
+<pre class="PROGRAMLISTING"><code>method disable : unit -&gt; unit</code></pre>
+<p>Disable an enabled set of tooltips.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x997.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1039.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Arrows</td>
+<td align="left"><a href="c953.html">Up</a></td>
+<td align="left">Progress Bars</td>
+</tr>
+</tbody>
+</table>

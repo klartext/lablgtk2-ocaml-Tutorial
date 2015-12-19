@@ -1,0 +1,57 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1558.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Container Widgets</td>
+<td align="left"><a href="x1595.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Viewports</h1>
+<p>It is unlikely that you will ever need to use the Viewport widget directly. You are much more likely to use the <a href="x1595.html">Scrolled Window</a> widget which itself uses the Viewport.</p>
+<p>A viewport widget allows you to place a larger widget within it such that you can view a part of it at a time. It uses <a href="c766.html">Adjustments</a> to define the area that is currently in view.</p>
+<p>A Viewport is created with the function <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GBin.html#VALviewport"><code class="LITERAL">GBin.viewport</code></a></p>
+<pre class="PROGRAMLISTING"><code>val GBin.viewport :
+    ?hadjustment:GData.adjustment -&gt;
+    ?vadjustment:GData.adjustment -&gt;
+    ?shadow_type:Gtk.Tags.shadow_type -&gt;
+    ?border_width:int -&gt;
+    ?width:int -&gt;
+    ?height:int -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; viewport</code></pre>
+<p>As you can see you can specify the horizontal and vertical Adjustments that the widget is to use when you create the widget. It will create its own if you don't pass the arguments.</p>
+<p>You can get and set the adjustments after the widget has been created using the following four functions:</p>
+<pre class="PROGRAMLISTING"><code>method hadjustment : GData.adjustment
+method vadjustment : GData.adjustment
+method set_hadjustment : GData.adjustment -&gt; unit
+method set_vadjustment : GData.adjustment -&gt; unit</code></pre>
+<p>The other viewport function is used to alter its appearance:</p>
+<pre class="PROGRAMLISTING"><code>method set_shadow_type : Gtk.Tags.shadow_type -&gt; unit</code></pre>
+<p>Possible values for the <code class="LITERAL">Gtk.Tags.shadow_type</code> parameter are:</p>
+<pre class="PROGRAMLISTING"><code>  `NONE,
+  `IN,
+  `OUT,
+  `ETCHED_IN,
+  `ETCHED_OUT</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1558.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1595.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Paned Window Widgets</td>
+<td align="left"><a href="c1436.html">Up</a></td>
+<td align="left">Scrolled Windows</td>
+</tr>
+</tbody>
+</table>

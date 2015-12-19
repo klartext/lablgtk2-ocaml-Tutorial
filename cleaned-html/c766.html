@@ -1,0 +1,51 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x743.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"></td>
+<td align="left"><a href="x792.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>Adjustments</h1>
+<p>GTK has various widgets that can be visually adjusted by the user using the mouse or the keyboard, such as the range widgets, described in the <a href="c834.html">Range Widgets</a> section. There are also a few widgets that display some adjustable portion of a larger area of data, such as the text widget and the viewport widget.</p>
+<p>Obviously, an application needs to be able to react to changes the user makes in range widgets. One way to do this would be to have each widget emit its own type of signal when its adjustment changes, and either pass the new value to the signal handler, or require it to look inside the widget's data structure in order to ascertain the value. But you may also want to connect the adjustments of several widgets together, so that adjusting one adjusts the others. The most obvious example of this is connecting a scrollbar to a panning viewport or a scrolling text area. If each widget has its own way of setting or getting the adjustment value, then the programmer may have to write their own signal handlers to translate between the output of one widget's signal and the &quot;input&quot; of another's adjustment setting function.</p>
+<p>GTK solves this problem using the Adjustment object, which is not a widget but a way for widgets to store and pass adjustment information in an abstract and flexible form. The most obvious use of Adjustment is to store the configuration parameters and values of range widgets, such as scrollbars and scale controls. However, since Adjustments are derived from Object, they have some special powers beyond those of normal data structures. Most importantly, they can emit signals, just like widgets, and these signals can be used not only to allow your program to react to user input on adjustable widgets, but also to propagate adjustment values transparently between adjustable widgets.</p>
+<p>You will see how adjustments fit in when you see the other widgets that incorporate them: <a href="x1039.html">Progress Bars</a>, <a href="x1577.html">Viewports</a>, <a href="x1595.html">Scrolled Windows</a>, and others.</p>
+<h1 class="SECT1">Creating an Adjustment</h1>
+<p>Many of the widgets which use adjustment objects do so automatically, but some cases will be shown in later examples where you may need to create one yourself. You create an adjustment using <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GData.html#VALadjustment"><code class="LITERAL">GData.adjustment</code></a>:</p>
+<pre class="PROGRAMLISTING"><code>val GData.adjustment :
+    ?value:float -&gt;
+    ?lower:float -&gt;
+    ?upper:float -&gt;
+    ?step_incr:float -&gt;
+    ?page_incr:float -&gt;
+    ?page_size:float -&gt; unit -&gt; adjustment
+
+lower : default value is 0.
+upper : default value is 100.
+step_incr : default value is 1.
+page_incr : default value is 10.
+page_size : default value is 10.</code></pre>
+<p>The <code class="LITERAL">value</code> argument is the initial value you want to give to the adjustment, usually corresponding to the topmost or leftmost position of an adjustable widget. The <code class="LITERAL">lower</code> argument specifies the lowest value which the adjustment can hold. The <code class="LITERAL">step_increment</code> argument specifies the &quot;smaller&quot; of the two increments by which the user can change the value, while the <code class="LITERAL">page_increment</code> is the &quot;larger&quot; one. The <code class="LITERAL">page_size</code> argument usually corresponds somehow to the visible area of a panning widget. The <code class="LITERAL">upper</code> argument is used to represent the bottom most or right most coordinate in a panning widget's child. Therefore it is <em>not</em> always the largest number that <code class="LITERAL">value</code> can take, since the <code class="LITERAL">page_size</code> of such widgets is usually non-zero.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x743.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x792.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Radio Buttons</td>
+<td align="left"> </td>
+<td align="left">Using Adjustments the Easy Way</td>
+</tr>
+</tbody>
+</table>

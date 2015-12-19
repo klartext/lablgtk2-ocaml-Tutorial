@@ -1,0 +1,40 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c2013.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Drag-and-drop (DND)</td>
+<td align="left"><a href="x2047.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Properties</h1>
+<p>Drag data has the following properties:</p>
+<p></p>
+<ul>
+<li><p>Drag action type (ie `COPY, `MOVE).</p></li>
+<li><p>Client specified arbitrary drag-and-drop type (a name and number pair).</p></li>
+<li><p>Sent and received data format type.</p></li>
+</ul>
+<p>Drag actions are quite obvious, they specify if the widget can drag with the specified action(s), e.g. `COPY and/or `MOVE. A `COPY would be a typical drag-and-drop without the source data being deleted while `MOVE would be just like `COPY but the source data will be 'suggested' to be deleted after the received signal handler is called. There are additional drag actions including `LINK which you may want to look into when you get to more advanced levels of drag-and-drop.</p>
+<p>The client specified arbitrary drag-and-drop type is much more flexible, because your application will be defining and checking for that specifically. You will need to set up your destination widgets to receive certain drag-and-drop types by specifying a name and/or number. It would be more reliable to use a name since another application may just happen to use the same number for an entirely different meaning.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c2013.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x2047.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Drag-and-drop (DND)</td>
+<td align="left"><a href="c2013.html">Up</a></td>
+<td align="left">Functions</td>
+</tr>
+</tbody>
+</table>

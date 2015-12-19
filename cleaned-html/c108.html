@@ -1,0 +1,116 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c33.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"></td>
+<td align="left"><a href="x141.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>Getting Started</h1>
+<p>To begin our introduction to GTK, we'll start with the simplest program possible. This program will create a 200x200 pixel window and has no way of exiting except to be killed by using the shell.</p>
+<p><img src="images/base.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: base.ml *)
+
+let main () =
+  let window = GWindow.window () in
+  window#show ();
+  GMain.Main.main ()
+
+let _ = main ()</code></pre>
+<p>You can compile the above program with ocamlc using:</p>
+<p></p>
+<p><code class="LITERAL">ocamlc -I +lablgtk2 -o base lablgtk.cma gtkInit.cmo base.ml</code></p>
+<p>The meaning of the unusual compilation options is explained below in <a href="x141.html">Compiling Hello World</a>.</p>
+<p>The first two lines of code create and display a window.</p>
+<pre class="PROGRAMLISTING"><code>  let window = GWindow.window () in
+  window#show ();</code></pre>
+<p>Rather than create a window of 0x0 size, a window without children is set to 200x200 by default so you can still manipulate it.</p>
+<p>The <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GWindow.window_skel-c.html#METHODshow"><code class="LITERAL">GWindow.window#show</code></a> method lets GTK know that we are done setting the attributes of this widget, and that it can display it.</p>
+<p>The last line enters the GTK main processing loop.</p>
+<pre class="PROGRAMLISTING"><code>  GMain.Main.main ()</code></pre>
+<p>GMain.Main.main <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMain.Main.html#VALmain"><code class="LITERAL">GMain.Main.main</code></a> is another call you will see in every GTK application. When control reaches this point, GTK will sleep waiting for events (such as button or key presses), timeouts, or file IO notifications to occur. In our simple example, however, events are ignored.</p>
+<h1 class="SECT1">Hello World in GTK</h1>
+<p>Now for a program with a widget (a button). It's the classic hello world a la GTK.</p>
+<p><img src="images/helloworld.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: hello.ml *)
+
+(* This is a callback function. *)
+let hello () =
+  print_endline &quot;Hello World&quot;;
+  flush stdout
+
+(* Another callback function.
+ * If you return [false] in the &quot;delete_event&quot; signal handler,
+ * GTK will emit the &quot;destroy&quot; signal. Returning [true] means
+ * you don&#39;t want the window to be destroyed.
+ * This is useful for popping up &#39;are you sure you want to quit?&#39;
+ * type dialogs. *)
+let delete_event ev =
+  print_endline &quot;Delete event occurred&quot;;
+  flush stdout;
+
+  (* Change [true] to [false] and the main window will be destroyed with
+   * a &quot;delete event&quot; *)
+  true
+
+let destroy () = GMain.Main.quit ()
+
+let main () =
+  (* Create a new window and sets the border width of the window. *)
+  let window = GWindow.window ~border_width:10 () in
+
+  (* When the window is given the &quot;delete_event&quot; signal (this is given
+   * by the window manager, usually by the &quot;close&quot; option, or on the
+   * titlebar), we ask it to call the delete_event () function
+   * as defined above. *)
+  window#event#connect#delete ~callback:delete_event;
+
+  (* Here we connect the &quot;destroy&quot; event to a signal handler.  
+   * This event occurs when we call window#destroy method
+   * or if we return [false] in the &quot;delete_event&quot; callback. *)
+  window#connect#destroy ~callback:destroy;
+
+  (* Creates a new button with the label &quot;Hello World&quot;.
+   * and packs the button into the window (a gtk container). *)
+  let button = GButton.button ~label:&quot;Hello World&quot; ~packing:window#add () in
+
+  (* When the button receives the &quot;clicked&quot; signal, it will call the
+   * function hello().  The hello() function is defined above. *)
+  button#connect#clicked ~callback:hello;
+
+  (* This will cause the window to be destroyed by calling
+   * window#destroy () when &quot;clicked&quot;.  Again, the destroy
+   * signal could come from here, or the window manager. *)
+  button#connect#clicked ~callback:window#destroy;
+
+  (* The final step is to display the window. *)
+  window#show ();
+
+  (* All GTK applications must have a GMain.Main.main (). Control ends here
+   * and waits for an event to occur (like a key press or
+   * mouse event). *)
+  GMain.Main.main ()
+
+let _ = main ()</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c33.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x141.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Introduction</td>
+<td align="left"> </td>
+<td align="left">Compiling Hello World</td>
+</tr>
+</tbody>
+</table>

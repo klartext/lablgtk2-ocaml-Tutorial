@@ -1,0 +1,52 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2047.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"></td>
+<td align="left"><a href="x2152.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>GTK's rc Files</h1>
+<p>GTK has its own way of dealing with application defaults, by using rc files. These can be used to set the colors of just about any widget, and can also be used to tile pixmaps onto the background of some widgets.</p>
+<h1 class="SECT1">Functions For rc Files</h1>
+<p>When your application starts, it reads the default RC files. which are [SYSCONFDIR]/gtk-2.0/gtkrc and .gtkrc-2.0 in the users home directory. ([SYSCONFDIR] defaults to /usr/local/etc.) You can add default file:</p>
+<pre class="PROGRAMLISTING"><code>val GMain.Rc.add_default_file : string -&gt; unit</code></pre>
+<p>If you wish to have a special set of widgets that can take on a different style from others, or any other logical division of widgets, use a call to:</p>
+<pre class="PROGRAMLISTING"><code>method misc#set_name : string -&gt; unit</code></pre>
+<p>Passing your newly created widget as the first argument, and the name you wish to give it as the second. This will allow you to change the attributes of this widget by name through the rc file.</p>
+<p>If we use a call something like this:</p>
+<pre class="PROGRAMLISTING"><code>let button = GButton.button ~label:&quot;Special Button&quot; in
+button#misc#set_name &quot;special button&quot;</code></pre>
+<p>Then this button is given the name &quot;special button&quot; and may be addressed by name in the rc file as &quot;special button.GtkButton&quot;. [&lt;--- Verify ME!]</p>
+<p>The example rc file below, sets the properties of the main window, and lets all children of that main window inherit the style described by the &quot;main button&quot; style. The code used in the application is:</p>
+<pre class="PROGRAMLISTING"><code>let window = GWindow.window () in
+window#misc#set_name &quot;main window&quot;</code></pre>
+<p>And then the style is defined in the rc file using:</p>
+<pre class="PROGRAMLISTING"><code>widget &quot;main window.*GtkButton*&quot; style &quot;main_button&quot;</code></pre>
+<p>Which sets all the Button widgets in the &quot;main window&quot; to the &quot;main_buttons&quot; style as defined in the rc file.</p>
+<p>As you can see, this is a fairly powerful and flexible system. Use your imagination as to how best to take advantage of this.</p>
+<p></p>
+<p><img src="./stylesheet-images/note.gif" alt="Note" /></p>
+<p>I have also found, by experimentation, that you have to call this function (GMain.Rc.add_default_file) very early in the program for it to have any effect at all. I have now placed by call right at the very start of the program, before all other code, as that is seemingly the only way to get Gtk to actually read my local resource file. - Rich.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2047.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x2152.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Functions</td>
+<td align="left"> </td>
+<td align="left">GTK's rc File Format</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,68 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c1731.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Menu Widget</td>
+<td align="left"><a href="x1832.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Manual Menu Example</h1>
+<p>That should about do it. Let's take a look at an example to help clarify.</p>
+<p><img src="images/menu.png" /></p>
+<pre class="PROGRAMLISTING"><code>let uprint msg () =
+  print_endline msg;
+  flush stdout
+
+let create_file_menu ~packing () =
+  let file_menu = GMenu.menu ~packing () in
+  let f (label, callback) =
+    let item = GMenu.menu_item ~label ~packing:file_menu#append () in
+    ignore (item#connect#activate ~callback)
+  in
+  List.iter f [(&quot;Open&quot;, uprint &quot;Open&quot;); (&quot;Save&quot;, uprint &quot;Save&quot;); (&quot;Quit&quot;, GMain.Main.quit)];
+  file_menu
+
+let button_pressed menu ev =
+  let button = GdkEvent.Button.button ev in
+  if button = 3
+  then (
+    menu#popup ~button ~time:(GdkEvent.Button.time ev);
+    true
+  ) else false
+
+let main () =
+  let window = GWindow.window ~title:&quot;GMenu Demo&quot; () in
+  window#connect#destroy ~callback:GMain.Main.quit;
+  let vbox = GPack.vbox ~packing:window#add () in
+  let menu_bar = GMenu.menu_bar ~packing:vbox#add () in
+  let file_item = GMenu.menu_item ~label:&quot;File&quot; ~packing:menu_bar#append () in
+  let menu = create_file_menu ~packing:file_item#set_submenu () in
+  let view = GText.view ~width:200 ~height:100 ~packing:vbox#add () in
+  view#event#connect#button_press ~callback:(button_pressed menu);
+  window#show ();
+  GMain.Main.main ()
+
+let _ = main ()</code></pre>
+<p>You may also set a menu item to be insensitive and, using an accelerator table, bind keys to menu functions.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c1731.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1832.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Menu Widget</td>
+<td align="left"><a href="c1731.html">Up</a></td>
+<td align="left">Automatic Menu Generation</td>
+</tr>
+</tbody>
+</table>
