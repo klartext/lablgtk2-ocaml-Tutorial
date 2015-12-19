@@ -2,7 +2,7 @@
 LIBS = lablgtk.cma gtkInit.cmo
 # CUSTOM = -custom
 
-CAML_FLAGS = $(CUSTOM) -warn-error A -I +lablgtk2
+CAML_FLAGS = $(CUSTOM) -I +lablgtk2
 
 SRCS = \
 	base.ml \
