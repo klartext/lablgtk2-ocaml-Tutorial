@@ -31,10 +31,11 @@ SRCS = \
 	scrolledwin.ml \
 	buttonbox.ml \
 	toolbar.ml \
-	notebook.ml \
 	menu_entry.ml \
 	clipboard.ml \
 	scribble.ml
+
+#	notebook.ml \
 
 TARGETS = $(SRCS:.ml=.exe)
 
