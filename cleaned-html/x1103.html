@@ -1,0 +1,106 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1071.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Miscellaneous Widgets</td>
+<td align="left"><a href="x1135.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Rulers</h1>
+<p>Ruler widgets are used to indicate the location of the mouse pointer in a given window. A window can have a vertical ruler spanning across the width and a horizontal ruler spanning down the height. A small triangular indicator on the ruler shows the exact location of the pointer relative to the ruler.</p>
+<p>A ruler must first be created. Horizontal and vertical rulers are created using <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GRange.html#VALruler"><code class="LITERAL">GRange.ruler</code></a></p>
+<pre class="PROGRAMLISTING"><code>val GRange.ruler:
+    Gtk.Tags.orientation -&gt;
+    ?metric:Gtk.Tags.metric_type -&gt;
+    ?lower:float -&gt;
+    ?upper:float -&gt;
+    ?max_size:float -&gt;
+    ?position:float -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; ruler
+
+metric : default value is `PIXELS</code></pre>
+<p>Orientation should be given as an argument. It can be <code class="LITERAL">`HORIZONTAL</code> for horizontal ruler and <code class="LITERAL">`VERTICAL</code> for vertical ruler.</p>
+<p>Units of measure for rulers can be<code class="LITERAL">`PIXELS</code>, <code class="LITERAL">`INCHES</code> or <code class="LITERAL">`CENTIMETERS</code>. This can be set using</p>
+<pre class="PROGRAMLISTING"><code>method set_metric : Gtk.Tags.metric_type -&gt; unit</code></pre>
+<p>The default measure is <code class="LITERAL">`PIXELS</code>.</p>
+<p>Other important characteristics of a ruler are how to mark the units of scale and where the position indicator is initially placed. These are set for a ruler using</p>
+<pre class="PROGRAMLISTING"><code>method set_lower : float -&gt; unit
+method set_upper : float -&gt; unit
+method set_position : float -&gt; unit
+method set_max_size : float -&gt; unit</code></pre>
+<p>The lower and upper define the extent of the ruler, and max_size is the largest possible number that will be displayed. Position defines the initial position of the pointer indicator within the ruler.</p>
+<p>A vertical ruler can span an 800 pixel wide window thus</p>
+<pre class="PROGRAMLISTING"><code>vruler#set_lower 0;
+vruler#set_upper 800;
+vruler#set_position 0;
+vruler#set_max_size 800;</code></pre>
+<p>The markings displayed on the ruler will be from 0 to 800, with a number for every 100 pixels. If instead we wanted the ruler to range from 7 to 16, we would code</p>
+<pre class="PROGRAMLISTING"><code>vruler#set_lower 7;
+vruler#set_upper 16;
+vruler#set_position 0;
+vruler#set_max_size 20;</code></pre>
+<p>The indicator on the ruler is a small triangular mark that indicates the position of the pointer relative to the ruler. If the ruler is used to follow the mouse pointer, the motion_notify_event signal should be connected to the motion_notify_event method of the ruler. To follow all mouse movements within a window area, we would use</p>
+<pre class="PROGRAMLISTING"><code>area#event#connect#motion_notify ~callback:(fun ev -&gt; hruler#event#send (ev :&gt; GdkEvent.any));</code></pre>
+<p>The following example creates a drawing area with a horizontal ruler above it and a vertical ruler to the left of it. The size of the drawing area is 600 pixels wide by 400 pixels high. The horizontal ruler spans from 7 to 13 with a mark every 100 pixels, while the vertical ruler spans from 0 to 400 with a mark every 100 pixels. Placement of the drawing area and the rulers is done using a table.</p>
+<p><img src="images/rulers.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: ruler.ml *)
+
+let xsize = 600
+let ysize = 400
+
+let main () =
+  let window = GWindow.window ~title:&quot;Ruler&quot; ~border_width:10 () in
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  (* Create a table for placing the ruler and the drawing area *)
+  let table = GPack.table ~rows:3 ~columns:2 ~packing:window#add () in
+
+  let area = GMisc.drawing_area ~width:xsize ~height:ysize
+    ~packing:(table#attach ~left:1 ~top:1) () in
+  area#event#add [`POINTER_MOTION; `POINTER_MOTION_HINT];
+
+  (* The horizontal ruler goes on the top. As the mouse moves across
+   * the drawing area, a motion_notify_event is passed to the
+   * approprite event handler for the ruler. *)
+  let hruler = GRange.ruler `HORIZONTAL ~metric:`PIXELS
+    ~lower:7.0 ~upper:13.0 ~position:0.0 ~max_size:20.0
+    ~packing:(table#attach ~left:1 ~top:0) () in
+  area#event#connect#motion_notify
+    ~callback:(fun ev -&gt; hruler#event#send (ev :&gt; GdkEvent.any));
+
+  (* The vertical ruler goes on the left. As the mouse moves across
+   * the drawing area, a motion_notify_event is passed to the
+   * approprite event handler for the ruler. *)
+  let vruler = GRange.ruler `VERTICAL ~metric:`PIXELS
+    ~lower:0.0 ~upper:(float ysize) ~position:0.0 ~max_size:(float ysize)
+    ~packing:(table#attach ~left:0 ~top:1) () in
+  area#event#connect#motion_notify
+    ~callback:(fun ev -&gt; vruler#event#send (ev :&gt; GdkEvent.any));
+
+  window#show ();
+  GMain.Main.main ()
+
+let _ = main ()</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1071.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1135.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Dialogs</td>
+<td align="left"><a href="c953.html">Up</a></td>
+<td align="left">Statusbars</td>
+</tr>
+</tbody>
+</table>

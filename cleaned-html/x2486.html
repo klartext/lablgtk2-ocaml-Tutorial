@@ -1,0 +1,72 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2468.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">GTK Signals</td>
+<td align="left"><a href="x2516.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">GButton</h1>
+<h2 class="SECT2">GButton.button</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GContainer.container_signals
+method clicked : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method enter : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method leave : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method pressed : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method released : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GButton.toggle_button</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GButton.button_signals
+method toggled : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GButton.color_button</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GButton.button_signals
+method color_set : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GButton.fontcolor_button</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GButton.button_signals
+method font_set : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GButton.toolbar</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GContainer.container_signals
+method orientation_changed : callback:(GtkEnums.orientation -&gt; unit) -&gt; GtkSignal.id
+method style_changed : callback:(GtkEnums.toolbar_style -&gt; unit) -&gt; GtkSignal.id
+method focus_home_or_end : callback:(bool -&gt; bool) -&gt; GtkSignal.id
+Since GTK 2.4
+
+method move_focus : callback:(GtkEnums.direction_type -&gt; bool) -&gt; GtkSignal.id
+Since GTK 2.4
+
+method popup_context_menu : callback:(int -&gt; int -&gt; int -&gt; bool) -&gt; GtkSignal.id
+Since GTK 2.4</code></pre>
+<h2 class="SECT2">GButton.tool_button</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GContainer.container_signals
+method clicked : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GButton.toggle_tool_button</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GButton.tool_button_signals
+method toggled : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2468.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x2516.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">GEdit</td>
+<td align="left"><a href="a2390.html">Up</a></td>
+<td align="left">GWindow</td>
+</tr>
+</tbody>
+</table>

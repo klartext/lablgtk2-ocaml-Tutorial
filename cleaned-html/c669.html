@@ -1,0 +1,87 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x665.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"></td>
+<td align="left"><a href="x708.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>The Button Widget</h1>
+<h1 class="SECT1">Normal Buttons</h1>
+<p>We've almost seen all there is to see of the button widget. It's pretty simple. There is however more than one way to create a button. You can use the <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GButton.html#VALbutton"><code class="LITERAL">GButton.button</code></a> function with <code class="LITERAL">~label</code> or <code class="LITERAL">~mnemonic</code> option to create a button with a label, use <code class="LITERAL">~stock</code> option to create a button containing the image and text from a stock item or use it without these options to create a blank button. It's then up to you to pack a label or pixmap into this new button. To do this, create a new box which is packed into button using <code class="LITERAL">#add</code> method, and then pack your objects into this box using the usual <code class="LITERAL">#pack</code> method.</p>
+<p>Here's an example of using <code class="LITERAL">GButton.button</code> to create a button with a image and a label in it. I've broken up the code to create a box from the rest so you can use it in your programs. There are further examples of using images later in the tutorial.</p>
+<p><img src="images/buttons.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: button.ml *)
+
+open GMain
+
+(* Create a new hbox with an image and a label packed into it
+ * and pack the box *)
+let xpm_label_box ~file ~text ~packing () =
+  if not (Sys.file_exists file) then failwith (file ^ &quot; does not exist&quot;);
+
+  (* Create box for image and label and pack *)
+  let box = GPack.hbox ~border_width:2 ~packing () in
+
+  (* Now on to the image stuff and pack into box *)
+  let pixmap = GDraw.pixmap_from_xpm ~file () in
+  GMisc.pixmap pixmap ~packing:(box#pack ~padding:3) ();
+
+  (* Create a label for the button and pack into box *)
+  GMisc.label ~text ~packing:(box#pack ~padding:3) ()
+
+let main () =
+  (* Create a new window; set title and border_width *)
+  let window = GWindow.window ~title:&quot;Pixmap&#39;d Buttons!&quot; ~border_width:10 () in
+
+  (* It&#39;s a good idea to do this for all windows. *)
+  window#connect#destroy ~callback:Main.quit;
+  window#event#connect#delete ~callback:(fun _ -&gt; Main.quit (); true);
+
+  (* Create a new button and pack *)
+  let button = GButton.button ~packing:window#add () in
+
+  (* Connect the &quot;clicked&quot; signal of the button to callback *)
+  button#connect#clicked ~callback:
+    (fun () -&gt; print_endline &quot;Hello again - cool button was pressed&quot;);
+
+  (* Create box with xpm and label and pack into button *)
+  xpm_label_box ~file:&quot;info.xpm&quot; ~text:&quot;cool button&quot; ~packing:button#add ();
+
+  (* Show the window and wait for the fun to begin! *)
+  window#show ();
+  Main.main ()
+
+let _ = main ()</code></pre>
+<p>The xpm_label_box() function could be used to pack images and labels into any widget that can be a container.</p>
+<p>The Button widget has the following signals; see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GButton.button_signals-c.html"><code class="LITERAL">GButton.button_signals</code></a>:</p>
+<p></p>
+<ul>
+<li><p><code class="LITERAL">pressed</code> - emitted when pointer button is pressed within Button widget</p></li>
+<li><p><code class="LITERAL">released</code> - emitted when pointer button is released within Button widget</p></li>
+<li><p><code class="LITERAL">clicked</code> - emitted when pointer button is pressed and then released within Button widget</p></li>
+<li><p><code class="LITERAL">enter</code> - emitted when pointer enters Button widget</p></li>
+<li><p><code class="LITERAL">leave</code> - emitted when pointer leaves Button widget</p></li>
+</ul>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x665.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x708.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Memory Management</td>
+<td align="left"> </td>
+<td align="left">Toggle Buttons</td>
+</tr>
+</tbody>
+</table>

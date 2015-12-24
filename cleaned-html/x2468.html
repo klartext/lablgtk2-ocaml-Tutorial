@@ -1,0 +1,60 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2454.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">GTK Signals</td>
+<td align="left"><a href="x2486.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">GEdit</h1>
+<h2 class="SECT2">GEdit.editable</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GObj.widget_signals
+method changed : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method delete_text : callback:(start:int -&gt; stop:int -&gt; unit) -&gt; GtkSignal.id
+method insert_text : callback:(string -&gt; pos:int Pervasives.ref -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GEdit.entry</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GEdit.editable_signals
+method activate : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method copy_clipboard : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method cut_clipboard : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method delete_from_cursor : callback:(Gtk.Tags.delete_type -&gt; int -&gt; unit) -&gt; GtkSignal.id
+method insert_at_cursor : callback:(string -&gt; unit) -&gt; GtkSignal.id
+method move_cursor : callback:(Gtk.Tags.movement_step -&gt; int -&gt; extend:bool -&gt; unit) -&gt;       GtkSignal.id
+method paste_clipboard : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method populate_popup : callback:(GMenu.menu -&gt; unit) -&gt; GtkSignal.id
+method toggle_overwrite : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GEdit.spin_button</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GEdit.entry_signals
+method change_value : callback:(Gtk.Tags.scroll_type -&gt; unit) -&gt; GtkSignal.id
+method input : callback:(unit -&gt; int) -&gt; GtkSignal.id
+method output : callback:(unit -&gt; bool) -&gt; GtkSignal.id
+method value_changed : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GEdit.combo_box</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GContainer.container_signals
+method changed : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2454.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x2486.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">GMenu</td>
+<td align="left"><a href="a2390.html">Up</a></td>
+<td align="left">GButton</td>
+</tr>
+</tbody>
+</table>

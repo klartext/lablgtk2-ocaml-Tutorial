@@ -1,0 +1,44 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x708.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">The Button Widget</td>
+<td align="left"><a href="x743.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Check Buttons</h1>
+<p>Check buttons inherit many properties and functions from the the toggle buttons above, but look a little different. Rather than being buttons with text inside them, they are small squares with the text to the right of them. These are often used for toggling options on and off in applications.</p>
+<p>The creation functions are similar to those of the normal button. See <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GButton.html#VALcheck_button"><code class="LITERAL">GButton.check_button</code></a>.</p>
+<pre class="PROGRAMLISTING"><code>val GButton.check_button :
+    ?label:string -&gt;
+    ?use_mnemonic:bool -&gt;
+    ?stock:GtkStock.id -&gt;
+    ?relief:Gtk.Tags.relief_style -&gt;
+    ?active:bool -&gt;
+    ?draw_indicator:bool -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; toggle_button</code></pre>
+<p>This function call with <code class="LITERAL">~lablel</code> option creates a check button with a label beside it.</p>
+<p>Checking the state of the check button is identical to that of the toggle button.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x708.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x743.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Toggle Buttons</td>
+<td align="left"><a href="c669.html">Up</a></td>
+<td align="left">Radio Buttons</td>
+</tr>
+</tbody>
+</table>

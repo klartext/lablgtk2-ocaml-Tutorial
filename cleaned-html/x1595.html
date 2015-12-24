@@ -1,0 +1,92 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1577.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Container Widgets</td>
+<td align="left"><a href="x1623.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Scrolled Windows</h1>
+<p>Scrolled windows are used to create a scrollable area with another widget inside it. You may insert any type of widget into a scrolled window, and it will be accessible regardless of the size by using the scrollbars.</p>
+<p>The function <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GBin.html#VALscrolled_window"><code class="LITERAL">GBin.scrolled_window</code></a> is used to create a new scrolled window.</p>
+<pre class="PROGRAMLISTING"><code>val GBin.scrolled_window :
+    ?hadjustment:GData.adjustment -&gt;
+    ?vadjustment:GData.adjustment -&gt;
+    ?hpolicy:Gtk.Tags.policy_type -&gt;
+    ?vpolicy:Gtk.Tags.policy_type -&gt;
+    ?placement:Gtk.Tags.corner_type -&gt;
+    ?shadow_type:Gtk.Tags.shadow_type -&gt;
+    ?border_width:int -&gt;
+    ?width:int -&gt;
+    ?height:int -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; scrolled_window</code></pre>
+<p>Where the argument <code class="LITERAL">hadjustment</code> is the adjustment for the horizontal direction, and <code class="LITERAL">vadjustment</code>, the adjustment for the vertical direction. These are almost always not given.</p>
+<pre class="PROGRAMLISTING"><code>method set_hpolicy : Gtk.Tags.policy_type -&gt; unit
+method set_vpolicy : Gtk.Tags.policy_type -&gt; unit</code></pre>
+<p>This sets the policy to be used with respect to the scrollbars. The <code class="LITERAL">set_hpolicy</code> sets the policy for the horizontal scrollbar, and the <code class="LITERAL">set_vpolicy</code> for the vertical scrollbar.</p>
+<p>The policy may be one of <code class="LITERAL">`AUTOMATIC</code> or <code class="LITERAL">`ALWAYS</code>. <code class="LITERAL">`AUTOMATIC</code> will automatically decide whether you need scrollbars, whereas <code class="LITERAL">`ALWAYS</code> will always leave the scrollbars there.</p>
+<p>You can then place your object into the scrolled window using the following function.</p>
+<pre class="PROGRAMLISTING"><code>method add_with_viewport : GObj.widget -&gt; unit</code></pre>
+<p>Here is a simple example that packs a table with 100 toggle buttons into a scrolled window. I've only commented on the parts that may be new to you.</p>
+<p><img src="images/scrolledwin.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: scrolledwin.ml *)
+
+let main () =
+  (* Create a new dialog window for the scrolled window to be
+   * packed into. *)
+  let window = GWindow.dialog ~title:&quot;ScrolledWindow example&quot; ~width:300 ~height:300 ~border_width:0 () in
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  (* Create a new scrolled window *)
+  let scrolled_window = GBin.scrolled_window ~border_width:10
+    ~hpolicy:`AUTOMATIC ~vpolicy:`AUTOMATIC ~packing:window#vbox#add () in
+
+  (* Create a table of 10 by 10 squares.
+   * Set the spacing to 10 on x and 10 on y *)
+  let table = GPack.table ~rows:10 ~columns:10 ~row_spacings:10 ~col_spacings:10
+    ~packing:scrolled_window#add_with_viewport () in
+
+  for i = 0 to 10 do
+    for j=0 to 10 do
+      GButton.toggle_button
+        ~label:(&quot;button (&quot;^ string_of_int i ^&quot;,&quot;^ string_of_int j ^&quot;)\n&quot;)
+        ~packing:(table#attach ~left:i ~top:j ~expand:`BOTH) ()
+    done
+  done;
+
+  (* Add a &quot;close&quot; button to the bottom of the dialog *)
+  let button = GButton.button ~label:&quot;close&quot; ~packing:window#action_area#add () in
+  button#connect#clicked ~callback:(window#destroy);
+
+  (* This grabs this button to be the default button. Simply hitting
+   * the &quot;Enter&quot; key will cause this button to activate. *)
+  button#grab_default ();
+
+  window#show ();
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</code></pre>
+<p>Try playing with resizing the window. You'll notice how the scrollbars react. You may also wish to use the #misc#set_size_request method call to set the default size of the window or other widgets.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1577.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1623.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Viewports</td>
+<td align="left"><a href="c1436.html">Up</a></td>
+<td align="left">Button Boxes</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,68 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c2131.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">GTK's rc Files</td>
+<td align="left"><a href="x2193.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">GTK's rc File Format</h1>
+<p>The format of the GTK file is illustrated in the example below. This is the testgtkrc file from the GTK distribution, but I've added a few comments and things. You may wish to include this explanation in your application to allow the user to fine tune his application.</p>
+<p>There are several directives to change the attributes of a widget.</p>
+<p></p>
+<ul>
+<li><p>fg - Sets the foreground color of a widget.</p></li>
+<li><p>bg - Sets the background color of a widget.</p></li>
+<li><p>bg_pixmap - Sets the background of a widget to a tiled pixmap.</p></li>
+<li><p>font - Sets the font to be used with the given widget.</p></li>
+</ul>
+<p>In addition to this, there are several states a widget can be in, and you can set different colors, pixmaps and fonts for each state. These states are:</p>
+<p></p>
+<ul>
+<li><p>NORMAL - The normal state of a widget, without the mouse over top of it, and not being pressed, etc.</p></li>
+<li><p>PRELIGHT - When the mouse is over top of the widget, colors defined using this state will be in effect.</p></li>
+<li><p>ACTIVE - When the widget is pressed or clicked it will be active, and the attributes assigned by this tag will be in effect.</p></li>
+<li><p>INSENSITIVE - When a widget is set insensitive, and cannot be activated, it will take these attributes.</p></li>
+<li><p>SELECTED - When an object is selected, it takes these attributes.</p></li>
+</ul>
+<p>When using the &quot;fg&quot; and &quot;bg&quot; keywords to set the colors of widgets, the format is:</p>
+<pre class="PROGRAMLISTING"><code>fg[&lt;STATE&gt;] = { Red, Green, Blue }</code></pre>
+<p>Where STATE is one of the above states (PRELIGHT, ACTIVE, etc), and the Red, Green and Blue are values in the range of 0 - 1.0, { 1.0, 1.0, 1.0 } being white. They must be in float form, or they will register as 0, so a straight &quot;1&quot; will not work, it must be &quot;1.0&quot;. A straight &quot;0&quot; is fine because it doesn't matter if it's not recognized. Unrecognized values are set to 0.</p>
+<p>bg_pixmap is very similar to the above, except the colors are replaced by a filename.</p>
+<p>pixmap_path is a list of paths separated by &quot;:&quot;'s. These paths will be searched for any pixmap you specify.</p>
+<p>The font directive is simply:</p>
+<pre class="PROGRAMLISTING"><code>font = &quot;&lt;font name&gt;&quot;</code></pre>
+<p>The only hard part is figuring out the font string. Using xfontsel or a similar utility should help.</p>
+<p>The &quot;widget_class&quot; sets the style of a class of widgets. These classes are listed in the widget overview on the class hierarchy.</p>
+<p>The &quot;widget&quot; directive sets a specifically named set of widgets to a given style, overriding any style set for the given widget class. These widgets are registered inside the application using the misc#set_name call. This allows you to specify the attributes of a widget on a per widget basis, rather than setting the attributes of an entire widget class. I urge you to document any of these special widgets so users may customize them.</p>
+<p>When the keyword <code class="LITERAL">parent</code> is used as an attribute, the widget will take on the attributes of its parent in the application.</p>
+<p>When defining a style, you may assign the attributes of a previously defined style to this new one.</p>
+<pre class="PROGRAMLISTING"><code>style &quot;main_button&quot; = &quot;button&quot;
+{
+  font = &quot;-adobe-helvetica-medium-r-normal--*-100-*-*-*-*-*-*&quot;
+  bg[PRELIGHT] = { 0.75, 0, 0 }
+}</code></pre>
+<p>This example takes the &quot;button&quot; style, and creates a new &quot;main_button&quot; style simply by changing the font and prelight background color of the &quot;button&quot; style.</p>
+<p>Of course, many of these attributes don't apply to all widgets. It's a simple matter of common sense really. Anything that could apply, should.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c2131.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x2193.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">GTK's rc Files</td>
+<td align="left"><a href="c2131.html">Up</a></td>
+<td align="left">Example rc file</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,48 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2527.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">GTK Signals</td>
+<td align="left"><a href="x2547.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">GMisc</h1>
+<h2 class="SECT2">GMisc.calendar</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GObj.widget_signals
+method day_selected : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method day_selected_double_click : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method month_changed : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method next_month : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method next_year : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method prev_month : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method prev_year : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GMisc.tips_query</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GObj.widget_signals
+method start_query : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method stop_query : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method widget_entered : callback:(GObj.widget option -&gt; text:string -&gt; privat:string -&gt; unit) -&gt;       GtkSignal.id
+method widget_selected : callback:(GObj.widget option -&gt;                 text:string -&gt; privat:string -&gt; GdkEvent.Button.t -&gt; bool) -&gt;       GtkSignal.id</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2527.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x2547.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">GFile</td>
+<td align="left"><a href="a2390.html">Up</a></td>
+<td align="left">GTree</td>
+</tr>
+</tbody>
+</table>

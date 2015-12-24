@@ -1,0 +1,155 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2152.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">GTK's rc Files</td>
+<td align="left"><a href="c2196.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Example rc file</h1>
+<pre class="PROGRAMLISTING"><code># pixmap_path &quot;&lt;dir 1&gt;:&lt;dir 2&gt;:&lt;dir 3&gt;:...&quot;
+#
+pixmap_path &quot;/usr/include/X11R6/pixmaps:/home/imain/pixmaps&quot;
+#
+# style &lt;name&gt; [= &lt;name&gt;]
+# {
+#   &lt;option&gt;
+# }
+#
+# widget &lt;widget_set&gt; style &lt;style_name&gt;
+# widget_class &lt;widget_class_set&gt; style &lt;style_name&gt;
+
+# Here is a list of all the possible states.  Note that some do not apply to
+# certain widgets.
+#
+# NORMAL - The normal state of a widget, without the mouse over top of
+# it, and not being pressed, etc.
+#
+# PRELIGHT - When the mouse is over top of the widget, colors defined
+# using this state will be in effect.
+#
+# ACTIVE - When the widget is pressed or clicked it will be active, and
+# the attributes assigned by this tag will be in effect.
+#
+# INSENSITIVE - When a widget is set insensitive, and cannot be
+# activated, it will take these attributes.
+#
+# SELECTED - When an object is selected, it takes these attributes.
+#
+# Given these states, we can set the attributes of the widgets in each of
+# these states using the following directives.
+#
+# fg - Sets the foreground color of a widget.
+# fg - Sets the background color of a widget.
+# bg_pixmap - Sets the background of a widget to a tiled pixmap.
+# font - Sets the font to be used with the given widget.
+#
+
+# This sets a style called &quot;button&quot;.  The name is not really important, as
+# it is assigned to the actual widgets at the bottom of the file.
+
+style &quot;window&quot;
+{
+  #This sets the padding around the window to the pixmap specified.
+  #bg_pixmap[&lt;STATE&gt;] = &quot;&lt;pixmap filename&gt;&quot;
+  bg_pixmap[NORMAL] = &quot;warning.xpm&quot;
+}
+
+style &quot;scale&quot;
+{
+  #Sets the foreground color (font color) to red when in the &quot;NORMAL&quot;
+  #state.
+  
+  fg[NORMAL] = { 1.0, 0, 0 }
+  
+  #Sets the background pixmap of this widget to that of its parent.
+  bg_pixmap[NORMAL] = &quot;&lt;parent&gt;&quot;
+}
+
+style &quot;button&quot;
+{
+  # This shows all the possible states for a button.  The only one that
+  # doesn&#39;t apply is the SELECTED state.
+  
+  fg[PRELIGHT] = { 0, 1.0, 1.0 }
+  bg[PRELIGHT] = { 0, 0, 1.0 }
+  bg[ACTIVE] = { 1.0, 0, 0 }
+  fg[ACTIVE] = { 0, 1.0, 0 }
+  bg[NORMAL] = { 1.0, 1.0, 0 }
+  fg[NORMAL] = { .99, 0, .99 }
+  bg[INSENSITIVE] = { 1.0, 1.0, 1.0 }
+  fg[INSENSITIVE] = { 1.0, 0, 1.0 }
+}
+
+# In this example, we inherit the attributes of the &quot;button&quot; style and then
+# override the font and background color when prelit to create a new
+# &quot;main_button&quot; style.
+
+style &quot;main_button&quot; = &quot;button&quot;
+{
+  font = &quot;-adobe-helvetica-medium-r-normal--*-100-*-*-*-*-*-*&quot;
+  bg[PRELIGHT] = { 0.75, 0, 0 }
+}
+
+style &quot;toggle_button&quot; = &quot;button&quot;
+{
+  fg[NORMAL] = { 1.0, 0, 0 }
+  fg[ACTIVE] = { 1.0, 0, 0 }
+  
+  # This sets the background pixmap of the toggle_button to that of its
+  # parent widget (as defined in the application).
+  bg_pixmap[NORMAL] = &quot;&lt;parent&gt;&quot;
+}
+
+style &quot;text&quot;
+{
+  bg_pixmap[NORMAL] = &quot;marble.xpm&quot;
+  fg[NORMAL] = { 1.0, 1.0, 1.0 }
+}
+
+style &quot;ruler&quot;
+{
+  font = &quot;-adobe-helvetica-medium-r-normal--*-80-*-*-*-*-*-*&quot;
+}
+
+# pixmap_path &quot;~/.pixmaps&quot;
+
+# These set the widget types to use the styles defined above.
+# The widget types are listed in the class hierarchy, but could probably be
+# just listed in this document for the users reference.
+
+widget_class &quot;GtkWindow&quot; style &quot;window&quot;
+widget_class &quot;GtkDialog&quot; style &quot;window&quot;
+widget_class &quot;GtkFileSelection&quot; style &quot;window&quot;
+widget_class &quot;*Gtk*Scale&quot; style &quot;scale&quot;
+widget_class &quot;*GtkCheckButton*&quot; style &quot;toggle_button&quot;
+widget_class &quot;*GtkRadioButton*&quot; style &quot;toggle_button&quot;
+widget_class &quot;*GtkButton*&quot; style &quot;button&quot;
+widget_class &quot;*Ruler&quot; style &quot;ruler&quot;
+widget_class &quot;*GtkText&quot; style &quot;text&quot;
+
+# This sets all the buttons that are children of the &quot;main window&quot; to
+# the main_button style.  These must be documented to be taken advantage of.
+widget &quot;main window.*GtkButton*&quot; style &quot;main_button&quot;</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2152.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="c2196.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">GTK's rc File Format</td>
+<td align="left"><a href="c2131.html">Up</a></td>
+<td align="left">Scribble, A Simple Example Drawing Program</td>
+</tr>
+</tbody>
+</table>

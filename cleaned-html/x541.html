@@ -1,0 +1,128 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c518.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Widget Overview</td>
+<td align="left"><a href="x547.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Widget Hierarchy</h1>
+<p></p>
+<p><img src="./stylesheet-images/note.gif" alt="Note" /></p>
+<p>This section shows the hierarchy of widgets in C version. I'm not sure this is correct or not in ocaml version. And the names of widgets used in this section are C version, not ocaml version.</p>
+<p>For your reference, here is the class hierarchy tree used to implement widgets. (Deprecated widgets and auxiliary classes have been omitted.)</p>
+<pre class="PROGRAMLISTING"><code>GObject
+ |  
+ GtkObject
+  +GtkWidget
+  | +GtkMisc
+  | | +GtkLabel
+  | | | `GtkAccelLabel
+  | | +GtkArrow
+  | | `GtkImage
+  | +GtkContainer
+  | | +GtkBin
+  | | | +GtkAlignment
+  | | | +GtkFrame
+  | | | | `GtkAspectFrame
+  | | | +GtkButton
+  | | | | +GtkToggleButton
+  | | | | | `GtkCheckButton
+  | | | | |   `GtkRadioButton
+  | | | | `GtkOptionMenu
+  | | | +GtkItem
+  | | | | +GtkMenuItem
+  | | | |   +GtkCheckMenuItem
+  | | | |   | `GtkRadioMenuItem
+  | | | |   +GtkImageMenuItem
+  | | | |   +GtkSeparatorMenuItem
+  | | | |   `GtkTearoffMenuItem
+  | | | +GtkWindow
+  | | | | +GtkDialog
+  | | | | | +GtkColorSelectionDialog
+  | | | | | +GtkFileSelection
+  | | | | | +GtkFontSelectionDialog
+  | | | | | +GtkInputDialog
+  | | | | | `GtkMessageDialog
+  | | | | `GtkPlug
+  | | | +GtkEventBox
+  | | | +GtkHandleBox
+  | | | +GtkScrolledWindow
+  | | | `GtkViewport
+  | | +GtkBox
+  | | | +GtkButtonBox
+  | | | | +GtkHButtonBox
+  | | | | `GtkVButtonBox
+  | | | +GtkVBox
+  | | | | +GtkColorSelection
+  | | | | +GtkFontSelection
+  | | | | `GtkGammaCurve
+  | | | `GtkHBox
+  | | |   +GtkCombo
+  | | |   `GtkStatusbar
+  | | +GtkFixed
+  | | +GtkPaned
+  | | | +GtkHPaned
+  | | | `GtkVPaned
+  | | +GtkLayout
+  | | +GtkMenuShell
+  | | | +GtkMenuBar
+  | | | `GtkMenu
+  | | +GtkNotebook
+  | | +GtkSocket
+  | | +GtkTable
+  | | +GtkTextView
+  | | +GtkToolbar
+  | | `GtkTreeView
+  | +GtkCalendar
+  | +GtkDrawingArea
+  | | `GtkCurve
+  | +GtkEditable
+  | | +GtkEntry
+  | |   `GtkSpinButton
+  | +GtkRuler
+  | | +GtkHRuler
+  | | `GtkVRuler
+  | +GtkRange
+  | | +GtkScale
+  | | | +GtkHScale
+  | | | `GtkVScale
+  | | `GtkScrollbar
+  | |   +GtkHScrollbar
+  | |   `GtkVScrollbar
+  | +GtkSeparator
+  | | +GtkHSeparator
+  | | `GtkVSeparator
+  | +GtkInvisible
+  | +GtkPreview
+  | `GtkProgressBar
+  +GtkAdjustment
+  +GtkCellRenderer
+  | +GtkCellRendererPixbuf
+  | +GtkCellRendererText
+  | +GtkCellRendererToggle
+  +GtkItemFactory
+  +GtkTooltips
+  `GtkTreeViewColumn</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c518.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x547.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Widget Overview</td>
+<td align="left"><a href="c518.html">Up</a></td>
+<td align="left">Widgets Without Windows</td>
+</tr>
+</tbody>
+</table>

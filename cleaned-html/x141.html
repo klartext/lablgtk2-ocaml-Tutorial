@@ -1,0 +1,47 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c108.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Getting Started</td>
+<td align="left"><a href="x166.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Compiling Hello World</h1>
+<p>To compile use:</p>
+<p></p>
+<p><code class="LITERAL">ocamlc -I +lablgtk2 -o helloworld lablgtk.cma gtkInit.cmo helloworld.ml</code></p>
+<p>The options are:</p>
+<p></p>
+<ul>
+<li><p><code class="LITERAL">-I +lablgtk2</code>: adds the subdirectory <code class="LITERAL">lablgtk2</code> of the standard library to the search path. In that directory, there are compiled interface files (.cmi), compiled object code files (.cmo), libraries (.cma) related with lablgtk2.</p></li>
+<li><p><code class="LITERAL">-o hello</code>: specify the name of the output file produced by the linker.</p></li>
+</ul>
+<p>The library and object that are usually linked in are:</p>
+<p></p>
+<ul>
+<li><p>The LablGtk library (<code class="LITERAL">lablgtk.cma</code>), the GTK+ widget library.</p></li>
+<li><p>gtkInit object(<code class="LITERAL">gtkInit.cmo</code>), containing gtkInit function. If you use this object code, you don't have to call <code class="LITERAL">GtkMain.Main.init ()</code> function before any lablgtk functions.</p></li>
+</ul>
+<p>There are many other options and libraries very useful, please refer the ocaml manual.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c108.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x166.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Getting Started</td>
+<td align="left"><a href="c108.html">Up</a></td>
+<td align="left">Theory of Signals and Callbacks</td>
+</tr>
+</tbody>
+</table>

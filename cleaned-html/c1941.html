@@ -1,0 +1,37 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c1933.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"></td>
+<td align="left"><a href="x1950.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>Timeouts and Idle Functions</h1>
+<h1 class="SECT1">Timeouts</h1>
+<p>You may be wondering how you make GTK do useful work when in gtk_main. Well, you have several options. Using the following function you can create a timeout function that will be called every &quot;interval&quot; milliseconds.</p>
+<pre class="PROGRAMLISTING"><code>val GMain.Timeout.add : ms:int -&gt; callback:(unit -&gt; bool) -&gt; id</code></pre>
+<p>The first argument is the number of milliseconds between calls to your function. The second argument is the function you wish to have called. The return value is an integer &quot;tag&quot; which may be used to stop the timeout by calling:</p>
+<pre class="PROGRAMLISTING"><code>val GMain.Timeout.remove : id -&gt; unit</code></pre>
+<p>You may also stop the timeout function by returning false from your callback function. Obviously this means if you want your function to continue to be called, it should return true.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c1933.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1950.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Setting Widget Attributes</td>
+<td align="left"> </td>
+<td align="left">Idle Functions</td>
+</tr>
+</tbody>
+</table>

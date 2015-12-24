@@ -1,0 +1,55 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x792.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Adjustments</td>
+<td align="left"><a href="c834.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Adjustment Internals</h1>
+<p>Ok, you say, that's nice, but what if I want to create my own handlers to respond when the user adjusts a range widget or a spin button, and how do I get at the value of the adjustment in these handlers?</p>
+<p>You can use the following accessor to inspect the <code class="LITERAL">value</code> of an adjustment:</p>
+<pre class="PROGRAMLISTING"><code>method value : float</code></pre>
+<p>Since, when you set the <code class="LITERAL">value</code> of an Adjustment, you generally want the change to be reflected by every widget that uses this adjustment, GTK provides this convenience function to do this:</p>
+<pre class="PROGRAMLISTING"><code>method set_value : float -&gt; unit</code></pre>
+<p>As mentioned earlier, Adjustment is a subclass of Object just like all the various widgets, and thus it is able to emit signals. This is, of course, why updates happen automagically when you share an adjustment object between a scrollbar and another adjustable widget; all adjustable widgets connect signal handlers to their adjustment's <code class="LITERAL">value_changed</code> signal, as can your program. Here's the definition of this signal:</p>
+<pre class="PROGRAMLISTING"><code>method value_changed : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<p>The various widgets that use the Adjustment object will emit this signal on an adjustment whenever they change its value. This happens both when user input causes the slider to move on a range widget, as well as when the program explicitly changes the value with set_value method. So, for example, if you have a scale widget, and you want to change the rotation of a picture whenever its value changes, you would create a callback like this:</p>
+<pre class="PROGRAMLISTING"><code>let cb_rotate_picture adj picture () =
+  picture#set_rotation adj#value;
+  ...</code></pre>
+<p>and connect it to the scale widget's adjustment like this:</p>
+<pre class="PROGRAMLISTING"><code>adj#connect#value_changed ~callback:(cb_rotate_picture adj picture);</code></pre>
+<p>What about when a widget needs to reconfigure the <code class="LITERAL">upper</code> or <code class="LITERAL">lower</code> fields of its adjustment, such as when a user adds more text to a text widget? In this case, you can use</p>
+<pre class="PROGRAMLISTING"><code>method set_bounds :
+    ?lower:float -&gt;
+    ?upper:float -&gt;
+    ?step_incr:float -&gt;
+    ?page_incr:float -&gt;
+    ?page_size:float -&gt; unit -&gt; unit</code></pre>
+<p>When an adjustment is reconfigured, it emits the <code class="LITERAL">changed</code> signal, which looks like this:</p>
+<pre class="PROGRAMLISTING"><code>method changed : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<p>Range widgets typically connect a handler to this signal, which changes their appearance to reflect the change - for example, the size of the slider in a scrollbar will grow or shrink in inverse proportion to the difference between the <code class="LITERAL">lower</code> and <code class="LITERAL">upper</code> values of its adjustment.</p>
+<p>Now go forth and adjust!</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x792.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="c834.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Using Adjustments the Easy Way</td>
+<td align="left"><a href="c766.html">Up</a></td>
+<td align="left">Range Widgets</td>
+</tr>
+</tbody>
+</table>

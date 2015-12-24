@@ -1,0 +1,38 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x557.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"></td>
+<td align="left"><a href="x665.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>Creating Widgets</h1>
+<p>You create a widget by</p>
+<pre class="PROGRAMLISTING"><code>  [Module].[widget name] options ... ()</code></pre>
+<p>Many optional arguments are admitted. The last two of them, packing: and show:, allow you respectively to call a function on your newly created widget, and to decide wether to show it immediately or not. By default all widgets except toplevel windows (GWindow module) are shown immediately.</p>
+<h1 class="SECT1">Default Arguments</h1>
+<p>For many constructor or method arguments, default values are provided. Generally, this default value is defined by GTK, and you must refer to GTK's documentation.</p>
+<p>For ML defined defaults, usually default values are either false, 0, None or `NONE, according to the expected type.</p>
+<p>Important exceptions are ~show, which default to true in all widgets except those in GWindow, and ~fill, which defaults to true or `BOTH.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x557.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x665.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Structure of Widgets</td>
+<td align="left"> </td>
+<td align="left">Memory Management</td>
+</tr>
+</tbody>
+</table>

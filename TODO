@@ -1,0 +1,40 @@
+Results of running linkchecker on the generated html:
+
+---------------
+Missing images:
+---------------
+
+images/entry.png
+images/helloworld2.png
+images/notebook.png
+images/progressbar.png
+images/spinbutton.png
+images/statusbar.png
+
+------------------
+404 external links
+------------------
+
+URL        `http://web.archive.org/http://plus.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk2-tutorial'
+Name       `http://web.archive.org/http://plus.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk2-tutorial'
+Parent URL generated-html/c20.html, line 22, col 227
+Real URL   http://web.archive.org/http%3A/plus.kaist.ac.kr/~shoh/ocaml/lablgtk2/lablgtk2-tutorial
+Warning    [http-robots-denied] Access denied by robots.txt,
+           skipping content checks.
+
+URL        `https://github.com/klartext/lablgtk2-ocaml-Tutorial'
+Name       `https://github.com/klartext/lablgtk2-ocaml-Tutorial'
+Parent URL generated-html/c2294.html, line 24, col 61
+Real URL   https://github.com/klartext/lablgtk2-ocaml-Tutorial
+Warning    [http-robots-denied] Access denied by robots.txt,
+           skipping content checks.
+
+URL        `http://lablgtk.forge.ocamlcore.org/refdoc/GObj.event_signals.html'
+Name       `event_signals'
+Parent URL generated-html/x181.html, line 52, col 278
+Real URL   http://lablgtk.forge.ocamlcore.org/refdoc/GObj.event_signals.html
+
+URL        `http://lablgtk.forge.ocamlcore.org/refdoc/GPack.box_skel.html#METHODpack'
+Name       `box#pack'
+Parent URL generated-html/c383.html, line 22, col 319
+Real URL   http://lablgtk.forge.ocamlcore.org/refdoc/GPack.box_skel.html#METHODpack

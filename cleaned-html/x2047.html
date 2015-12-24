@@ -1,0 +1,109 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2035.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Drag-and-drop (DND)</td>
+<td align="left"><a href="c2131.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Functions</h1>
+<p>You can find the full DragAndDrop specification in <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.drag_ops-c.html"><code class="LITERAL">GObj.drag_ops</code></a>. And you can use these functions(methods) and events like this:</p>
+<pre class="PROGRAMLISTING"><code>[widget]#drag#[method name]
+[widget]#drag#connect#[event name]</code></pre>
+<h2 class="SECT2">Setting up the source widget</h2>
+<p>The method <code class="LITERAL">drag#source_set</code> specifies a set of target types for a drag operation on a widget.</p>
+<pre class="PROGRAMLISTING"><code>method source_set :
+    ?modi:Gdk.Tags.modifier list -&gt;
+    ?actions:Gdk.Tags.drag_action list -&gt;
+    Gtk.target_entry list -&gt; unit</code></pre>
+<p>The parameters signify the following:</p>
+<p></p>
+<ul>
+<li><p><code class="LITERAL">modi</code> specifies a list of buttons that can start the drag (e.g. `BUTTON1): see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/Gdk.Tags.html#TYPEmodifier"><code class="LITERAL">Gdk.Tags.modifier</code></a></p></li>
+<li><p><code class="LITERAL">Gtk.target_entry list</code> specifies a table of target data types the drag will support</p></li>
+<li><p><code class="LITERAL">actions</code> specifies a list of possible actions for a drag from this window</p></li>
+</ul>
+<p>The <code class="LITERAL">Gtk.target_entry</code> type is the following structure:</p>
+<pre class="PROGRAMLISTING"><code>type target_entry = {
+    target : string; 
+    flags : Tags.target_flags list; 
+    info : int; 
+} 
+
+type target_flags = [ `SAME_APP | `SAME_WIDGET ] </code></pre>
+<p>The fields specify a string representing the drag type, optional flags and application assigned integer identifier.</p>
+<p>If a widget is no longer required to act as a source for drag-and-drop operations, the method <code class="LITERAL">drag#source_unset</code> can be used to remove a set of drag-and-drop target types.</p>
+<pre class="PROGRAMLISTING"><code>method source_unset : unit -&gt; unit</code></pre>
+<h2 class="SECT2">Signals on the source widget:</h2>
+<p>The source widget is sent the following signals during a drag-and-drop operation.</p>
+<p><strong>Table 1. Source widget signals</strong></p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">drag_begin</td>
+<td align="left"><code class="LITERAL">method beginning : callback:(drag_context -&gt; unit) -&gt; GtkSignal.id</code></td>
+</tr>
+<tr class="even">
+<td align="left">drag_motion</td>
+<td align="left"><code class="LITERAL">method motion :     callback:(drag_context -&gt; x:int -&gt; y:int -&gt; time:int32 -&gt; bool) -&gt;     GtkSignal.id</code></td>
+</tr>
+<tr class="odd">
+<td align="left">drag_data_get</td>
+<td align="left"><code class="LITERAL">method data_get :     callback:(drag_context -&gt; selection_context -&gt; info:int -&gt; time:int32 -&gt; unit) -&gt;     GtkSignal.id</code></td>
+</tr>
+<tr class="even">
+<td align="left">drag_data_delete</td>
+<td align="left"><code class="LITERAL">method data_delete : callback:(drag_context -&gt; unit) -&gt; GtkSignal.id</code></td>
+</tr>
+<tr class="odd">
+<td align="left">drag_drop</td>
+<td align="left"><code class="LITERAL">method drop :     callback:(drag_context -&gt; x:int -&gt; y:int -&gt; time:int32 -&gt; bool) -&gt;     GtkSignal.id</code></td>
+</tr>
+<tr class="even">
+<td align="left">drag_end</td>
+<td align="left"><code class="LITERAL">method ending : callback:(drag_context -&gt; unit) -&gt; GtkSignal.id</code></td>
+</tr>
+</tbody>
+</table>
+<h2 class="SECT2">Setting up a destination widget:</h2>
+<p><code class="LITERAL">drag#dest_set</code> specifies that this widget can receive drops and specifies what types of drops it can receive.</p>
+<p><code class="LITERAL">drag#dest_unset</code> specifies that the widget can no longer receive drops.</p>
+<pre class="PROGRAMLISTING"><code>method dest_set :
+    ?flags:Gtk.Tags.dest_defaults list -&gt;
+    ?actions:Gdk.Tags.drag_action list -&gt;
+    Gtk.target_entry list -&gt; unit
+
+method dest_unset : unit -&gt; unit</code></pre>
+<h2 class="SECT2">Signals on the destination widget:</h2>
+<p>The destination widget is sent the following signals during a drag-and-drop operation.</p>
+<p><strong>Table 2. Destination widget signals</strong></p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">drag_data_received</td>
+<td align="left"><code class="LITERAL">method data_received :     callback:(drag_context -&gt; x:int -&gt; y:int -&gt; selection_data -&gt; info:int -&gt; time:int32 -&gt; unit) -&gt;     GtkSignal.id</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2035.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="c2131.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Properties</td>
+<td align="left"><a href="c2013.html">Up</a></td>
+<td align="left">GTK's rc Files</td>
+</tr>
+</tbody>
+</table>

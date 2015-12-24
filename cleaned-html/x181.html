@@ -1,0 +1,101 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x166.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Getting Started</td>
+<td align="left"><a href="x286.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Events</h1>
+<p>In addition to the signal mechanism described above, there is a set of <code class="LITERAL">events</code> that reflect the Window event mechanism. Callbacks may also be attached to these events. These events are: (see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.event_signals-c.html"><code class="LITERAL">event_signals</code></a>)</p>
+<p></p>
+<ul>
+<li>any</li>
+<li>button_press</li>
+<li>button_release</li>
+<li>scroll</li>
+<li>motion_notify</li>
+<li>delete</li>
+<li>destroy</li>
+<li>expose</li>
+<li>key_press</li>
+<li>key_release</li>
+<li>enter_notify</li>
+<li>leave_notify</li>
+<li>configure</li>
+<li>focus_in</li>
+<li>focus_out</li>
+<li>map</li>
+<li>unmap</li>
+<li>property_notify</li>
+<li>selection_clear</li>
+<li>selection_request</li>
+<li>selection_notify</li>
+<li>proximity_in</li>
+<li>proximity_out</li>
+<li>visibility_notify</li>
+<li>client</li>
+<li>no_expose</li>
+<li>window_state</li>
+</ul>
+<p>In order to connect a callback function to one of these events you use the <code class="LITERAL">#event#connect</code> method, using one of the above event names as the <code class="LITERAL">event_signal_name</code> like this:</p>
+<pre class="PROGRAMLISTING"><code>widget#event#connect#event_signal_name ~callback:(event -&gt; bool) -&gt; GtkSignal.id</code></pre>
+<p>The callback function for events has a slightly different form than that for signals as you can see.</p>
+<p>The argument of the callback function <code class="LITERAL">event</code> may have various type which will depend upon which of the above events has occurred. The components of the event structure will depend upon the type of the event. The possible types of event are: (see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.event_signals.html"><code class="LITERAL">event_signals</code></a>)</p>
+<pre class="PROGRAMLISTING"><code>  Gtk.Tags.event_type Gdk.event
+  [`DELETE] Gdk.event
+  [`DESTROY] Gdk.event
+  [`MAP] Gdk.event
+  [`UNMAP] Gdk.event
+  GdkEvent.Button.t
+  GdkEvent.Crossing.t
+  GdkEvent.Configure.t
+  GdkEvent.Expose.t
+  GdkEvent.Focus.t
+  GdkEvent.Key.t
+  GdkEvent.Motion.t
+  GdkEvent.Proximity.t
+  GdkEvent.Selection.t
+  ...</code></pre>
+<p>So, to connect a callback function to one of these events we would use something like:</p>
+<pre class="PROGRAMLISTING"><code>button#event#connect#button_press ~callback:button_pressed;</code></pre>
+<p>This assumes that <code class="LITERAL">button</code> is a Button widget. Now, when the mouse is over the button and a mouse button is pressed, the function <code class="LITERAL">button_pressed</code> will be called. This function may be declared as:</p>
+<pre class="PROGRAMLISTING"><code>button_pressed (ev:GdkEvent.Button.t) =
+ ...
+ true (* or false *)</code></pre>
+<p>Note that the argument has a type <code class="LITERAL">GdkEvent.Button.t</code> as we know what type of event will occur for this function to be called.</p>
+<p>The value returned from this function indicates whether the event should be propagated further by the GTK event handling mechanism. Returning <code class="LITERAL">true</code> indicates that the event has been handled, and that it should not propagate further. Returning <code class="LITERAL">false</code> continues the normal event handling. See the section on <a href="c1957.html">Advanced Event and Signal Handling</a> for more details on this propagation process.</p>
+<p>For details on the GdkEvent data types, see the appendix entitled <a href="a2575.html">GDK Event Types</a>.</p>
+<p>The GDK selection and drag-and-drop APIs also emit a number of events which are reflected in GTK by the signals. See <a href="x2047.html#SEC-SIGNALSONSOURCEWIDGETS">Signals on the source widget</a> and <a href="x2047.html#SEC-SIGNALSONDESTWIDGETS">Signals on the destination widget</a> for details on the signatures of the callback functions for these signals:</p>
+<p></p>
+<ul>
+<li>#drag#connect#beginning</li>
+<li>#drag#connect#ending</li>
+<li>#drag#connect#data_delete</li>
+<li>#drag#connect#motion</li>
+<li>#drag#connect#drop</li>
+<li>#drag#connect#data_get</li>
+<li>#drag#connect#data_received</li>
+</ul>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x166.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x286.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Theory of Signals and Callbacks</td>
+<td align="left"><a href="c108.html">Up</a></td>
+<td align="left">Stepping Through Hello World</td>
+</tr>
+</tbody>
+</table>

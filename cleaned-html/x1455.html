@@ -1,0 +1,48 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c1436.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Container Widgets</td>
+<td align="left"><a href="x1473.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">The Alignment widget</h1>
+<p>The alignment widget allows you to place a widget within its window at a position and size relative to the size of the Alignment widget itself. For example, it can be very useful for centering a widget within the window.</p>
+<p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GBin.html#VALalignment"><code class="LITERAL">GBin.alignment</code></a> is the function associated with the Alignment widget:</p>
+<pre class="PROGRAMLISTING"><code>val GBin.alignment :
+    ?xalign:Gtk.clampf -&gt;
+    ?yalign:Gtk.clampf -&gt;
+    ?xscale:Gtk.clampf -&gt;
+    ?yscale:Gtk.clampf -&gt;
+    ?border_width:int -&gt;
+    ?width:int -&gt;
+    ?height:int -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; alignment</code></pre>
+<p>This function creates a new Alignment widget with the specified parameters.</p>
+<p>The parameters of <code class="LITERAL">Gtk.clampf</code> type are floating point numbers which can range from 0.0 to 1.0. The <code class="LITERAL">xalign</code> and <code class="LITERAL">yalign</code> arguments affect the position of the widget placed within the Alignment widget. The <code class="LITERAL">xscale</code> and <code class="LITERAL">yscale</code> arguments effect the amount of space allocated to the widget.</p>
+<p>A child widget can be added to this Alignment widget using:</p>
+<pre class="PROGRAMLISTING"><code>method add : GObj.widget -&gt; unit</code></pre>
+<p>For an example of using an Alignment widget, refer to the example for the <a href="x1039.html">Progress Bar</a> widget.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c1436.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1473.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Container Widgets</td>
+<td align="left"><a href="c1436.html">Up</a></td>
+<td align="left">Fixed Container</td>
+</tr>
+</tbody>
+</table>

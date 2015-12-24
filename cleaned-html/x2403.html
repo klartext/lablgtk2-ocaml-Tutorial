@@ -1,0 +1,73 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="a2390.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">GTK Signals</td>
+<td align="left"><a href="x2422.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Widget</h1>
+<h2 class="SECT2">Misc signals</h2>
+<p>The misc signals are used like this:</p>
+<pre class="PROGRAMLISTING"><code>[widget]#misc#connect#[signal name] ~callback:... ;</code></pre>
+<p>The misc signals are one of followings: see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.misc_signals-c.html"><code class="LITERAL">GObj.misc_signals</code></a></p>
+<pre class="PROGRAMLISTING"><code>inherits
+    GObj.gtkobj_signals
+method hide : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method map : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method parent_set : callback:(widget option -&gt; unit) -&gt; GtkSignal.id
+method realize : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method unrealize : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method selection_get :
+    callback:(selection_context -&gt; info:int -&gt; time:int32 -&gt; unit) -&gt;
+    GtkSignal.id
+method selection_received :
+    callback:(selection_data -&gt; time:int32 -&gt; unit) -&gt; GtkSignal.id
+method show : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method size_allocate : callback:(Gtk.rectangle -&gt; unit) -&gt; GtkSignal.id
+method state_changed : callback:(Gtk.Tags.state_type -&gt; unit) -&gt; GtkSignal.id
+method style_set : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method unmap : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">Drag signals</h2>
+<p>The drag signals are used as one of the folloing form:</p>
+<pre class="PROGRAMLISTING"><code>[widget]#drag#connect#[signal name] ~callback:... ;
+[widget]#drag#connect#after#[signal name] ~callback:... ;</code></pre>
+<p>The drag signals are: see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.drag_signals-c.html"><code class="LITERAL">GObj.drag_signals</code></a></p>
+<pre class="PROGRAMLISTING"><code>method beginning : callback:(drag_context -&gt; unit) -&gt; GtkSignal.id
+method data_delete : callback:(drag_context -&gt; unit) -&gt; GtkSignal.id
+method data_get :
+    callback:(drag_context -&gt; selection_context -&gt; info:int -&gt; time:int32 -&gt; unit) -&gt;
+    GtkSignal.id
+method data_received :
+    callback:(drag_context -&gt; x:int -&gt; y:int -&gt; selection_data -&gt; info:int -&gt; time:int32 -&gt; unit) -&gt;
+    GtkSignal.id
+method drop :
+    callback:(drag_context -&gt; x:int -&gt; y:int -&gt; time:int32 -&gt; bool) -&gt;
+    GtkSignal.id
+method ending : callback:(drag_context -&gt; unit) -&gt; GtkSignal.id
+method leave : callback:(drag_context -&gt; time:int32 -&gt; unit) -&gt; GtkSignal.id
+method motion :
+    callback:(drag_context -&gt; x:int -&gt; y:int -&gt; time:int32 -&gt; bool) -&gt;
+    GtkSignal.id</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="a2390.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x2422.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">GTK Signals</td>
+<td align="left"><a href="a2390.html">Up</a></td>
+<td align="left">GData.adjustment</td>
+</tr>
+</tbody>
+</table>

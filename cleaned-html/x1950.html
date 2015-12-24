@@ -1,0 +1,36 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c1941.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Timeouts and Idle Functions</td>
+<td align="left"><a href="c1957.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Idle Functions</h1>
+<p>What if you have a function which you want to be called when nothing else is happening ?</p>
+<pre class="PROGRAMLISTING"><code>val GMain.Idle.add : callback:(unit -&gt; bool) -&gt; id</code></pre>
+<p>This causes GTK to call the specified function whenever nothing else is happening.</p>
+<pre class="PROGRAMLISTING"><code>val GMain.Idle.remove : id -&gt; unit</code></pre>
+<p>I won't explain the meaning of the arguments as they follow very much like the ones above. The callback function of GMain.Idle.add will be called whenever the opportunity arises. As with the others, returning false will stop the idle function from being called.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c1941.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="c1957.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Timeouts and Idle Functions</td>
+<td align="left"><a href="c1941.html">Up</a></td>
+<td align="left">Advanced Event and Signal Handling</td>
+</tr>
+</tbody>
+</table>

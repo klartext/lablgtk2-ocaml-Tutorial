@@ -1,0 +1,44 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c766.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Adjustments</td>
+<td align="left"><a href="x807.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Using Adjustments the Easy Way</h1>
+<p>The adjustable widgets can be roughly divided into those which use and require specific units for these values and those which treat them as arbitrary numbers. The group which treats the values as arbitrary numbers includes the range widgets (scrollbars and scales, the progress bar widget, and the spin button widget). These widgets are all the widgets which are typically &quot;adjusted&quot; directly by the user with the mouse or keyboard. They will treat the <code class="LITERAL">lower</code> and <code class="LITERAL">upper</code> values of an adjustment as a range within which the user can manipulate the adjustment's <code class="LITERAL">value</code>. By default, they will only modify the <code class="LITERAL">value</code> of an adjustment.</p>
+<p>The other group includes the text widget, the viewport widget, the compound list widget, and the scrolled window widget. All of these widgets use pixel values for their adjustments. These are also all widgets which are typically &quot;adjusted&quot; indirectly using scrollbars. While all widgets which use adjustments can either create their own adjustments or use ones you supply, you'll generally want to let this particular category of widgets create its own adjustments. Usually, they will eventually override all the values except the <code class="LITERAL">value</code> itself in whatever adjustments you give them, but the results are, in general, undefined (meaning, you'll have to read the source code to find out, and it may be different from widget to widget).</p>
+<p>Now, you're probably thinking, since text widgets and viewports insist on setting everything except the <code class="LITERAL">value</code> of their adjustments, while scrollbars will <em>only</em> touch the adjustment's <code class="LITERAL">value</code>, if you <em>share</em> an adjustment object between a scrollbar and a text widget, manipulating the scrollbar will automagically adjust the viewport widget? Of course it will! Just like this:</p>
+<pre class="PROGRAMLISTING"><code>  ...
+
+  (* creates its own adjustments *)
+  let viewport = GBin.viewport () in
+
+  (* uses the newly-created adjustment for the scrollbar as well *)
+  let vscrollbar = GRange.scrollbar `VERTICAL ~adjustment:viewport#vadjustment ()
+  in
+
+  ...</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c766.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x807.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Adjustments</td>
+<td align="left"><a href="c766.html">Up</a></td>
+<td align="left">Adjustment Internals</td>
+</tr>
+</tbody>
+</table>

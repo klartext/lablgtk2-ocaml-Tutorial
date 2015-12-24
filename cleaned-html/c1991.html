@@ -1,0 +1,42 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1967.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"></td>
+<td align="left"><a href="x2008.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>Clipboard</h1>
+<p></p>
+<p><img src="./stylesheet-images/note.gif" alt="Note" /></p>
+<p>There is the &quot;Managing Selections&quot; chapter in the original C version tutorial. Even thought LablGtk supports &quot;selection&quot; widget too, &quot;clipboard&quot; widget is simpler so we will make document only for this widget for the time being.</p>
+<h1 class="SECT1">Overview</h1>
+<p>Text copy and paste is a good example of clipboard widget. You can do inter-processor communication throuth the widget.</p>
+<p>Before copy or paste, you have the access point to the clipboard: see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/Gdk.Atom.html"><code class="LITERAL">Gdk.Atom</code></a> and <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GData.html#VALclipboard"><code class="LITERAL">GData.clipboard</code></a></p>
+<pre class="PROGRAMLISTING"><code>val GData.clipboard : Gdk.atom -&gt; clipboard</code></pre>
+<p>After that, you can do clear clipboard, set data and get data: see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GData.clipboard-c.html"><code class="LITERAL">GData.clipboard class</code></a></p>
+<pre class="PROGRAMLISTING"><code>method clear : unit -&gt; unit
+method set_text : string -&gt; unit
+method text : string option</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1967.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x2008.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Signal Emission and Propagation</td>
+<td align="left"> </td>
+<td align="left">Clipboard Example</td>
+</tr>
+</tbody>
+</table>

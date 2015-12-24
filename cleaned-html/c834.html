@@ -1,0 +1,49 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x807.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"></td>
+<td align="left"><a href="x852.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>Range Widgets</h1>
+<p>The category of range widgets includes the ubiquitous scrollbar widget and the less common scale widget. Though these two types of widgets are generally used for different purposes, they are quite similar in function and implementation. All range widgets share a set of common graphic elements, each of which has its own X window and receives events. They all contain a &quot;trough&quot; and a &quot;slider&quot; (what is sometimes called a &quot;thumbwheel&quot; in other GUI environments). Dragging the slider with the pointer moves it back and forth within the trough, while clicking in the trough advances the slider towards the location of the click, either completely, or by a designated amount, depending on which mouse button is used.</p>
+<p>As mentioned in <a href="c766.html">Adjustments</a> above, all range widgets are associated with an adjustment object, from which they calculate the length of the slider and its position within the trough. When the user manipulates the slider, the range widget will change the value of the adjustment.</p>
+<h1 class="SECT1">Scrollbar Widgets</h1>
+<p>These are your standard, run-of-the-mill scrollbars. These should be used only for scrolling some other widget, such as a list, a text box, or a viewport (and it's generally easier to use the scrolled window widget in most cases). For other purposes, you should use scale widgets, as they are friendlier and more featureful.</p>
+<p>There are separate types for horizontal and vertical scrollbars. There really isn't much to say about these. You create them with the <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GRange.html#VALscrollbar"><code class="LITERAL">GRange.scrollbar</code></a> function:</p>
+<pre class="PROGRAMLISTING"><code>val GRange.scrollbar :
+    Gtk.Tags.orientation -&gt;
+    ?adjustment:GData.adjustment -&gt;
+    ?inverted:bool -&gt;
+    ?update_policy:Gtk.Tags.update_type -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; range
+
+inverted : default value is false
+update_policy : default value is `CONTINUOUS</code></pre>
+<p>and that's about it.</p>
+<p>The <code class="LITERAL">`HORIZONTAL</code> or <code class="LITERAL">`VERTICAL</code> should be given as an argument to specify the orientataion of the scrollbar.</p>
+<p>The <code class="LITERAL">adjustment</code> argument may not be given, in which case one will be created for you. Not specifying might actually be useful in this case, if you wish to pass the newly-created adjustment to the constructor function of some other widget which will configure it for you, such as a text widget.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x807.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x852.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Adjustment Internals</td>
+<td align="left"> </td>
+<td align="left">Scale Widgets</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,43 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1950.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"></td>
+<td align="left"><a href="x1967.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>Advanced Event and Signal Handling</h1>
+<h1 class="SECT1">Signal Functions</h1>
+<h2 class="SECT2">Connecting and Disconnecting Signal Handlers</h2>
+<pre class="PROGRAMLISTING"><code>let handler_id = [widget]#connect#[signal name] ~callback:... in
+
+let handler_id = [widget]#event#connect#[event signal name] ~callback:... in
+
+let handler_id = [widget]#event#connect#after#[event signal name] ~callback:... in
+
+[widget]#misc#disconnect [handler_id];</code></pre>
+<h2 class="SECT2">Blocking and Unblocking Signal Handlers</h2>
+<pre class="PROGRAMLISTING"><code>[widget]#misc#handler_block [handler_id];
+[widget]#misc#handler_unblock [handler_id];</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1950.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1967.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Idle Functions</td>
+<td align="left"> </td>
+<td align="left">Signal Emission and Propagation</td>
+</tr>
+</tbody>
+</table>

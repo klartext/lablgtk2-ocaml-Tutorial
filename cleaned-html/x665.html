@@ -1,0 +1,33 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c655.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Creating Widgets</td>
+<td align="left"><a href="c669.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Memory Management</h1>
+<p>Important efforts have been dedicated to cooperate with Gtk's reference counting mechanism. As a result you should generally be able to use Gdk/Gtk data structures without caring about memory management. They will be freed when nobody points to them any more. This also means that you do not need to pay too much attention to whether a data structure is still alive or not. If it is not, you should get an error rather than a core dump. The case of Gtk objects deserves special care. Since they are interactive, we cannot just destroy them when they are no longer referenced. They have to be explicitely destroyed. If a widget was added to a container widget, it will automatically be destroyed when its last container is destroyed. For this reason you need only destroy toplevel widgets.</p>
+<p>IMPORTANT: Some Gtk data structures are allocated in the Caml heap, and there use in signals (Gtk functions internally cally callbacks) relies on their address being stable during a function call. For this reason automatic compaction is disabled in GtkMain. If you need it, you may use compaction through Gc.compact where it is safe (timeouts, other threads...), but do not enable automatic compaction.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c655.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="c669.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Creating Widgets</td>
+<td align="left"><a href="c655.html">Up</a></td>
+<td align="left">The Button Widget</td>
+</tr>
+</tbody>
+</table>

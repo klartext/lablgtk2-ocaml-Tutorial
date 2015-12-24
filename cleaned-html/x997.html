@@ -1,0 +1,91 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c953.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Miscellaneous Widgets</td>
+<td align="left"><a href="x1016.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Arrows</h1>
+<p>The Arrow widget draws an arrowhead, facing in a number of possible directions and having a number of possible styles. It can be very useful when placed on a button in many applications. Like the Label widget, it emits no signals.</p>
+<p><a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.html#VALarrow"><code class="LITERAL">GMisc.arrrow</code></a> is the function for creating an Arrow widget:</p>
+<pre class="PROGRAMLISTING"><code>val GMisc.arrow :
+    ?kind:Gtk.Tags.arrow_type -&gt;
+    ?shadow:Gtk.Tags.shadow_type -&gt;
+    ?xalign:float -&gt;
+    ?yalign:float -&gt;
+    ?xpad:int -&gt;
+    ?ypad:int -&gt;
+    ?width:int -&gt;
+    ?height:int -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; arrow
+
+    kind : default value is `RIGHT
+    shadow : default value is `OUT</code></pre>
+<p>This creates a new arrow widget with the indicated type and appearance. The second allows these values to be altered retrospectively. The <code class="LITERAL">?kind</code> argument may take one of the following values:</p>
+<pre class="PROGRAMLISTING"><code>  `UP
+  `DOWN
+  `LEFT
+  `RIGHT</code></pre>
+<p>These values obviously indicate the direction in which the arrow will point. The <code class="LITERAL">?shadow</code> argument may take one of these values:</p>
+<pre class="PROGRAMLISTING"><code>  `IN
+  `OUT (the default)
+  `ETCHED_IN
+  `ETCHED_OUT
+  `NONE</code></pre>
+<p>Here's a brief example to illustrate their use.</p>
+<p><img src="images/arrow.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: arrow.ml *)
+
+(* Create an Arrow widget with the specified parameters
+ * and pack in into a button *)
+let create_arrow_button ~kind ~shadow ~packing () =
+  let button = GButton.button ~packing () in
+  let arrow = GMisc.arrow ~kind ~shadow ~packing:button#add () in
+  button
+
+let main () =
+  (* Create a new window; set title and border width *)
+  let window = GWindow.window ~title:&quot;Arrow Buttons&quot; ~border_width:10 () in
+
+  (* Set a handler for destroy event that immediately exits GTK. *)
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  (* Create a box to hold the arrow/buttons *)
+  let box = GPack.hbox ~border_width:2 ~packing:window#add () in
+
+  let f (kind, shadow) =
+    create_arrow_button ~kind ~shadow ~packing:box#add ();
+    ()
+  in
+  List.iter f [(`UP, `IN); (`DOWN, `OUT); (`LEFT, `ETCHED_IN);
+    (`RIGHT, `ETCHED_OUT) ];
+
+  window#show ();
+  (* Rest in main and wait for the fun to begin! *)
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="c953.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1016.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Miscellaneous Widgets</td>
+<td align="left"><a href="c953.html">Up</a></td>
+<td align="left">The Tooltips Object</td>
+</tr>
+</tbody>
+</table>

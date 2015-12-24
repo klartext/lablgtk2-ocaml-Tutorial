@@ -1,0 +1,85 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x733.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">The Button Widget</td>
+<td align="left"><a href="c766.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Radio Buttons</h1>
+<p>Radio buttons are similar to check buttons except they are grouped so that only one may be selected/depressed at a time. This is good for places in your application where you need to select from a short list of options.</p>
+<p>Creating a new radio button is done with one of these calls; see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GButton.html#VALradio_button"><code class="LITERAL">GButton.radio_button</code></a>:</p>
+<pre class="PROGRAMLISTING"><code>val GButton.radio_button :
+    ?group:Gtk.radio_button Gtk.group -&gt;
+    ?label:string -&gt;
+    ?use_mnemonic:bool -&gt;
+    ?stock:GtkStock.id -&gt;
+    ?relief:Gtk.Tags.relief_style -&gt;
+    ?active:bool -&gt;
+    ?draw_indicator:bool -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; radio_button</code></pre>
+<p>You'll notice the extra argument to these calls. They require a group to perform their duty properly. The first call to radio_button should not pass the <code class="LITERAL">~group</code> argument. Then create a group using:</p>
+<pre class="PROGRAMLISTING"><code>method group : Gtk.radio_button Gtk.group</code></pre>
+<p>The important thing to remember is that <code class="LITERAL">group</code> method must be called for each new button added to the group. The result is then passed into the next call to radio_button. This allows a chain of buttons to be established. The example below should make this clear.</p>
+<p>You can shorten this slightly by using the following syntax, which removes the need for a variable to hold the list of buttons:</p>
+<pre class="PROGRAMLISTING"><code>let button2 = GButton.radio_button ~label:&quot;button2&quot; ~group:button1#group () in</code></pre>
+<p>It is also a good idea to explicitly set which button should be the default depressed button with:</p>
+<pre class="PROGRAMLISTING"><code>method set_active : bool -&gt; unit</code></pre>
+<p>This is described in the section on toggle buttons, and works in exactly the same way. Once the radio buttons are grouped together, only one of the group may be active at a time. If the user clicks on one radio button, and then on another, the first radio button will first emit a &quot;toggled&quot; signal (to report becoming inactive), and then the second will emit its &quot;toggled&quot; signal (to report becoming active).</p>
+<p>The following example creates a radio button group with three buttons.</p>
+<p><img src="images/radiobuttons.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: radiobutton.ml *)
+
+open GMain
+
+let main () =
+  let window = GWindow.window ~title:&quot;radio buttons&quot; ~border_width:0 () in
+  window#connect#destroy ~callback:Main.quit;
+
+  let box1 = GPack.vbox ~packing:window#add () in
+
+  let box2 = GPack.vbox ~spacing:10 ~border_width:10 ~packing:box1#add () in
+
+  let button1 = GButton.radio_button ~label:&quot;button1&quot; ~packing:box2#add () in
+
+  let button2 = GButton.radio_button ~group:button1#group ~label:&quot;button2&quot;
+      ~active:true ~packing:box2#add () in
+
+  let button3 = GButton.radio_button
+      ~group:button1#group ~label:&quot;button3&quot; ~packing:box2#add () in
+
+  let separator = GMisc.separator `HORIZONTAL ~packing: box1#pack () in
+
+  let box3 = GPack.vbox ~spacing:10 ~border_width:10 ~packing:box1#pack () in
+
+  let button = GButton.button ~label:&quot;close&quot; ~packing:box3#add () in
+  button#connect#clicked ~callback:Main.quit;
+  button#grab_default ();
+
+  window#show ();
+  Main.main ()
+
+let _ = main ()</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x733.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="c766.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Check Buttons</td>
+<td align="left"><a href="c669.html">Up</a></td>
+<td align="left">Adjustments</td>
+</tr>
+</tbody>
+</table>

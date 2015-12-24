@@ -1,0 +1,228 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1278.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Miscellaneous Widgets</td>
+<td align="left"><a href="x1390.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Calendar</h1>
+<p>The Calendar widget is an effective way to display and retrieve monthly date related information. It is a very simple widget to create and work with.</p>
+<p>Creating a GtkCalendar widget is a simple as: (see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.html#VALcalendar"><code class="LITERAL">GMisc.calendar</code></a>)</p>
+<pre class="PROGRAMLISTING"><code>val GMisc.calendar :
+    ?options:Gtk.Tags.calendar_display_options list -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; calendar</code></pre>
+<p>There might be times where you need to change a lot of information within this widget and the following functions allow you to make multiple change to a Calendar widget without the user seeing multiple on-screen updates.</p>
+<pre class="PROGRAMLISTING"><code>method freeze : unit -&gt; unit
+method thaw : unit -&gt; unit</code></pre>
+<p>They work just like the freeze/thaw functions of every other widget.</p>
+<p>The Calendar widget has a few options that allow you to change the way the widget both looks and operates by using the function</p>
+<pre class="PROGRAMLISTING"><code>method display_options : Gtk.Tags.calendar_display_options list -&gt; unit</code></pre>
+<p>The <code class="LITERAL">flags</code> argument can be formed by combining either of the following five options:</p>
+<p></p>
+<dl>
+<dt><code class="LITERAL">`SHOW_HEADING</code></dt>
+<dd><p>this option specifies that the month and year should be shown when drawing the calendar.</p>
+</dd>
+<dt><code class="LITERAL">`SHOW_DAY_NAMES</code></dt>
+<dd><p>this option specifies that the three letter descriptions should be displayed for each day (eg Mon,Tue, etc.).</p>
+</dd>
+<dt><code class="LITERAL">`NO_MONTH_CHANGE</code></dt>
+<dd><p>this option states that the user should not and can not change the currently displayed month. This can be good if you only need to display a particular month such as if you are displaying 12 calendar widgets for every month in a particular year.</p>
+</dd>
+<dt><code class="LITERAL">`SHOW_WEEK_NUMBERS</code></dt>
+<dd><p>this option specifies that the number for each week should be displayed down the left side of the calendar. (eg. Jan 1 = Week 1,Dec 31 = Week 52).</p>
+</dd>
+<dt><code class="LITERAL">`WEEK_START_MONDAY</code></dt>
+<dd><p>this option states that the calander week will start on Monday instead of Sunday which is the default. This only affects the order in which days are displayed from left to right.</p>
+</dd>
+</dl>
+<p>The following functions are used to set the the currently displayed date:</p>
+<pre class="PROGRAMLISTING"><code>method select_month : month:int -&gt; year:int -&gt; unit
+method select_day : int -&gt; unit</code></pre>
+<p>With <code class="LITERAL">select_day()</code> the specified day number is selected within the current month, if that is possible. A <code class="LITERAL">day</code> value of 0 will deselect any current selection.</p>
+<p>In addition to having a day selected, any number of days in the month may be &quot;marked&quot;. A marked day is highlighted within the calendar display. The following functions are provided to manipulate marked days:</p>
+<pre class="PROGRAMLISTING"><code>method mark_day : int -&gt; unit
+method unmark_day : int -&gt; unit
+method clear_marks : unit</code></pre>
+<p>For example:</p>
+<pre class="PROGRAMLISTING"><code>let calendar = GMisc.calendar in
+
+...
+
+(* Is day 7 marked? *)
+if calendar#mark_day 7 then (
+    (* day is marked *)
+) else (
+    ...
+)</code></pre>
+<p>Note that marks are persistent across month and year changes.</p>
+<p>The final Calendar widget function is used to retrieve the currently selected date, month and/or year.</p>
+<pre class="PROGRAMLISTING"><code>method date : int * int * int</code></pre>
+<p>The Calendar widget can generate a number of signals indicating date selection and change. The names of these signals are self explanatory, and are; see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.calendar_signals-c.html"><code class="LITERAL">GMisc.calendar_signals</code></a>:</p>
+<p></p>
+<ul>
+<li><p><code class="LITERAL">month_changed</code></p></li>
+<li><p><code class="LITERAL">day_selected</code></p></li>
+<li><p><code class="LITERAL">day_selected_double_click</code></p></li>
+<li><p><code class="LITERAL">prev_month</code></p></li>
+<li><p><code class="LITERAL">next_month</code></p></li>
+<li><p><code class="LITERAL">prev_year</code></p></li>
+<li><p><code class="LITERAL">next_year</code></p></li>
+</ul>
+<p>That just leaves us with the need to put all of this together into example code.</p>
+<p><img src="images/calendar.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: calendar.ml *)
+
+type signals =
+  { mutable last_sig: GMisc.label;
+    mutable prev_sig: GMisc.label;
+    mutable prev2_sig: GMisc.label
+  }
+
+let signals =
+  let label = GMisc.label () in
+  { last_sig = label;
+    prev_sig = label;
+    prev2_sig = label }
+
+let set_signal_strings string =
+  signals.prev2_sig#set_text signals.prev_sig#text;
+  signals.prev_sig#set_text signals.last_sig#text;
+  signals.last_sig#set_text string
+
+let show_signal calendar msg () =
+  let (y, m, d) = calendar#date in
+  let str = Printf.sprintf &quot;%s: %d/%d/%d&quot; msg y m d in
+  set_signal_strings str
+
+let toggle_flags calendar but_flags () =
+  let rec loop bflags =
+    match bflags with
+    | [] -&gt; []
+    | (but, flag)::rest -&gt;
+      if but#active
+      then flag :: loop rest
+      else loop rest
+  in
+  let flags = loop but_flags in
+  calendar#display_options flags
+
+let font_selection_ok font_window calendar () =
+  let font_name = font_window#selection#font_name in
+  let font_desc = GPango.font_description font_name in
+  calendar#misc#modify_font font_desc
+
+let select_font calendar () =
+  let fwin = GWindow.font_selection_dialog ~title:&quot;Font Selection Dialog&quot; ~modal:true ~position:`MOUSE () in
+  fwin#connect#destroy ~callback:fwin#destroy;
+  fwin#ok_button#connect#clicked ~callback:(font_selection_ok fwin calendar);
+  fwin#cancel_button#connect#clicked ~callback:fwin#destroy;
+  fwin#show ()
+
+let flags = [(&quot;Show Heading&quot;, true, `SHOW_HEADING);
+    (&quot;Show Day Names&quot;, true, `SHOW_DAY_NAMES);
+    (&quot;No Month Change&quot;, false, `NO_MONTH_CHANGE);
+    (&quot;Show Week Numbers&quot;, false, `SHOW_WEEK_NUMBERS);
+    (&quot;Week Start Monday&quot;, false, `WEEK_START_MONDAY)]
+
+let create_calendar () =
+  (* Create a new window; set title and border width *)
+  let window = GWindow.window ~title:&quot;Calendar Example&quot; ~resizable:false ~border_width:10 () in
+
+  (* Set a handler for destroy event that immediately exits GTK. *)
+  window#connect#destroy ~callback:GMain.Main.quit;
+
+  let vbox = GPack.vbox ~border_width:10 ~packing:window#add () in
+
+  (* The top part of the window, Calendar, flags and fontsel. *)
+  let hbox = GPack.hbox ~packing:vbox#add () in
+  let hbbox = GPack.button_box `HORIZONTAL ~layout:`SPREAD ~spacing:5 ~packing:hbox#add () in
+
+  (* Calendar widget *)
+  let frame = GBin.frame ~packing:hbbox#add () in
+  let calendar = GMisc.calendar ~packing:frame#add () in
+  calendar#mark_day 19;
+  calendar#connect#month_changed ~callback:(show_signal calendar &quot;month_changed&quot;);
+  calendar#connect#day_selected ~callback:(show_signal calendar &quot;day_selected&quot;);
+  calendar#connect#day_selected_double_click ~callback:(show_signal calendar &quot;day_selected_double_click&quot;);
+  calendar#connect#prev_month ~callback:(show_signal calendar &quot;prev_month&quot;);
+  calendar#connect#next_month ~callback:(show_signal calendar &quot;next_month&quot;);
+  calendar#connect#prev_year ~callback:(show_signal calendar &quot;prev_year&quot;);
+  calendar#connect#next_year ~callback:(show_signal calendar &quot;next_year&quot;);
+
+  let separator = GMisc.separator `VERTICAL ~packing:hbox#add () in
+
+  let vbox2 = GPack.vbox ~packing:hbox#add () in
+
+  (* Build the Right frame with the flags in *)
+  let frame = GBin.frame ~label:&quot;Flags&quot; ~packing:vbox2#add () in
+  let vbox3 = GPack.vbox ~packing:frame#add () in
+  let toggle_button (label, active, flag) =
+    (GButton.check_button ~label ~active ~packing:vbox3#add (), flag) in
+  let flag_buttons = List.map toggle_button flags in
+  let set_flag_cb (but, _) =
+    but#connect#toggled ~callback:(toggle_flags calendar flag_buttons);
+    ()
+  in
+  List.iter set_flag_cb flag_buttons;
+
+  (* Build the right font-button *)
+  let button = GButton.button ~label:&quot;Font...&quot; ~packing:vbox2#add () in
+  button#connect#clicked ~callback:(select_font calendar);
+
+  (* Build the Signal-event part. *)
+  let frame = GBin.frame ~label:&quot;Signal events&quot; ~packing:vbox#add () in
+  let vbox2 = GPack.vbox ~packing:frame#add () in
+
+  let hbox = GPack.hbox ~packing:vbox2#add () in
+  let label = GMisc.label ~text:&quot;Signal: &quot; ~packing:hbox#add () in
+  signals.last_sig &lt;- GMisc.label ~packing:hbox#add ();
+
+  let hbox = GPack.hbox ~packing:vbox2#add () in
+  let label = GMisc.label ~text:&quot;Previous signal: &quot; ~packing:hbox#add () in
+  signals.prev_sig &lt;- GMisc.label ~packing:hbox#add ();
+
+  let hbox = GPack.hbox ~packing:vbox2#add () in
+  let label = GMisc.label ~text:&quot;Second previous signal: &quot; ~packing:hbox#add () in
+  signals.prev2_sig &lt;- GMisc.label ~packing:hbox#add ();
+
+  let bbox = GPack.button_box `HORIZONTAL ~layout:`END ~packing:vbox#add () in
+  let button = GButton.button ~label:&quot;Close&quot; ~packing:bbox#add () in
+  button#connect#clicked ~callback:GMain.Main.quit;
+
+  button#misc#set_can_default true;
+  button#misc#grab_default ();
+
+  window#show ()
+
+let main () =
+  create_calendar ();
+
+  (* Enter the event loop *)
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1278.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x1390.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Combo Box</td>
+<td align="left"><a href="c953.html">Up</a></td>
+<td align="left">Color Selection</td>
+</tr>
+</tbody>
+</table>

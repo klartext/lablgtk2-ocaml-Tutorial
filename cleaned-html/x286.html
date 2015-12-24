@@ -1,0 +1,70 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x181.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Getting Started</td>
+<td align="left"><a href="c349.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Stepping Through Hello World</h1>
+<p>Now that we know the theory behind this, let's clarify by walking through the example <em>helloworld</em> program.</p>
+<p>Here is the callback function that will be called when the button is &quot;clicked&quot;. We ignore both the widget and the data in this example, but it is not hard to do things with them. The next example will use the data argument to tell us which button was pressed.</p>
+<pre class="PROGRAMLISTING"><code>let hello () =
+  print_endline &quot;Hello World&quot;;
+  flush stdout</code></pre>
+<p>The next callback is a bit special. The &quot;delete_event&quot; occurs when the window manager sends this event to the application. We have a choice here as to what to do about these events. We can ignore them, make some sort of response, or simply quit the application.</p>
+<p>The value you return in this callback lets GTK know what action to take. By returning <code class="LITERAL">true</code>, we let it know that <em>we don't want</em> to have the &quot;destroy&quot; signal emitted, keeping our application running. By returning <code class="LITERAL">false</code>, we ask that &quot;destroy&quot; be emitted, which in turn will call our &quot;destroy&quot; signal handler.</p>
+<pre class="PROGRAMLISTING"><code>let delete_event ev =
+  print_endline &quot;Delete event occurred&quot;;
+  flush stdout;
+  true</code></pre>
+<p>Here is another callback function which causes the program to quit by calling <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMain.Main.html#VALquit"><code class="LITERAL">GMain.Main.quit ()</code></a>. This function tells GTK that it is to exit from <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMain.Main.html#VALmain"><code class="LITERAL">GMain.Main.main</code></a> when control is returned to it.</p>
+<pre class="PROGRAMLISTING"><code>let destroy () = GMain.Main.quit ()</code></pre>
+<p>In &quot;C&quot; language, you <em>have to</em> use &quot;main&quot; for starting function name, but in &quot;Ocaml&quot;, you don't have to. You may use any name for a fuction, and we'll tell the system the name of the starting point. In this example, we'll use &quot;main&quot; for the name of ther starting function.</p>
+<pre class="PROGRAMLISTING"><code>let main () =</code></pre>
+<p>Create a new window using <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GWindow.html#VALwindow"><code class="LITERAL">GWindow.window</code></a>. This is fairly straightforward. Memory is allocated for the GtkWidget *window structure so it now points to a valid structure. It sets up a new window, but it is not displayed until we call <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GWindow.window_skel-c.html#METHODshow"><code class="LITERAL">window#show ()</code></a> near the end of our program.</p>
+<pre class="PROGRAMLISTING"><code>  let window = GWindow.window ~border_width:10 () in</code></pre>
+<p>This <code class="LITERAL">~border_width</code> option is used to set an attribute of a container object. This just sets the window so it has a blank area along the inside of it 10 pixels wide where no widgets will go. There are other similar functions which we will look at in the section on <a href="c1933.html">Setting Widget Attributes</a></p>
+<p>Here are two examples of connecting a signal handler to an object, in this case, the window. Here, the &quot;delete_event&quot; and &quot;destroy&quot; signals are caught. The first is emitted when we use the window manager to kill the window, or when we use the <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.gtkobj-c.html#METHODdestroy"><code class="LITERAL">window#destroy ()</code></a> call passing in the window widget as the object to destroy. The second is emitted when, in the &quot;delete_event&quot; handler, we return <code class="LITERAL">false</code>. The <code class="LITERAL">G_OBJECT</code> and <code class="LITERAL">G_CALLBACK</code> are macros that perform type casting and checking for us, as well as aid the readability of the code.</p>
+<pre class="PROGRAMLISTING"><code>  window#event#connect#delete ~callback:delete_event;
+  window#connect#destroy ~callback:destroy;</code></pre>
+<p>This call creates a new button. It allocates space for a new GtkWidget structure in memory, initializes it, and makes the button pointer point to it. It will have the label &quot;Hello World&quot; on it when displayed.</p>
+<pre class="PROGRAMLISTING"><code>  let button = GButton.button ~label:&quot;Hello World&quot; ~packing:window#add () in</code></pre>
+<p>There is a <code class="LITERAL">~packing</code> option, which will be explained in depth later on in <a href="c383.html">Packing Widgets</a>. But it is fairly easy to understand. It simply tells GTK that the button is to be placed in the window where it will be displayed. Note that a GTK container can only contain one widget. There are other widgets, that are described later, which are designed to layout multiple widgets in various ways.</p>
+<p>Here, we take this button, and make it do something useful. We attach a signal handler to it so when it emits the &quot;clicked&quot; signal, our hello() function is called. Obviously, the &quot;clicked&quot; signal is emitted when we click the button with our mouse pointer.</p>
+<pre class="PROGRAMLISTING"><code>  button#connect#clicked ~callback:hello;</code></pre>
+<p>We are also going to use this button to exit our program. This will illustrate how the &quot;destroy&quot; signal may come from either the window manager, or our program. When the button is &quot;clicked&quot;, same as above, it calls the first hello() callback function, and then this one in the order they are set up. You may have as many callback functions as you need, and all will be executed in the order you connected them.</p>
+<pre class="PROGRAMLISTING"><code>  button#connect#clicked ~callback:window#destroy;</code></pre>
+<p>Now we have everything set up the way we want it to be. With all the signal handlers in place, and the button placed in the window where it should be, we ask GTK to &quot;show&quot; the widgets on the screen. All widgets are &quot;shown&quot; by default except window widget. The window widget is shown last so the whole window will pop up at once rather than seeing the window pop up, and then the button form inside of it. Although with such a simple example, you'd never notice.</p>
+<pre class="PROGRAMLISTING"><code>  window#show ();
+  GMain.Main.main ()</code></pre>
+<p>And of course, we call <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMain.Main.html#VALmain"><code class="LITERAL">GMain.Main.main ()</code></a> which waits for events to come from the X server/Window and will call on the widgets to emit signals when these events come.</p>
+<pre class="PROGRAMLISTING"><code>  GMain.Main.main ()</code></pre>
+<p>And for the final thing, we should tell the system how to do this application. On executing the following line, the function named &quot;main&quot; will be called.</p>
+<pre class="PROGRAMLISTING"><code>let _ = main ()</code></pre>
+<p>or, if you want to see error message which is raised on evaluating <code class="LITERAL">main ()</code> functon:</p>
+<pre class="PROGRAMLISTING"><code>let _ = Printexc.print main ()</code></pre>
+<p>Now, when we click the mouse button on a GTK button, the widget emits a &quot;clicked&quot; signal. In order for us to use this information, our program sets up a signal handler to catch that signal, which dispatches the function of our choice. In our example, when the button we created is &quot;clicked&quot;, the hello() function is called , and then the next handler for this signal is called. This calls the <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.gtkobj-c.html#METHODdestroy"><code class="LITERAL">window#destroy ()</code></a> function, destroying the window widget. This causes the window to emit the &quot;destroy&quot; signal, which is caught, and calls our destroy() callback function, which simply exits GTK.</p>
+<p>Another course of events is to use the window manager to kill the window, which will cause the &quot;delete_event&quot; to be emitted. This will call our &quot;delete_event&quot; handler. If we return <code class="LITERAL">true</code> here, the window will be left as is and nothing will happen. Returning <code class="LITERAL">false</code> will cause GTK to emit the &quot;destroy&quot; signal which of course calls the &quot;destroy&quot; callback, exiting GTK.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x181.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="c349.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Events</td>
+<td align="left"><a href="c108.html">Up</a></td>
+<td align="left">Moving On</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,74 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2537.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">GTK Signals</td>
+<td align="left"><a href="a2575.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">GTree</h1>
+<h2 class="SECT2">GTree.model</h2>
+<pre class="PROGRAMLISTING"><code>method row_changed : callback:(Gtk.tree_path -&gt; Gtk.tree_iter -&gt; unit) -&gt; GtkSignal.id
+method row_deleted : callback:(Gtk.tree_path -&gt; unit) -&gt; GtkSignal.id
+method row_has_child_toggled : callback:(Gtk.tree_path -&gt; Gtk.tree_iter -&gt; unit) -&gt; GtkSignal.id
+method row_inserted : callback:(Gtk.tree_path -&gt; Gtk.tree_iter -&gt; unit) -&gt; GtkSignal.id
+method rows_reordered : callback:(Gtk.tree_path -&gt; Gtk.tree_iter -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GTree.tree_sortable</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GTree.model_signals
+method sort_column_changed : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GTree.selection</h2>
+<pre class="PROGRAMLISTING"><code>method changed : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GTree.view_column</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GObj.gtkobj_signals
+method clicked : callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GTree.view</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GContainer.container_signals
+method columns_changed : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method cursor_changed : callback:(unit -&gt; unit) -&gt; GtkSignal.id
+method expand_collapse_cursor_row : callback:(logical:bool -&gt; expand:bool -&gt; all:bool -&gt; bool) -&gt; GtkSignal.id
+method move_cursor : callback:(Gtk.Tags.movement_step -&gt; int -&gt; bool) -&gt; GtkSignal.id
+method row_activated : callback:(Gtk.tree_path -&gt; view_column -&gt; unit) -&gt; GtkSignal.id
+method row_collapsed : callback:(Gtk.tree_iter -&gt; Gtk.tree_path -&gt; unit) -&gt; GtkSignal.id
+method row_expanded : callback:(Gtk.tree_iter -&gt; Gtk.tree_path -&gt; unit) -&gt; GtkSignal.id
+method select_all : callback:(unit -&gt; bool) -&gt; GtkSignal.id
+method select_cursor_parent : callback:(unit -&gt; bool) -&gt; GtkSignal.id
+method select_cursor_row : callback:(start_editing:bool -&gt; bool) -&gt; GtkSignal.id
+method set_scroll_adjustments : callback:(GData.adjustment option -&gt; GData.adjustment option -&gt; unit) -&gt;       GtkSignal.id
+method start_interactive_search : callback:(unit -&gt; bool) -&gt; GtkSignal.id
+method test_collapse_row : callback:(Gtk.tree_iter -&gt; Gtk.tree_path -&gt; bool) -&gt; GtkSignal.id
+method test_expand_row : callback:(Gtk.tree_iter -&gt; Gtk.tree_path -&gt; bool) -&gt; GtkSignal.id
+method toggle_cursor_row : callback:(unit -&gt; bool) -&gt; GtkSignal.id
+method unselect_all : callback:(unit -&gt; bool) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GTree.cell_renderer_text</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GObj.gtkobj_signals
+method edited : callback:(Gtk.tree_path -&gt; string -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<h2 class="SECT2">GTree.cell_renderer_toggle</h2>
+<pre class="PROGRAMLISTING"><code>inherits
+    GObj.gtkobj_signals
+method toggled : callback:(Gtk.tree_path -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x2537.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="a2575.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">GMisc</td>
+<td align="left"><a href="a2390.html">Up</a></td>
+<td align="left">GDK Event Types</td>
+</tr>
+</tbody>
+</table>

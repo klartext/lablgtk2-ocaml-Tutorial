@@ -1,0 +1,129 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x944.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"></td>
+<td align="left"><a href="x997.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>Miscellaneous Widgets</h1>
+<h1 class="SECT1">Labels</h1>
+<p>Labels are used a lot in GTK, and are relatively simple. Labels emit no signals as they do not have an associated X window. If you need to catch signals, or do clipping, place it inside a <a href="c1436.html#SEC-EVENTBOX">EventBox</a> widget or a Button widget.</p>
+<p>To create a new label, use <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.html#VALlabel"><code class="LITERAL">GMisc.label</code></a>:</p>
+<pre class="PROGRAMLISTING"><code>val GMisc.label : ?text:string -&gt;
+    ?markup:string -&gt;
+    ?use_underline:bool -&gt;
+    ?mnemonic_widget:#GObj.widget -&gt;
+    ?justify:Gtk.Tags.justification -&gt;
+    ?line_wrap:bool -&gt;
+    ?pattern:string -&gt;
+    ?selectable:bool -&gt;
+    ?xalign:float -&gt;
+    ?yalign:float -&gt;
+    ?xpad:int -&gt;
+    ?ypad:int -&gt;
+    ?width:int -&gt;
+    ?height:int -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt;
+    unit -&gt; label
+
+markup : overrides text if both are present
+use_underline : default value is false
+justify : default value is `LEFT
+line_wrap : default values is false
+selectable : default value is false</code></pre>
+<p>To change the label's text after creation, use the function <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel-c.html#METHODset_text"><code class="LITERAL">GMisc.label#set_text</code></a>:</p>
+<pre class="PROGRAMLISTING"><code>method set_text : string -&gt; unit</code></pre>
+<p>The space needed for the new string will be automatically adjusted if needed. You can produce multi-line labels by putting line breaks in the label string.</p>
+<p>To retrieve the current string, use <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel-c.html#METHODtext"><code class="LITERAL">GMisc.label#text</code></a>:</p>
+<pre class="PROGRAMLISTING"><code>method text : string</code></pre>
+<p>The label text can be justified using <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel-c.html#METHODset_justify"><code class="LITERAL">GMisc.label#set_justify</code></a>:</p>
+<pre class="PROGRAMLISTING"><code>method set_justify : Gtk.Tags.justification -&gt; unit</code></pre>
+<p>Values for <code class="LITERAL">Gtk.Tags.justification</code> are:</p>
+<pre class="PROGRAMLISTING"><code>  `LEFT
+  `RIGHT
+  `CENTER (the default)
+  `FILL</code></pre>
+<p>The label widget is also capable of line wrapping the text automatically. This can be activated using <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel-c.html#METHODset_line_wrap"><code class="LITERAL">GMisc.label#set_line_wrap</code></a>:</p>
+<pre class="PROGRAMLISTING"><code>method set_line_wrap : bool -&gt; unit</code></pre>
+<p>If you want your label underlined, then you can set a pattern on the label <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GMisc.label_skel-c.html#METHODset_pattern"><code class="LITERAL">GMisc.label#set_pattern</code></a>:</p>
+<pre class="PROGRAMLISTING"><code>method set_pattern : string -&gt; unit</code></pre>
+<p>The pattern argument indicates how the underlining should look. It consists of a string of underscore and space characters. An underscore indicates that the corresponding character in the label should be underlined. For example, the string <code class="LITERAL">&quot;__     __&quot;</code> would underline the first two characters and eight and ninth characters.</p>
+<p>Below is a short example to illustrate these functions. This example makes use of the Frame widget to better demonstrate the label styles. You can ignore this for now as the <a href="x1510.html">Frame</a> widget is explained later on.</p>
+<p>In GTK+ 2.0, label texts can contain markup for font and other text attribute changes, and labels may be selectable (for copy-and-paste). These advanced features won't be explained here.</p>
+<p><img src="images/label.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: label.ml *)
+
+let main () =
+  let window = GWindow.window ~title:&quot;Labels&quot; ~border_width:5 () in
+  window #connect#destroy ~callback:GMain.Main.quit;
+
+  let hbox = GPack.hbox ~spacing:5 ~packing:window#add () in
+  let vbox = GPack.vbox ~spacing:5 ~packing:hbox#add () in
+
+  let frame = GBin.frame ~label:&quot;Normal Label&quot; ~packing:vbox#pack () in
+  GMisc.label ~text:&quot;This is a normal label&quot; ~packing:frame#add ();
+
+  let frame = GBin.frame ~label:&quot;Multi_line Label&quot; ~packing:vbox#pack () in
+  GMisc.label
+    ~text:&quot;This is a multi-line label.\nSecond line\nThird line&quot;
+    ~packing:frame#add ();
+
+  let frame = GBin.frame ~label:&quot;Left Justified Label&quot; ~packing:vbox#pack () in
+  GMisc.label
+    ~text:&quot;This is a left justified\nmulti_line label\nThird      line&quot;
+    ~justify:`LEFT ~packing:frame#add ();
+
+  let frame = GBin.frame ~label:&quot;Right Justified Label&quot; ~packing:vbox#pack () in
+  GMisc.label
+    ~text:&quot;This is a Right-Justified\nMulti-line label.\nThird line, (j/k)&quot;
+    ~justify:`RIGHT ~packing:frame#add ();
+
+  let vbox = GPack.vbox ~spacing:5 ~packing:hbox#add () in
+
+  let frame = GBin.frame ~label:&quot;Line wrapped Label&quot; ~packing:vbox#pack () in
+  GMisc.label
+    ~text:&quot;This is an example of a line-wrapped label.  It should not be taking up the entire             width allocated to it, but automatically wraps the words to fit.  The time has come, for all good men, to come to the aid of their party.  The sixth sheik&#39;s six sheep&#39;s sick.
+     It supports multiple paragraphs correctly, and  correctly   adds many          extra  spaces. &quot;
+    ~packing:frame#add ~line_wrap:true ();
+
+  let frame = GBin.frame ~label:&quot;Filled, wrapped label&quot; ~packing:vbox#pack () in
+  GMisc.label
+    ~text:&quot;This is an example of a line-wrapped, filled label.  It should be taking up the entire              width allocated to it.  Here is a sentence to prove my point.  Here is another sentence.  Here comes the sun, do de do de do.
+    This is a new paragraph.
+    This is another newer, longer, better paragraph.  It is coming to an end, unfortunately.&quot;
+    ~line_wrap:true ~justify:`FILL ~packing:frame#add ();
+
+  let frame = GBin.frame ~label:&quot;Underlined Label&quot; ~packing:vbox#pack () in
+  GMisc.label
+    ~text:&quot;This label is underlined!\nThis one is underlined in quite a funky fashion&quot;
+    ~pattern:&quot;_________________________ _ _________ _ ______     __ _______ ___&quot;
+    ~justify:`LEFT ~packing:frame#add ();
+
+  window #show ();
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x944.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x997.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Example</td>
+<td align="left"> </td>
+<td align="left">Arrows</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,41 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x286.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"></td>
+<td align="left"><a href="x371.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>Moving On</h1>
+<h1 class="SECT1">More on Signal Handlers</h1>
+<p>Lets take another look at the #connect#<em>signal_name</em> declaration.</p>
+<pre class="PROGRAMLISTING"><code>#connect#signal_name ~callback:(unit -&gt; unit) -&gt; GtkSignal.id</code></pre>
+<p>Notice the GtkSignal.id return value? This is a tag that identifies your callback function. As stated above, you may have as many callbacks per signal and per object as you need, and each will be executed in turn, in the order they were attached.</p>
+<p>This tag allows you to remove this callback from the list by using <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.gobject_ops-c.html#METHODdisconnect"><code class="LITERAL">#misc#disconnect</code></a> method:</p>
+<pre class="PROGRAMLISTING"><code>#misc#disconnect: GtkSignal.id -&gt; unit</code></pre>
+<p>So, by passing the tag returned by one of the connect functions to the <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.gobject_ops-c.html#METHODdisconnect"><code class="LITERAL">#misc#disconnect</code></a> method, you can disconnect a signal handler.</p>
+<p>You can also temporarily disable signal handlers with the <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.gobject_ops-c.html#METHODhandler_block"><code class="LITERAL">#misc#handler_block</code></a> and <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GObj.gobject_ops-c.html#METHODhandler_unblock"><code class="LITERAL">#misc#handler_unblock</code></a> family of functions.</p>
+<pre class="PROGRAMLISTING"><code>#misc#handler_block : GtkSignal.id -&gt; unit
+#misc#handler_unblock : GtkSignal.id -&gt; unit</code></pre>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x286.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="x371.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Stepping Through Hello World</td>
+<td align="left"> </td>
+<td align="left">An Upgraded Hello World</td>
+</tr>
+</tbody>
+</table>

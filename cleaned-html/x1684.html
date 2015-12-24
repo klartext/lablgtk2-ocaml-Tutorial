@@ -1,0 +1,182 @@
+<table>
+<thead>
+<tr class="header">
+<th align="left">GTK+ 2.0 Tutorial using Ocaml</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1637.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left">Container Widgets</td>
+<td align="left"><a href="c1731.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 class="SECT1">Notebooks</h1>
+<p>The NoteBook Widget is a collection of &quot;pages&quot; that overlap each other, each page contains different information with only one page visible at a time. This widget has become more common lately in GUI programming, and it is a good way to show blocks of similar information that warrant separation in their display.</p>
+<p>The first function call you will need to know, as you can probably guess by now, is used to create a new notebook widget: see <a href="http://lablgtk.forge.ocamlcore.org/refdoc/GPack.html#VALnotebook"><code class="LITERAL">GPack.notebook</code></a>.</p>
+<pre class="PROGRAMLISTING"><code>val GPack.notebook :
+    ?enable_popup:bool -&gt;
+    ?homogeneous_tabs:bool -&gt;
+    ?scrollable:bool -&gt;
+    ?show_border:bool -&gt;
+    ?show_tabs:bool -&gt;
+    ?tab_border:int -&gt;
+    ?tab_pos:Gtk.Tags.position -&gt;
+    ?border_width:int -&gt;
+    ?width:int -&gt;
+    ?height:int -&gt;
+    ?packing:(GObj.widget -&gt; unit) -&gt;
+    ?show:bool -&gt; unit -&gt; notebook</code></pre>
+<p>Once the notebook has been created, there are a number of functions that operate on the notebook widget. Let's look at them individually.</p>
+<p>The first one we will look at is how to position the page indicators. These page indicators or &quot;tabs&quot; as they are referred to, can be positioned in four ways: top, bottom, left, or right.</p>
+<pre class="PROGRAMLISTING"><code>method set_tab_pos : Gtk.Tags.position -&gt; unit</code></pre>
+<p>Gtk.Tags.position will be one of the following, which are pretty self explanatory:</p>
+<pre class="PROGRAMLISTING"><code>  `LEFT
+  `RIGHT
+  `TOP
+  `BOTTOM</code></pre>
+<p><code class="LITERAL">`TOP</code> is the default.</p>
+<p>Next we will look at how to add pages to the notebook. There are three ways to add pages to the NoteBook. Let's look at the first two together as they are quite similar.</p>
+<pre class="PROGRAMLISTING"><code>method append_page :
+    ?tab_label:GObj.widget -&gt;
+    ?menu_label:GObj.widget -&gt;
+    GObj.widget -&gt; unit
+
+method prepend_page :
+    ?tab_label:GObj.widget -&gt;
+    ?menu_label:GObj.widget -&gt;
+    GObj.widget -&gt; unit</code></pre>
+<p>These functions add pages to the notebook by inserting them from the back of the notebook (append), or the front of the notebook (prepend). The given widget is placed within the notebook page, and <code class="LITERAL">tab_label</code> is the label for the page being added. The given widget must be created separately, and is typically a set of options setup within one of the other container widgets, such as a table.</p>
+<p>The final function for adding a page to the notebook contains all of the properties of the previous two, but it allows you to specify what position you want the page to be in the notebook.</p>
+<pre class="PROGRAMLISTING"><code>method insert_page :
+    ?tab_label:GObj.widget -&gt;
+    ?menu_label:GObj.widget -&gt;
+    pos:int -&gt;
+    GObj.widget -&gt; unit</code></pre>
+<p>The parameters are the same as _append_ and _prepend_ except it contains an extra parameter, <code class="LITERAL">pos</code>. This parameter is used to specify what place this page will be inserted into the first page having position zero.</p>
+<p>Now that we know how to add a page, lets see how we can remove a page from the notebook.</p>
+<pre class="PROGRAMLISTING"><code>method remove_page : int -&gt; unit</code></pre>
+<p>This function takes the page number of int type and removes it from the notebook.</p>
+<p>To find out what the current page is in a notebook use the function:</p>
+<pre class="PROGRAMLISTING"><code>method current_page : int</code></pre>
+<p>These next two functions are simple calls to move the notebook page forward or backward. Simply provide the respective function call with the notebook widget you wish to operate on. Note: When the NoteBook is currently on the last page, and next_page() is called, the notebook will wrap back to the first page. Likewise, if the NoteBook is on the first page, and prev_page() is called, the notebook will wrap to the last page.</p>
+<pre class="PROGRAMLISTING"><code>method next_page : unit -&gt; unit
+method previous_page : unit -&gt; unit</code></pre>
+<p>This next function sets the &quot;active&quot; page. If you wish the notebook to be opened to page 5 for example, you would use this function. Without using this function, the notebook defaults to the first page.</p>
+<pre class="PROGRAMLISTING"><code>method goto_page : int -&gt; unit</code></pre>
+<p>The next two functions add or remove the notebook page tabs and the notebook border respectively.</p>
+<pre class="PROGRAMLISTING"><code>method set_show_tabs : bool -&gt; unit
+method set_show_border : bool -&gt; unit</code></pre>
+<p>The next function is useful when the you have a large number of pages, and the tabs don't fit on the page. It allows the tabs to be scrolled through using two arrow buttons.</p>
+<pre class="PROGRAMLISTING"><code>method set_scrollable : bool -&gt; unit</code></pre>
+<p><code class="LITERAL">show_tabs</code>, <code class="LITERAL">show_border</code> and <code class="LITERAL">scrollable</code> methods can be either true or false.</p>
+<p>Now let's look at an example, it is expanded from the <code class="FILENAME">testgtk.c</code> code that comes with the GTK distribution. This small program creates a window with a notebook and six buttons. The notebook contains 11 pages, added in three different ways, appended, inserted, and prepended. The buttons allow you rotate the tab positions, add/remove the tabs and border, remove a page, change pages in both a forward and backward manner, and exit the program.</p>
+<p><img src="images/notebook.png" /></p>
+<pre class="PROGRAMLISTING"><code>(* file: notebook.ml *)
+
+(* This function rotates the position of the tabs *)
+let rotate_book notebook () =
+  notebook#set_tab_pos
+    (match notebook#tab_pos with
+    | `BOTTOM -&gt; `LEFT
+    | `LEFT -&gt; `TOP
+    | `TOP -&gt; `RIGHT
+    | `RIGHT -&gt; `BOTTOM
+    )
+
+(* Add/Remove the page tabs and the borders *)
+let tabsborder_book notebook () =
+  notebook#set_show_tabs (not notebook#show_tabs);
+  notebook#set_show_border (not notebook#show_border)
+
+(* Remove a page from the notebook *)
+let remove_book notebook () =
+  notebook#remove_page notebook#current_page;
+  ()
+
+let main () =
+  let window = GWindow.window ~title:&quot;Notebook demo&quot; ~border_width:10 ()in
+  window#connect#destroy ~callback:GMain.Main.quit;
+  
+  let table = GPack.table ~rows:3 ~columns:6 ~packing:window#add () in
+
+  (* Create a new notebook, place the position of the tabs *)
+  let notebook = GPack.notebook ~tab_pos:`TOP
+    ~packing:(table#attach ~left:0 ~right:6 ~top:0) () in
+
+  for i = 1 to 5 do
+    let text = &quot;Append Frame &quot; ^ string_of_int i in
+    let label = GMisc.label ~text:(&quot;Page &quot; ^ string_of_int i) () in
+    let frame = GBin.frame ~label:text ~width:100 ~height:75 ~border_width:10
+      ~packing:(notebook#append_page ~tab_label:label#coerce) () in
+    let label = GMisc.label ~text ~packing:frame#add () in
+    ()
+  done;
+
+  (* Now let&#39;s add a page to a specified spot *)
+  let label = GMisc.label ~text:&quot;Add page&quot; () in
+  let checkbutton = GButton.check_button ~label:&quot;Check me please!&quot;
+    ~packing:(notebook#insert_page ~tab_label:label#coerce ~pos:2) ()
+    in
+  checkbutton#misc#set_size_request ~width:100 ~height:75 ();
+
+  (* Now finaly let&#39;s prepend pages to the notebook *)
+  for i = 1 to 5 do
+    let text = &quot;Prepend Frame &quot; ^ string_of_int i in
+    let label = GMisc.label ~text:(&quot;PPage &quot; ^ string_of_int i) () in
+    let frame = GBin.frame ~label:text ~width:100 ~height:75 ~border_width:10
+      ~packing:(notebook#prepend_page ~tab_label:label#coerce) () in
+    let label = GMisc.label ~text ~packing:frame#add () in
+    ()
+  done;
+
+  (* Set what page to start at (page 4) *)
+  notebook#goto_page 3;
+
+  (* Create a bunch of buttons *)
+  let button = GButton.button ~label:&quot;close&quot; 
+    ~packing:(table#attach ~left:0 ~top:1) () in
+  button#connect#clicked ~callback:GMain.Main.quit;
+
+  let button = GButton.button ~label:&quot;next page&quot; 
+    ~packing:(table#attach ~left:1 ~top:1) () in
+  button#connect#clicked ~callback:notebook#next_page;
+
+  let button = GButton.button ~label:&quot;prev page&quot; 
+    ~packing:(table#attach ~left:2 ~top:1) () in
+  button#connect#clicked ~callback:notebook#previous_page;
+
+  let button = GButton.button ~label:&quot;tab position&quot; 
+    ~packing:(table#attach ~left:3 ~top:1) () in
+  button#connect#clicked ~callback:(rotate_book notebook);
+
+  let button = GButton.button ~label:&quot;tabs/border on/off&quot; 
+    ~packing:(table#attach ~left:4 ~top:1) () in
+  button#connect#clicked ~callback:(tabsborder_book notebook);
+
+  let button = GButton.button ~label:&quot;remove page&quot; 
+    ~packing:(table#attach ~left:5 ~top:1) () in
+  button#connect#clicked ~callback:(remove_book notebook);
+
+  window#show ();
+  GMain.Main.main ()
+
+let _ = Printexc.print main ()</code></pre>
+<p>I hope this helps you on your way with creating notebooks for your GTK applications.</p>
+<hr />
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="x1637.html">&lt;&lt;&lt; Previous</a></td>
+<td align="left"><a href="book1.html">Home</a></td>
+<td align="left"><a href="c1731.html">Next &gt;&gt;&gt;</a></td>
+</tr>
+<tr class="even">
+<td align="left">Toolbar</td>
+<td align="left"><a href="c1436.html">Up</a></td>
+<td align="left">Menu Widget</td>
+</tr>
+</tbody>
+</table>
